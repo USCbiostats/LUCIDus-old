@@ -22,7 +22,7 @@ For now, it can be installed from GitHub using the following codes:
 
 ```
 install.packages("devtools")
-devtools::install_github("cheng-p/LCid")
+devtools::install_github("USCbiostats/LCid")
 ```
 Otherwise, one can download the package from GitHub, and run the following codes from the parent working directory that contains the LCid folder:
 
