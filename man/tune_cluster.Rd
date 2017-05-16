@@ -7,7 +7,7 @@
 tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
   start_b = NULL, start_m = NULL, start_s = NULL, start_g = NULL,
   LRho_g, URho_g, NoRho_g, LRho_z_invcov, URho_z_invcov, NoRho_z_invcov,
-  LRho_z_covmu, URho_z_covmu, NoRho_z_covmu)
+  LRho_z_covmu, URho_z_covmu, NoRho_z_covmu, NoCores = detectCores() - 1)
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}
@@ -16,7 +16,7 @@ tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 
 \item{Y}{Disease outcome, a vector}
 
-\item{K}{Pre-specified # of latent clusters, default is 2}
+\item{K}{Pre-specified # of latent clusters}
 
 \item{Family}{"binary" or "normal" for Y}
 
@@ -39,6 +39,8 @@ tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 \item{URho_z_covmu}{Upper limit of the penalty for the product of covariance and mean of biomarkers}
 
 \item{NoRho_z_covmu}{Number of \code{Rho_z_covmu} for grid-search}
+
+\item{NoCores}{Number of CPU cores for parallel grid-search}
 }
 \value{
 \code{tune_cluster} returns an object of list containing Modelfits, Results, and Optimal:
@@ -51,17 +53,11 @@ tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 }
 \examples{
 # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-# Assign the number of cores
-no_cores <- detectCores() - 1
-# Initiate cluster
-cl <- makeCluster(no_cores)
-#Start parallel computing
-registerDoParallel(cl)
+# Grid-search with 30 combinations of tuning parameters
 GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
-                           LRho_g = 0.01, URho_g = 0.03, NoRho_g = 3,
+                           LRho_g = 0.005, URho_g = 0.015, NoRho_g = 3,
                            LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
-                           LRho_z_covmu = 91, URho_z_covmu = 95, NoRho_z_covmu = 5)
-stopCluster(cl)
+                           LRho_z_covmu = 81, URho_z_covmu = 85, NoRho_z_covmu = 5)
 GridSearch$Results
 GridSearch$Optimal
 }

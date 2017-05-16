@@ -4,7 +4,7 @@
 #' @param G Genetic effects, a matrix
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
-#' @param K Pre-specified # of latent clusters, default is 2
+#' @param K Pre-specified # of latent clusters
 #' @param Family "binary" or "normal" for Y
 #' @param USEY Using Y or not, default is TRUE
 #' @param LRho_g Lower limit of the penalty for selection on genetic data
@@ -16,6 +16,7 @@
 #' @param LRho_z_covmu Lower limit of the penalty for the product of covariance and mean of biomarkers
 #' @param URho_z_covmu Upper limit of the penalty for the product of covariance and mean of biomarkers
 #' @param NoRho_z_covmu Number of \code{Rho_z_covmu} for grid-search
+#' @param NoCores Number of CPU cores for parallel grid-search
 #' @keywords Tunning Parameter, Grid-search
 #' @return \code{tune_cluster} returns an object of list containing Modelfits, Results, and Optimal:
 #' \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
@@ -40,25 +41,20 @@
 #' Peng, C., Yang, Z., Conti, D.V.
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-#' # Assign the number of cores
-#' no_cores <- detectCores() - 1
-#' # Initiate cluster
-#' cl <- makeCluster(no_cores)
-#' #Start parallel computing
-#' registerDoParallel(cl)
+#' # Grid-search with 30 combinations of tuning parameters
 #' GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
-#'                            LRho_g = 0.01, URho_g = 0.03, NoRho_g = 3,
+#'                            LRho_g = 0.005, URho_g = 0.015, NoRho_g = 3,
 #'                            LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
-#'                            LRho_z_covmu = 91, URho_z_covmu = 95, NoRho_z_covmu = 5)
-#'stopCluster(cl)
-#'GridSearch$Results
-#'GridSearch$Optimal
+#'                            LRho_z_covmu = 81, URho_z_covmu = 85, NoRho_z_covmu = 5)
+#' GridSearch$Results
+#' GridSearch$Optimal
 
 tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
                          start_b = NULL, start_m = NULL, start_s = NULL, start_g = NULL,
                          LRho_g, URho_g, NoRho_g,
                          LRho_z_invcov, URho_z_invcov, NoRho_z_invcov,
-                         LRho_z_covmu, URho_z_covmu, NoRho_z_covmu){
+                         LRho_z_covmu, URho_z_covmu, NoRho_z_covmu,
+                         NoCores = detectCores()-1){
 
   parallel_cluster <- function(Lrho_g, Urho_g, Norho_g, Lrho_z_invcov, Urho_z_invcov, Norho_z_invcov, Lrho_z_covmu, Urho_z_covmu, Norho_z_covmu){
     foreach(rho_g = seq(Lrho_g, Urho_g, length.out=Norho_g)) %:%
@@ -108,6 +104,10 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
         }
   }
 
+  # Initiate cluster
+  cl <- makeCluster(no_cores)
+  #Start parallel computing
+  registerDoParallel(cl)
 
   modelfits <- parallel_cluster(Lrho_g = LRho_g, Urho_g = URho_g, Norho_g = NoRho_g,
                                 Lrho_z_invcov = LRho_z_invcov, Urho_z_invcov = URho_z_invcov, Norho_z_invcov = NoRho_z_invcov,
@@ -115,6 +115,8 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 
 
   results <- parallel_results(Norho_g = NoRho_g, Norho_z_invcov = NoRho_z_invcov, Norho_z_covmu = NoRho_z_covmu)
+
+  stopCluster(cl)
 
   #Show the BEST Model with minBIC
   optimal <- results[which.min(results$BIC), ]
