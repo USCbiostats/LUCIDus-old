@@ -66,7 +66,7 @@ sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,
 
 ### *tune_cluster*
 
-Grid Search for Tuning Parameters using Parallel Computing
+Grid search for tuning parameters using parallel computing
 
 #### Example
 
