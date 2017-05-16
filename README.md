@@ -34,7 +34,7 @@ devtools::install("LCid")
 
 ## Fitting the latent cluster models
 
-Two functions, including *est_cluster* & *sem_cluster*, are currently available for model fitting. 
+Three functions, including *est_cluster*, *sem_cluster*, & *tune_cluster*, are currently available for model fitting. 
 
 ### *est_cluster*
 
@@ -62,6 +62,19 @@ sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,
             Pred=TRUE,family="normal",Get_SE=TRUE,Ad_Hoc_SE=TRUE,
             tol_m = 1e-6,tol_b=1e-6,tol_s=1e-6,tol_g=1e-6,tol_sem=1e-3,
             MAX_ITR=3000,MAX_TOT_ITR=3000)
+```
+
+### *tune_cluster*
+
+Grid Search for Tuning Parameters using Parallel Computing
+
+#### Example
+
+```
+tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
+             LRho_g = 0.005, URho_g = 0.015, NoRho_g = 3,
+             LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
+             LRho_z_covmu = 81, URho_z_covmu = 85, NoRho_z_covmu = 5)
 ```
 For more details, see documentations for each function in the R package.
 
