@@ -1,6 +1,6 @@
 #' Estimating latent clusters with multi-omics data
 #'
-#' \code{est_cluster} estimates latent clusters of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided.
+#' \code{est_cluster} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided.
 #' @param G Genetic effects, a matrix
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
