@@ -26,25 +26,25 @@ tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 
 \item{URho_g}{Upper limit of the penalty for selection on genetic data}
 
-\item{NoRho_g}{Number of Rho_g for grid-search}
+\item{NoRho_g}{Number of \code{Rho_g} for grid-search}
 
 \item{LRho_z_invcov}{Lower limit of the penalty for the inverse of covariance of biomarkers}
 
 \item{URho_z_invcov}{Upper limit of the penalty for the inverse of covariance of biomarkers}
 
-\item{NoRho_z_invcov}{Number of Rho_z_invcov for grid-search}
+\item{NoRho_z_invcov}{Number of \code{Rho_z_invcov} for grid-search}
 
 \item{LRho_z_covmu}{Lower limit of the penalty for the product of covariance and mean of biomarkers}
 
 \item{URho_z_covmu}{Upper limit of the penalty for the product of covariance and mean of biomarkers}
 
-\item{NoRho_z_covmu}{Number of Rho_z_covmu for grid-search}
+\item{NoRho_z_covmu}{Number of \code{Rho_z_covmu} for grid-search}
 }
 \value{
 \code{tune_cluster} returns an object of list containing Modelfits, Results, and Optimal:
 \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
 \item{Results}{Summary results of grid-search}
-\item{Optimal}{Fatures of the optimal model with minimun BIC in the grid-search results}
+\item{Optimal}{Features of the optimal model with minimun BIC in the grid-search summary}
 }
 \description{
 \code{tune_cluster} fits regularized latent cluster models with various combinations of three tuning parameters based on joint inference across data types to perform a grid-search helping determine an optimal choice of three tuning parameters with minimum model BIC.
@@ -57,7 +57,7 @@ no_cores <- detectCores() - 1
 cl <- makeCluster(no_cores)
 #Start parallel computing
 registerDoParallel(cl)
-GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TURE,
+GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
                            LRho_g = 0.01, URho_g = 0.03, NoRho_g = 3,
                            LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
                            LRho_z_covmu = 91, URho_z_covmu = 95, NoRho_z_covmu = 5)
