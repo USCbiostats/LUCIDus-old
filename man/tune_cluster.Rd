@@ -40,7 +40,7 @@ tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 
 \item{NoRho_z_covmu}{Number of \code{Rho_z_covmu} for grid-search}
 
-\item{NoCores}{Number of CPU cores for parallel grid-search}
+\item{NoCores}{Number of CPU cores for parallel grid-search, default is total number of cores minus 1}
 }
 \value{
 \code{tune_cluster} returns an object of list containing Modelfits, Results, and Optimal:

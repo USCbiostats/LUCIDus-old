@@ -16,7 +16,7 @@
 #' @param LRho_z_covmu Lower limit of the penalty for the product of covariance and mean of biomarkers
 #' @param URho_z_covmu Upper limit of the penalty for the product of covariance and mean of biomarkers
 #' @param NoRho_z_covmu Number of \code{Rho_z_covmu} for grid-search
-#' @param NoCores Number of CPU cores for parallel grid-search
+#' @param NoCores Number of CPU cores for parallel grid-search, default is total number of cores minus 1
 #' @keywords Tunning Parameter, Grid-search
 #' @return \code{tune_cluster} returns an object of list containing Modelfits, Results, and Optimal:
 #' \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
