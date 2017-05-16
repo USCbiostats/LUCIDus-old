@@ -1,19 +1,21 @@
 #' Parallel Grid Search for Tuning Parameters in Latent Cluster Analysis
 #'
-#' \code{tune_cluster} estimates latent clusters of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided.
+#' \code{tune_cluster} fits regularized latent cluster models with various combinations of three tuning parameters based on joint inference across data types to perform a grid-search helping determine an optimal choice of three tuning parameters with minimum model BIC.
 #' @param G Genetic effects, a matrix
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
 #' @param K Pre-specified # of latent clusters, default is 2
-#' @param family "binary" or "normal" for Y
-#' @param useY Using Y or not, default is TRUE
-#' @param Rho_G Penalty for selection on genetic data, numeric, default is -9 using a sequence of penalties
-#' @param Rho_Z_InvCov Penalty for the inverse of covariance of biomarkers, numeric, default is 0
-#' @param Rho_Z_CovMu Penalty for the product of covariance and mean of biomarkers, numeric, default is 0
-#' @param MAX_ITR Maximum number of iterations, integer, default is 100
-#' @param MAX_TOT_ITR Maximum number of total iterations, integer, default is 10000
-#' @param reltol Convergence cut-off using a relative tolerance, default is 1e-8
-#' @param Pred Flag to compute predicted disease probability with fitted model, boolean, default is FALSE
+#' @param Family "binary" or "normal" for Y
+#' @param USEY Using Y or not, default is TRUE
+#' @param LRho_g Lower limit of the penalty for selection on genetic data
+#' @param URho_g Upper limit of the penalty for selection on genetic data
+#' @param NoRho_g Number of Rho_g for grid-search
+#' @param LRho_z_invcov Lower limit of the penalty for the inverse of covariance of biomarkers
+#' @param URho_z_invcov Upper limit of the penalty for the inverse of covariance of biomarkers
+#' @param NoRho_z_invcov Number of Rho_z_invcov for grid-search
+#' @param LRho_z_covmu Lower limit of the penalty for the product of covariance and mean of biomarkers
+#' @param URho_z_covmu Upper limit of the penalty for the product of covariance and mean of biomarkers
+#' @param NoRho_z_covmu Number of Rho_z_covmu for grid-search
 #' @keywords Tunning Parameter, Grid-search
 #' @return \code{tune_cluster} returns an object of list containing Modelfits, Results, and Optimal:
 #' \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
@@ -38,14 +40,22 @@
 #' Peng, C., Yang, Z., Conti, D.V.
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-#' est_cluster(G=G1,Z=Z1,Y=Y1,K=2,
-#'             init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
-#'             family="binary",Pred=TRUE,Select_G=TRUE,Select_Z=TRUE,
-#'             Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93,
-#'             tol_m = 1e-8,tol_b=1e-8,tol_s=1e-8,tol_g=1e-8,MAX_ITR = 800,MAX_TOT_ITR=800)
-library(doParallel)
+#' # Assign the number of cores
+#' no_cores <- detectCores() - 1
+#' # Initiate cluster
+#' cl <- makeCluster(no_cores)
+#' #Start parallel computing
+#' registerDoParallel(cl)
+#' GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TURE,
+#'                            LRho_g = 0.01, URho_g = 0.03, NoRho_g = 3,
+#'                            LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
+#'                            LRho_z_covmu = 91, URho_z_covmu = 95, NoRho_z_covmu = 5)
+#'stopCluster(cl)
+#'GridSearch$Results
+#'GridSearch$Optimal
 
-tune_cluster <- function(G, Z, Y, K, Family,
+tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
+                         start_b = NULL, start_m = NULL, start_s = NULL, start_g = NULL,
                          LRho_g, URho_g, NoRho_g,
                          LRho_z_invcov, URho_z_invcov, NoRho_z_invcov,
                          LRho_z_covmu, URho_z_covmu, NoRho_z_covmu){
@@ -54,9 +64,9 @@ tune_cluster <- function(G, Z, Y, K, Family,
     foreach(rho_g = seq(Lrho_g, Urho_g, length.out=Norho_g)) %:%
       foreach(rho_z_invcov = seq(Lrho_z_invcov, Urho_z_invcov, length.out=Norho_z_invcov)) %:%
         foreach(rho_z_covmu = seq(Lrho_z_covmu, Urho_z_covmu, length.out=Norho_z_covmu), .combine = list, .multicombine = TRUE,
-                .export=c("est_cluster", "G", "Z", "Y", "K", "Family", "start_b", "start_m", "start_s", "start_g"),
+                .export=c("est_cluster", "G", "Z", "Y", "K", "Family", "USEY", "start_b", "start_m", "start_s", "start_g"),
                 .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix"))  %dopar%{
-                  est_cluster(G=G,Z=Z,Y=Y,K=K,
+                  est_cluster(G=G,Z=Z,Y=Y,K=K,useY=USEY,
                               init_b = start_b, init_m = start_m, init_s = start_s, init_g = start_g,
                               family=Family,Pred=TRUE,Select_G=TRUE,Select_Z=TRUE,
                               Rho_G=rho_g,Rho_Z_InvCov=rho_z_invcov,Rho_Z_CovMu=rho_z_covmu,
