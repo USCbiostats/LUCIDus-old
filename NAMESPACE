@@ -2,7 +2,9 @@
 
 export(est_cluster)
 export(sem_cluster)
+export(tune_cluster)
 import(Matrix)
+import(doParallel)
 importFrom(Matrix,bdiag)
 importFrom(glasso,glasso)
 importFrom(glmnet,glmnet)
