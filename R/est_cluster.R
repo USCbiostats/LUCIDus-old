@@ -56,6 +56,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
                         Pred = FALSE, Select_G = FALSE, Select_Z = FALSE, Rho_G = -9, Rho_Z_InvCov = 0, Rho_Z_CovMu = 0){
 
   # check input
+
   if(family != "binary" && family!= "normal"){
     print("family can only be 'binary' or 'linear'...")
     return (list(err = -99))
@@ -510,7 +511,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
 
       if(!Pred){
         return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster,
-                    Likelihood = jointP))
+                    Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu))
       }
       else{
 
@@ -519,7 +520,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
         }
         preR <- jointP/rowSums(jointP)
         return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, pred = preR,
-                    Likelihood = jointP))
+                    Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu))
       }
 
     }else{
@@ -558,7 +559,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
       # gamma are deleted in the following section of estimating SE by SEM
       if(!Pred){
         return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster,
-                    Likelihood = jointP))
+                    Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu))
       }
       else{
 
@@ -567,7 +568,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
         }
         preR <- jointP/rowSums(jointP)
         return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, pred = preR,
-                    Likelihood = jointP))
+                    Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu))
       }
     }
 
