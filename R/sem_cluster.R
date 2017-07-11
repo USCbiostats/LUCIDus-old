@@ -894,7 +894,7 @@ sem_cluster <- function(G=NULL, Z=NULL, Y,
     }else{
       # Y not used in EM algorithm to estimate beta, mu and sigma
 
-      estX <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family)
+      estX <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=NULL, Family=family)
 
       if(is.null(G)){
         estX <- t(t(estX)*pcluster)
@@ -1267,7 +1267,7 @@ sem_cluster <- function(G=NULL, Z=NULL, Y,
 
 
         if(!Pred){
-          return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster,
+          return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster,
                       se_beta = se_beta, se_gamma = se_gamma, se_mu = se_mu, se_msg = sem_success,
                       se_ah_beta = se_ah_beta, se_ah_gamma = NULL, se_ah_mu = se_ah_mu,
                       Likelihood = jointP))
@@ -1278,7 +1278,7 @@ sem_cluster <- function(G=NULL, Z=NULL, Y,
             preR <- t(t(jointP)*pcluster)
           }
           preR <- jointP/rowSums(jointP)
-          return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster,
+          return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster,
                       se_beta = se_beta, se_gamma = se_gamma, se_mu = se_mu, se_msg = sem_success,
                       se_ah_beta = se_ah_beta, se_ah_gamma = NULL, se_ah_mu = se_ah_mu,
                       pred = preR, Likelihood = jointP))
