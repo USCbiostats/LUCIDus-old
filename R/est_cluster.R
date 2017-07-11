@@ -36,6 +36,7 @@
 #' @importFrom stats glm
 #' @importFrom stats sd
 #' @importFrom stats dnorm
+#' @importFrom stats gaussian
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references

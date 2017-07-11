@@ -35,6 +35,8 @@
 #' @importFrom stats sd
 #' @importFrom stats dnorm
 #' @import doParallel
+#' @import parallel
+#' @import foreach
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
