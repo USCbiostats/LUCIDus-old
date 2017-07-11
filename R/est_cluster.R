@@ -526,7 +526,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
     }else{
       # Y not used in EM algorithm to estimate beta, mu and sigma
 
-      estX <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family)
+      estX <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=NULL, Family=family)
 
       if(is.null(G)){
         estX <- t(t(estX)*pcluster)
@@ -558,7 +558,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
 
       # gamma are deleted in the following section of estimating SE by SEM
       if(!Pred){
-        return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster,
+        return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster,
                     Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu))
       }
       else{
@@ -567,7 +567,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
           preR <- t(t(jointP)*pcluster)
         }
         preR <- jointP/rowSums(jointP)
-        return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, pred = preR,
+        return(list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster, pred = preR,
                     Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu))
       }
     }
