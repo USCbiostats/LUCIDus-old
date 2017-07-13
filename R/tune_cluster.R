@@ -61,7 +61,7 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
   parallel_cluster <- function(Lrho_g, Urho_g, Norho_g, Lrho_z_invcov, Urho_z_invcov, Norho_z_invcov, Lrho_z_covmu, Urho_z_covmu, Norho_z_covmu){
     foreach(rho_g = seq(Lrho_g, Urho_g, length.out=Norho_g)) %:%
       foreach(rho_z_invcov = seq(Lrho_z_invcov, Urho_z_invcov, length.out=Norho_z_invcov)) %:%
-        foreach(rho_z_covmu = seq(Lrho_z_covmu, Urho_z_covmu, length.out=Norho_z_covmu), .combine = list, .multicombine = TRUE,
+        foreach(rho_z_covmu = seq(Lrho_z_covmu, Urho_z_covmu, length.out=Norho_z_covmu), .combine = list, .multicombine = TRUE, .errorhandling = 'pass',
                 .export=c("est_cluster", "G", "Z", "Y", "K", "Family", "USEY", "start_b", "start_m", "start_s", "start_g"),
                 .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix"))  %dopar%{
                   est_cluster(G=G,Z=Z,Y=Y,K=K,useY=USEY,
@@ -75,7 +75,7 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
   parallel_results <- function(Norho_g, Norho_z_invcov, Norho_z_covmu){
     foreach(e=1:Norho_g, .combine = 'rbind') %:%
       foreach(f=1:Norho_z_invcov, .combine = 'rbind') %:%
-        foreach(g=1:Norho_z_covmu, .combine = 'rbind', .export=c("modelfits", "K", "G", "Z", "Y")) %dopar%{
+        foreach(g=1:Norho_z_covmu, .combine = 'rbind', .errorhandling = 'remove', .export=c("modelfits", "K", "G", "Z", "Y")) %dopar%{
           G_diff <- apply(apply(modelfits[[e]][[f]][[g]]$beta,2,range),2,function(x){x[2]-x[1]})[-1]
           select_G <- G_diff != 0
 
@@ -100,7 +100,8 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
           Non0g <- sum(select_G)
           Non0z <- sum(select_Z)
           model_LL <- sum(log(rowSums(modelfits[[e]][[f]][[g]]$Likelihood)))
-          Nparm <- ifelse(is.null(G_select),0,(ncol(G_select)+1)*(K-1)) + ifelse(is.null(Z_select),0,ncol(Z_select)*K + ncol(Z_select)*(ncol(Z_select)+1)/2*K) + K
+          #Nparm <- ifelse(is.null(G_select),0,(ncol(G_select)+1)*(K-1)) + ifelse(is.null(Z_select),0,ncol(Z_select)*K + ncol(Z_select)*(ncol(Z_select)+1)/2*K) + K*2
+          Nparm <- ifelse(is.null(G),0,(ncol(G)+1)*(K-1)) + ifelse(is.null(Z),0,ncol(Z)*K + ncol(Z)*(ncol(Z)+1)/2*K) + K*2
           bic <- -2*model_LL + Nparm*log(length(Y))
           data.frame(Rho_G=modelfits[[e]][[f]][[g]]$rho_g, Rho_Z_InvCov=modelfits[[e]][[f]][[g]]$rho_z_InvCov, Rho_Z_CovMu=modelfits[[e]][[f]][[g]]$rho_z_CovMu, Non0G=Non0g, Non0Z=Non0z, BIC=bic)
         }
