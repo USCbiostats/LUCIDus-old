@@ -108,7 +108,7 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
   }
 
   # Initiate cluster
-  cl <- makeCluster(no_cores)
+  cl <- makeCluster(NoCores)
   #Start parallel computing
   registerDoParallel(cl)
 
