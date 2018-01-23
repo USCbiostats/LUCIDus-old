@@ -1,4 +1,4 @@
-Package: LCid
+Package: LUCid
 Type: Package
 Title: Latent cluster analysis of integrated data
 Version: 0.3.0
