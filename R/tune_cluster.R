@@ -53,20 +53,25 @@
 
 tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
                          start_b = NULL, start_m = NULL, start_s = NULL, start_g = NULL,
+                         SELECT_G=TRUE, SELECT_Z=TRUE,
                          LRho_g, URho_g, NoRho_g,
                          LRho_z_invcov, URho_z_invcov, NoRho_z_invcov,
                          LRho_z_covmu, URho_z_covmu, NoRho_z_covmu,
                          NoCores = detectCores()-1){
 
+  M <- dim(G)[2]
+  Q <- dim(Z)[2]
+
   parallel_cluster <- function(Lrho_g, Urho_g, Norho_g, Lrho_z_invcov, Urho_z_invcov, Norho_z_invcov, Lrho_z_covmu, Urho_z_covmu, Norho_z_covmu){
     foreach(rho_g = seq(Lrho_g, Urho_g, length.out=Norho_g)) %:%
       foreach(rho_z_invcov = seq(Lrho_z_invcov, Urho_z_invcov, length.out=Norho_z_invcov)) %:%
-        foreach(rho_z_covmu = seq(Lrho_z_covmu, Urho_z_covmu, length.out=Norho_z_covmu), .combine = list, .multicombine = TRUE, .errorhandling = 'pass',
+        foreach(rho_z_covmu = seq(Lrho_z_covmu, Urho_z_covmu, length.out=Norho_z_covmu),
+                .combine = list, .multicombine = TRUE, .maxcombine = 2000, .errorhandling = 'pass',
                 .export=c("est_cluster", "G", "Z", "Y", "K", "Family", "USEY", "start_b", "start_m", "start_s", "start_g"),
                 .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix"))  %dopar%{
                   est_cluster(G=G,Z=Z,Y=Y,K=K,useY=USEY,
                               init_b = start_b, init_m = start_m, init_s = start_s, init_g = start_g,
-                              family=Family,Pred=TRUE,Select_G=TRUE,Select_Z=TRUE,
+                              family=Family,Pred=TRUE,Select_G=SELECT_G,Select_Z=SELECT_Z,
                               Rho_G=rho_g,Rho_Z_InvCov=rho_z_invcov,Rho_Z_CovMu=rho_z_covmu,
                               tol_m = 1e-8,tol_b=1e-8,tol_s=1e-8,tol_g=1e-8,MAX_ITR = 800,MAX_TOT_ITR=800)
                 }
@@ -91,19 +96,24 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
           Z_select <- NULL
 
           if(!all(select_G==FALSE)){
-            G_select <- matrix(G[,select_G],ncol=sum(select_G))
+            G_select <- G[,select_G]
           }
           if(!all(select_Z==FALSE)){
-            Z_select <- matrix(Z[,select_Z],ncol=sum(select_Z))
+            Z_select <- Z[,select_Z]
           }
 
           Non0g <- sum(select_G)
           Non0z <- sum(select_Z)
+
           model_LL <- sum(log(rowSums(modelfits[[e]][[f]][[g]]$Likelihood)))
           #Nparm <- ifelse(is.null(G_select),0,(ncol(G_select)+1)*(K-1)) + ifelse(is.null(Z_select),0,ncol(Z_select)*K + ncol(Z_select)*(ncol(Z_select)+1)/2*K) + K*2
           Nparm <- ifelse(is.null(G),0,(ncol(G)+1)*(K-1)) + ifelse(is.null(Z),0,ncol(Z)*K + ncol(Z)*(ncol(Z)+1)/2*K) + K*2
           bic <- -2*model_LL + Nparm*log(length(Y))
-          data.frame(Rho_G=modelfits[[e]][[f]][[g]]$rho_g, Rho_Z_InvCov=modelfits[[e]][[f]][[g]]$rho_z_InvCov, Rho_Z_CovMu=modelfits[[e]][[f]][[g]]$rho_z_CovMu, Non0G=Non0g, Non0Z=Non0z, BIC=bic)
+          #Other types of GIC
+          gic1 <- -2*model_LL + Nparm*log(log(length(Y)))*log(length(Y))
+          gic2 <- -2*model_LL + Nparm*log(log(length(Y)))*log(ncol(G)+ncol(Z))
+
+          data.frame(Rho_G=modelfits[[e]][[f]][[g]]$rho_g, Rho_Z_InvCov=modelfits[[e]][[f]][[g]]$rho_z_InvCov, Rho_Z_CovMu=modelfits[[e]][[f]][[g]]$rho_z_CovMu, Non0G=Non0g, Non0Z=Non0z, BIC=bic, GIC1=gic1, GIC2=gic2)
         }
   }
 
