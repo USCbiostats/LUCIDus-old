@@ -111,6 +111,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y,
   }
 
   r <- mat.or.vec(N,K) #prob of cluster given other vars
+
   total_itr <- 0 #total number of iterations
 
   success <- FALSE #flag for successful convergence
