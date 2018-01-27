@@ -8,9 +8,8 @@ est_cluster(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
   init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
   init_pcluster = NULL, K = 2, MAX_ITR = 100, MAX_TOT_ITR = 10000,
   reltol = 1e-08, tol_b = 1e-04, tol_m = 1e-04, tol_s = 1e-04,
-  tol_g = 1e-04, tol_p = 1e-04, tol_sem = 1e-04, Pred = FALSE,
-  Select_G = FALSE, Select_Z = FALSE, Rho_G = -9, Rho_Z_InvCov = 0,
-  Rho_Z_CovMu = 0)
+  tol_g = 1e-04, tol_p = 1e-04, Pred = FALSE, Select_G = FALSE,
+  Select_Z = FALSE, Rho_G = -9, Rho_Z_InvCov = 0, Rho_Z_CovMu = 0)
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}

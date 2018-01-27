@@ -6,8 +6,9 @@
 \usage{
 tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
   start_b = NULL, start_m = NULL, start_s = NULL, start_g = NULL,
-  LRho_g, URho_g, NoRho_g, LRho_z_invcov, URho_z_invcov, NoRho_z_invcov,
-  LRho_z_covmu, URho_z_covmu, NoRho_z_covmu, NoCores = detectCores() - 1)
+  SELECT_G = TRUE, SELECT_Z = TRUE, LRho_g, URho_g, NoRho_g, LRho_z_invcov,
+  URho_z_invcov, NoRho_z_invcov, LRho_z_covmu, URho_z_covmu, NoRho_z_covmu,
+  NoCores = detectCores() - 1)
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}
