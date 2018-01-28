@@ -50,11 +50,8 @@ sem_cluster(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
 \code{sem_cluster} provides standard errors (SE) of parameter estimates when performing latent cluster analysis with multi-omics data. SEs are obtained through supplemented EM-algorithm (SEM).
 }
 \examples{
-sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,
-            init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
-            Pred=TRUE,family="normal",Get_SE=TRUE,Ad_Hoc_SE=TRUE,
-            tol_m = 1e-6,tol_b=1e-6,tol_s=1e-6,tol_g=1e-6,tol_sem=1e-3,
-            MAX_ITR=3000,MAX_TOT_ITR=3000)
+sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,Ad_Hoc_SE=TRUE,
+            def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
 }
 \references{
 Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm.
