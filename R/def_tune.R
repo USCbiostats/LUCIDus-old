@@ -6,7 +6,7 @@
 #' @param Rho_G Penalty for selection on genetic data, numeric, default is -9 using a sequence of penalties
 #' @param Rho_Z_InvCov Penalty for the inverse of covariance of biomarkers, numeric, default is 0
 #' @param Rho_Z_CovMu Penalty for the product of covariance and mean of biomarkers, numeric, default is 0
-#' @return A list of tolerance settings will be returned for integrative clustering.
+#' @return A list of tuning parameters and settings will be returned for integrative clustering.
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 

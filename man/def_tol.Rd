@@ -41,10 +41,10 @@ def_tol(Rho_G = -9, Rho_Z_InvCov = 0, Rho_Z_CovMu = 0, Select_G = FALSE,
 \value{
 A list of tolerance settings will be returned for integrative clustering.
 
-A list of tolerance settings will be returned for integrative clustering.
+A list of tuning parameters and settings will be returned for integrative clustering.
 }
 \description{
-Defines initial values of model parameters in \code{\link{est_cluster}}, \code{\link{sem_cluster}} , & \code{\link{tune_cluster}} fitting.
+Defines tolerance settings in \code{\link{est_cluster}}, \code{\link{sem_cluster}} , & \code{\link{tune_cluster}} fitting.
 
 Defines selection options and tuning parameters in \code{\link{est_cluster}}, \code{\link{sem_cluster}} fitting.
 }
