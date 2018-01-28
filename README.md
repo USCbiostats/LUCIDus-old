@@ -43,11 +43,9 @@ Estimating latent clusters with multi-omics data
 #### Example
 
 ```
-est_cluster(G=G1,Z=Z1,Y=Y1,K=2,
-            init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
-            family="binary",Pred=TRUE,Select_G=TRUE,Select_Z=TRUE,
-            Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93,
-            tol_m = 1e-8,tol_b=1e-8,tol_s=1e-8,tol_g=1e-8,MAX_ITR = 800,MAX_TOT_ITR=800)
+est_cluster(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
+            initial=def_initial(), itr_tol=def_tol(),
+            tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 ```
 
 ### *sem_cluster*
@@ -57,11 +55,8 @@ Supplemented EM-algorithm for latent cluster estimation
 #### Example
 
 ```
-sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,
-            init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
-            Pred=TRUE,family="normal",Get_SE=TRUE,Ad_Hoc_SE=TRUE,
-            tol_m = 1e-6,tol_b=1e-6,tol_s=1e-6,tol_g=1e-6,tol_sem=1e-3,
-            MAX_ITR=3000,MAX_TOT_ITR=3000)
+sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
+            def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
 ```
 
 ### *tune_cluster*
@@ -71,10 +66,12 @@ Grid search for tuning parameters using parallel computing
 #### Example
 
 ```
-tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
-             LRho_g = 0.005, URho_g = 0.015, NoRho_g = 3,
-             LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
-             LRho_z_covmu = 81, URho_z_covmu = 85, NoRho_z_covmu = 5)
+GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
+                           LRho_g = 0.005, URho_g = 0.015, NoRho_g = 3,
+                           LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
+                           LRho_z_covmu = 81, URho_z_covmu = 85, NoRho_z_covmu = 5)
+GridSearch$Results
+GridSearch$Optimal
 ```
 For more details, see documentations for each function in the R package.
 
