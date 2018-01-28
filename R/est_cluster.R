@@ -7,15 +7,10 @@
 #' @param family "binary" or "normal" for Y
 #' @param useY Using Y or not, default is TRUE
 #' @param K Pre-specified # of latent clusters, default is 2
-#' @param Select_G Flag to do model selection on genetic data, default is FALSE
-#' @param Select_Z Flag to do model selection on biomarker data, default is FALSE
-#' @param Rho_G Penalty for selection on genetic data, numeric, default is -9 using a sequence of penalties
-#' @param Rho_Z_InvCov Penalty for the inverse of covariance of biomarkers, numeric, default is 0
-#' @param Rho_Z_CovMu Penalty for the product of covariance and mean of biomarkers, numeric, default is 0
-#' @param MAX_ITR Maximum number of iterations, integer, default is 100
-#' @param MAX_TOT_ITR Maximum number of total iterations, integer, default is 10000
-#' @param reltol Convergence cut-off using a relative tolerance, default is 1e-8
-#' @param Pred Flag to compute predicted disease probability with fitted model, boolean, default is FALSE
+#' @param initial A list of initial model parameters will be returned for integrative clustering
+#' @param itr_tol A list of tolerance settings will be returned for integrative clustering
+#' @param tunepar A list of tuning parameters and settings will be returned for integrative clustering
+#' @param Pred Flag to compute posterior probability of latent cluster with fitted model, default is FALSE
 #' @keywords latent cluster
 #' @return \code{est_cluster} returns an object of list containing parameters estimates, predicted probability of latent clusters, and other features:
 #' \item{beta}{Estimates of genetic effects, matrix}
@@ -43,18 +38,17 @@
 #' Peng, C., Yang, Z., Conti, D.V.
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-#' est_cluster(G=G1,Z=Z1,Y=Y1,K=2,
-#'             init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
-#'             family="binary",Pred=TRUE,Select_G=TRUE,Select_Z=TRUE,
-#'             Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93,
-#'             tol_m = 1e-8,tol_b=1e-8,tol_s=1e-8,tol_g=1e-8,MAX_ITR = 800,MAX_TOT_ITR=800)
+#' est_cluster(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
+#'             initial=def_initial(), itr_tol=def_tol(),
+#'             tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 
-est_cluster <- function(G=NULL, Z=NULL, Y,
-                        family="binary", useY = TRUE,
-                        init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,init_pcluster=NULL,
-                        K = 2, MAX_ITR = 100, MAX_TOT_ITR = 10000, reltol=1e-8,
-                        tol_b = 1e-4, tol_m = 1e-4, tol_s = 1e-4, tol_g = 1e-4, tol_p = 1e-4,
-                        Pred = FALSE, Select_G = FALSE, Select_Z = FALSE, Rho_G = -9, Rho_Z_InvCov = 0, Rho_Z_CovMu = 0){
+est_cluster <- function(G=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, Pred = FALSE,
+                        initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune()){
+
+  init_b <- initial$init_b; init_m <- initial$init_m; init_s <- initial$init_s; init_g <- initial$init_g; init_pcluster <- initial$init_pcluster
+  MAX_ITR <- itr_tol$MAX_ITR; MAX_TOT_ITR <- itr_tol$MAX_TOT_ITR; reltol <- itr_tol$reltol
+  tol_b <- itr_tol$tol_b; tol_m <- itr_tol$tol_m; tol_s <- itr_tol$tol_s; tol_g <- itr_tol$tol_g; tol_p <- itr_tol$tol_p
+  Select_G <- tunepar$Select_G; Select_Z <- tunepar$Select_Z; Rho_G <- tunepar$Rho_G; Rho_Z_InvCov <- tunepar$Rho_Z_InvCov; Rho_Z_CovMu <- tunepar$Rho_Z_CovMu
 
   # check input
 
