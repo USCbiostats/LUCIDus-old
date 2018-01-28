@@ -9,10 +9,9 @@
 #' @param K Pre-specified # of latent clusters, default is 2
 #' @param Get_SE Flag to perform SEM to get SEs of parameter estimates, default is TRUE
 #' @param Ad_Hoc_SE Flag to fit ad hoc regression models to get SEs of parameter estimates, default is FALSE
-#' @param MAX_ITR Maximum number of iterations, integer, default is 100
-#' @param MAX_TOT_ITR Maximum number of total iterations, integer, default is 10000
-#' @param reltol Convergence cut-off using a relative tolerance, default is 1e-8
 #' @param Pred Flag to compute predicted disease probability with fitted model, boolean, default is FALSE
+#' @param initial A list of initial model parameters will be returned for integrative clustering
+#' @param itr_tol A list of tolerance settings will be returned for integrative clustering
 #' @keywords SEM, latent cluster
 #' @return \code{sem_cluster} returns an object of list containing parameters estimates, their corresponding standard errors, and other features:
 #' \item{beta}{Estimates of genetic effects, matrix}
@@ -46,12 +45,13 @@
 #'             MAX_ITR=3000,MAX_TOT_ITR=3000)
 
 
-sem_cluster <- function(G=NULL, Z=NULL, Y,
-                        family="binary", useY = TRUE,
-                        init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,init_pcluster=NULL,
-                        K = 2, MAX_ITR = 100, MAX_TOT_ITR = 10000, reltol=1e-8,
-                        tol_b = 1e-4, tol_m = 1e-4, tol_s = 1e-4, tol_g = 1e-4, tol_p = 1e-4, tol_sem = 1e-4,
+sem_cluster <- function(G=NULL, Z=NULL, Y, family="binary", useY = TRUE, K = 2,
+                        initial = def_initial(), itr_tol = def_tol(),
                         Pred = FALSE, Get_SE = TRUE, Ad_Hoc_SE = FALSE){
+
+  init_b <- initial$init_b; init_m <- initial$init_m; init_s <- initial$init_s; init_g <- initial$init_g; init_pcluster <- initial$init_pcluster
+  MAX_ITR <- itr_tol$MAX_ITR; MAX_TOT_ITR <- itr_tol$MAX_TOT_ITR; reltol <- itr_tol$reltol
+  tol_b <- itr_tol$tol_b; tol_m <- itr_tol$tol_m; tol_s <- itr_tol$tol_s; tol_g <- itr_tol$tol_g; tol_p <- itr_tol$tol_p; tol_sem <- itr_tol$tol_sem
 
   # check input
   if(family != "binary" && family!= "normal"){
