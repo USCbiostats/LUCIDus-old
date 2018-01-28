@@ -5,10 +5,7 @@
 \title{SEM for latent cluster estimation}
 \usage{
 sem_cluster(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
-  init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
-  init_pcluster = NULL, K = 2, MAX_ITR = 100, MAX_TOT_ITR = 10000,
-  reltol = 1e-08, tol_b = 1e-04, tol_m = 1e-04, tol_s = 1e-04,
-  tol_g = 1e-04, tol_p = 1e-04, tol_sem = 1e-04, Pred = FALSE,
+  K = 2, initial = def_initial(), itr_tol = def_tol(), Pred = FALSE,
   Get_SE = TRUE, Ad_Hoc_SE = FALSE)
 }
 \arguments{
@@ -24,11 +21,9 @@ sem_cluster(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
 
 \item{K}{Pre-specified # of latent clusters, default is 2}
 
-\item{MAX_ITR}{Maximum number of iterations, integer, default is 100}
+\item{initial}{A list of initial model parameters will be returned for integrative clustering}
 
-\item{MAX_TOT_ITR}{Maximum number of total iterations, integer, default is 10000}
-
-\item{reltol}{Convergence cut-off using a relative tolerance, default is 1e-8}
+\item{itr_tol}{A list of tolerance settings will be returned for integrative clustering}
 
 \item{Pred}{Flag to compute predicted disease probability with fitted model, boolean, default is FALSE}
 

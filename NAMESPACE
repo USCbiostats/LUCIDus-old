@@ -2,6 +2,7 @@
 
 export(def_initial)
 export(def_tol)
+export(def_tune)
 export(est_cluster)
 export(sem_cluster)
 export(tune_cluster)
