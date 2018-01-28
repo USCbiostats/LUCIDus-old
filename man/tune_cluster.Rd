@@ -5,8 +5,7 @@
 \title{Parallel Grid Search for Tuning Parameters in Latent Cluster Analysis}
 \usage{
 tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
-  start_b = NULL, start_m = NULL, start_s = NULL, start_g = NULL,
-  SELECT_G = TRUE, SELECT_Z = TRUE, LRho_g, URho_g, NoRho_g, LRho_z_invcov,
+  initial = def_initial(), LRho_g, URho_g, NoRho_g, LRho_z_invcov,
   URho_z_invcov, NoRho_z_invcov, LRho_z_covmu, URho_z_covmu, NoRho_z_covmu,
   NoCores = detectCores() - 1)
 }
@@ -22,6 +21,8 @@ tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 \item{Family}{"binary" or "normal" for Y}
 
 \item{USEY}{Using Y or not, default is TRUE}
+
+\item{initial}{A list of initial model parameters will be returned for integrative clustering}
 
 \item{LRho_g}{Lower limit of the penalty for selection on genetic data}
 
