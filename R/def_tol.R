@@ -1,71 +1,34 @@
 #' Define maximum number of iteration and convergence
 #'
 #' @description Defines initial values of model parameters in \code{\link{est_cluster}}, \code{\link{sem_cluster}} , & \code{\link{tune_cluster}} fitting.
-#'
-#' @param init_b Initial model parameters of \eqn{\beta}, genetic effects parameter
-#' @param init_m Initial model parameters of \eqn{\mu}, biomarker mean effects parameters
-#' @param init_s Initial model parameters of \eqn{\Sigma}, biomarker covariance matrix
-#' @param init_g Initial model parameters of \eqn{\gamma}, outcome effects parameter
-#' @param init_pcluster Initial probabilites of latent clusters
-#' @return A list of initial model parameters will be returned for integrative clustering.
+#' @param MAX_ITR Maximum number of iterations, integer, default is 100
+#' @param MAX_TOT_ITR Maximum number of total iterations, integer, default is 10000
+#' @param reltol Convergence cut-off using a relative tolerance, default is 1e-8
+#' @param tol_b Convergence criteria of \eqn{\beta}, genetic effects parameter, default is 1e-4
+#' @param tol_m Convergence criteria of \eqn{\mu}, biomarker mean effects parameters, default is 1e-4
+#' @param tol_s Convergence criteria of \eqn{\Sigma}, biomarker covariance matrix, default is 1e-4
+#' @param tol_g Convergence criteria of \eqn{\gamma}, outcome effects parameter, default is 1e-4
+#' @param tol_p Convergence criteria of the probability of latent clusters, default is 1e-4
+#' @return A list of tolerance settings will be returned for integrative clustering.
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 
-def_initial <- function(init_b = NULL,
-                        init_m = NULL,
-                        init_s = NULL,
-                        init_g = NULL,
-                        init_pcluster = NULL) {
+def_tol <- function(MAX_ITR = 100,
+                    MAX_TOT_ITR = 10000,
+                    reltol = 1e-8,
+                    tol_b = 1e-4,
+                    tol_m = 1e-4,
+                    tol_s = 1e-4,
+                    tol_g = 1e-4,
+                    tol_p = 1e-4) {
 
-  if (!is.null(init_b)){
-    if (ncol(init_b) != ncol(G)+1 | nrow(init_b) != K ) {
-      stop("Invalid initial beta; reset to NULL")
-      init_b = NULL
-    } else {
-      init_b <- init_b
-    }
-  }
-
-  if (!is.null(init_m)){
-    if (ncol(init_m) != ncol(Z) | nrow(init_m) != K ) {
-      stop("Invalid initial mu; reset to NULL")
-      init_m = NULL
-    } else {
-      init_m <- init_m
-    }
-  }
-
-  if (!is.null(init_s)){
-    if (length(init_s) != K && !is.list(init_s)) {
-      stop("Invalid initial sigma; reset to NULL")
-      init_s = NULL
-    } else {
-      init_s <- init_s
-    }
-  }
-
-  if (!is.null(init_g)){
-    if (!is.vector(init_g)) {
-      stop("Invalid initial gamma; reset to NULL")
-      init_g = NULL
-    } else {
-      init_g <- init_g
-    }
-  }
-
-  if (!is.null(init_pcluster)){
-    if (length(init_pcluster) != K | !is.vector(init_g)) {
-      stop("Invalid initial gamma; reset to NULL")
-      init_pcluster = NULL
-    } else {
-      init_pcluster <- init_pcluster
-    }
-  }
-
-  structure(list(init_b = init_b,
-                 init_m = init_m,
-                 init_s = init_s,
-                 init_g = init_g,
-                 init_pcluster = init_pcluster)
+  structure(list(MAX_ITR = MAX_ITR,
+                 MAX_TOT_ITR = MAX_TOT_ITR,
+                 reltol = reltol,
+                 tol_b = tol_b,
+                 tol_m = tol_m,
+                 tol_s = tol_s,
+                 tol_g = tol_g,
+                 tol_p = tol_p)
   )
 }
