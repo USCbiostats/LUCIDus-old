@@ -10,11 +10,11 @@
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 
-def_tol <- function(Rho_G = -9,
-                    Rho_Z_InvCov = 0,
-                    Rho_Z_CovMu = 0,
-                    Select_G = FALSE,
-                    Select_Z = FALSE) {
+def_tune <- function(Rho_G = -9,
+                     Rho_Z_InvCov = 0,
+                     Rho_Z_CovMu = 0,
+                     Select_G = FALSE,
+                     Select_Z = FALSE) {
 
   if(!Select_G){
     Rho_G == 0
