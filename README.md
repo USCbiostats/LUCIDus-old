@@ -22,14 +22,14 @@ For now, it can be installed from GitHub using the following codes:
 
 ```
 install.packages("devtools")
-devtools::install_github("USCbiostats/LCid")
+devtools::install_github("USCbiostats/LUCid")
 ```
-Otherwise, one can download the package from GitHub, and run the following codes from the parent working directory that contains the LCid folder:
+Otherwise, one can download the package from GitHub, and run the following codes from the parent working directory that contains the LUCid folder:
 
 ```
 install.packages("devtools")
 setwd("..")
-devtools::install("LCid")
+devtools::install("LUCid")
 ```
 
 ## Fitting the latent cluster models
