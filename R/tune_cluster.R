@@ -104,8 +104,8 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
           Non0z <- sum(select_Z)
 
           model_LL <- sum(log(rowSums(modelfits[[e]][[f]][[g]]$Likelihood)))
-          #Nparm <- ifelse(is.null(G_select),0,(ncol(G_select)+1)*(K-1)) + ifelse(is.null(Z_select),0,ncol(Z_select)*K + ncol(Z_select)*(ncol(Z_select)+1)/2*K) + K*2
-          Nparm <- ifelse(is.null(G),0,(ncol(G)+1)*(K-1)) + ifelse(is.null(Z),0,ncol(Z)*K + ncol(Z)*(ncol(Z)+1)/2*K) + K*2
+          Nparm <- ifelse(is.null(G_select),0,(ncol(G_select)+1)*(K-1)) + ifelse(is.null(Z_select),0,ncol(Z_select)*K + ncol(Z_select)*(ncol(Z_select)+1)/2*K) + K*2
+          # Nparm <- ifelse(is.null(G),0,(ncol(G)+1)*(K-1)) + ifelse(is.null(Z),0,ncol(Z)*K + ncol(Z)*(ncol(Z)+1)/2*K) + K*2
           bic <- -2*model_LL + Nparm*log(length(Y))
           #Other types of GIC
           gic1 <- -2*model_LL + Nparm*log(log(length(Y)))*log(length(Y))
