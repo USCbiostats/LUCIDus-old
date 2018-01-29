@@ -34,7 +34,7 @@ devtools::install("LUCid")
 
 ## Fitting the latent cluster models
 
-Three functions, including *est_cluster*, *sem_cluster*, & *tune_cluster*, are currently available for model fitting. 
+Three functions, including *est_cluster*, *sem_cluster*, & *tune_cluster*, are currently available for model fitting and selection. 
 
 ### *est_cluster*
 
