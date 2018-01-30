@@ -4,7 +4,7 @@ An R package allows users to achieve a joint estimation of latent or unobserved 
 
 ## Getting Started
 
-This supplementary package is based on the research paper "Integrated Analysis of Germline, Omic and Disease Data" (Under development, will replace this field with a citation when we have one). 
+This supplementary package is based on the research paper "Integrative Latent Cluster Assignment Using Multi-Omics Data with Phenotypic Traits" (Under development, will replace this field with a citation when we have one). 
 
 ### Prerequisites
 
