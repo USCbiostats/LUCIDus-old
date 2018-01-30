@@ -1,6 +1,6 @@
 # LUCid
 
-A R package allows users to achieve joint estimation of latent or unobserved clusters using multi-omics data with/without outcome of interest.
+An R package allows users to achieve a joint estimation of latent or unobserved clusters using multi-omics data with/without the outcome of interest.
 
 ## Getting Started
 
@@ -100,4 +100,4 @@ This project is licensed under the GPL-2 License.
 
 * Dr. David V. Conti
 * Dr. Zhao Yang
-* etc.
+* USC IMAGE P01 Group.
