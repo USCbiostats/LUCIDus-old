@@ -66,6 +66,7 @@ Grid search for tuning parameters using parallel computing
 #### Example
 
 ```
+# Better be run on a server or HPC
 GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
                            LRho_g = 0.001, URho_g = 0.1, NoRho_g = 10,
                            LRho_z_invcov = 0.05, URho_z_invcov = 0.3, NoRho_z_invcov = 6,
