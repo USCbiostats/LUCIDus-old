@@ -1,10 +1,10 @@
 # LUCid
 
-A R package allows users to achieve joint estimation of latent or unobserved clusters using multi-omics data with/without outcome of interest.
+An R package allows users to achieve a joint estimation of latent or unobserved clusters using multi-omics data with/without the outcome of interest.
 
 ## Getting Started
 
-This supplementary package is based on the research paper "Integrated Analysis of Germline, Omic and Disease Data" (Under development, will replace this field with a citation when we have one). 
+This supplementary package is based on the research paper "Integrative Latent Cluster Assignment Using Multi-Omics Data with Phenotypic Traits" (Under development, will replace this field with a citation when we have one). 
 
 ### Prerequisites
 
@@ -34,7 +34,7 @@ devtools::install("LUCid")
 
 ## Fitting the latent cluster models
 
-Three functions, including *est_cluster*, *sem_cluster*, & *tune_cluster*, are currently available for model fitting. 
+Three functions, including *est_cluster*, *sem_cluster*, & *tune_cluster*, are currently available for model fitting and selection. 
 
 ### *est_cluster*
 
@@ -66,10 +66,11 @@ Grid search for tuning parameters using parallel computing
 #### Example
 
 ```
+# Better be run on a server or HPC
 GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
-                           LRho_g = 0.005, URho_g = 0.015, NoRho_g = 3,
-                           LRho_z_invcov = 0.1, URho_z_invcov = 0.2, NoRho_z_invcov = 2,
-                           LRho_z_covmu = 81, URho_z_covmu = 85, NoRho_z_covmu = 5)
+                           LRho_g = 0.001, URho_g = 0.1, NoRho_g = 10,
+                           LRho_z_invcov = 0.05, URho_z_invcov = 0.3, NoRho_z_invcov = 6,
+                           LRho_z_covmu = 75, URho_z_covmu = 100, NoRho_z_covmu = 6)
 GridSearch$Results
 GridSearch$Optimal
 ```
@@ -99,4 +100,4 @@ This project is licensed under the GPL-2 License.
 
 * Dr. David V. Conti
 * Dr. Zhao Yang
-* etc.
+* USC IMAGE P01 Group.
