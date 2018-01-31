@@ -17,51 +17,6 @@ def_initial <- function(init_b = NULL,
                         init_g = NULL,
                         init_pcluster = NULL) {
 
-  if (!is.null(init_b)){
-    if (ncol(init_b) != ncol(G)+1 | nrow(init_b) != K ) {
-      stop("Invalid initial beta; reset to NULL")
-      init_b = NULL
-    } else {
-      init_b <- init_b
-    }
-  }
-
-  if (!is.null(init_m)){
-    if (ncol(init_m) != ncol(Z) | nrow(init_m) != K ) {
-      stop("Invalid initial mu; reset to NULL")
-      init_m = NULL
-    } else {
-      init_m <- init_m
-    }
-  }
-
-  if (!is.null(init_s)){
-    if (length(init_s) != K && !is.list(init_s)) {
-      stop("Invalid initial sigma; reset to NULL")
-      init_s = NULL
-    } else {
-      init_s <- init_s
-    }
-  }
-
-  if (!is.null(init_g)){
-    if (!is.vector(init_g)) {
-      stop("Invalid initial gamma; reset to NULL")
-      init_g = NULL
-    } else {
-      init_g <- init_g
-    }
-  }
-
-  if (!is.null(init_pcluster)){
-    if (length(init_pcluster) != K | !is.vector(init_g)) {
-      stop("Invalid initial gamma; reset to NULL")
-      init_pcluster = NULL
-    } else {
-      init_pcluster <- init_pcluster
-    }
-  }
-
   structure(list(init_b = init_b,
                  init_m = init_m,
                  init_s = init_s,
