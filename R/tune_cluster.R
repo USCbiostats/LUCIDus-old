@@ -67,8 +67,8 @@ tune_cluster <- function(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
       foreach(rho_z_invcov = seq(Lrho_z_invcov, Urho_z_invcov, length.out=Norho_z_invcov)) %:%
         foreach(rho_z_covmu = seq(Lrho_z_covmu, Urho_z_covmu, length.out=Norho_z_covmu),
                 .combine = list, .multicombine = TRUE, .maxcombine = 2000, .errorhandling = 'pass',
-                .export=c("est_cluster", "def_initial", "def_tune", "def_tol", "G", "Z", "Y", "K", "Family", "USEY", "initial"),
-                .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix"))  %dopar%{
+                .export=c("G", "Z", "Y", "K", "Family", "USEY", "initial"),
+                .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix", "LUCid"))  %dopar%{
                   est_cluster(G=G,Z=Z,Y=Y,K=K,useY=USEY,family=Family,Pred=TRUE,
                               initial = initial, tunepar = def_tune(Select_G=T,Select_Z=T,Rho_G=rho_g,Rho_Z_InvCov=rho_z_invcov,Rho_Z_CovMu=rho_z_covmu),
                               def_tol(MAX_ITR = 500,MAX_TOT_ITR=1000))
