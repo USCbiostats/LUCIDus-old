@@ -55,11 +55,11 @@ tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 }
 \examples{
 # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-# Parallel grid-search with 360 combinations of tuning parameters
+# Parallel grid-search with 100 combinations of tuning parameters
 GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
-                           LRho_g = 0.001, URho_g = 0.1, NoRho_g = 10,
-                           LRho_z_invcov = 0.05, URho_z_invcov = 0.3, NoRho_z_invcov = 6,
-                           LRho_z_covmu = 75, URho_z_covmu = 100, NoRho_z_covmu = 6)
+                           LRho_g = 0.006, URho_g = 0.014, NoRho_g = 5,
+                           LRho_z_invcov = 0.03, URho_z_invcov = 0.06, NoRho_z_invcov = 4,
+                           LRho_z_covmu = 80, URho_z_covmu = 100, NoRho_z_covmu = 5)
 GridSearch$Results
 GridSearch$Optimal
 }
