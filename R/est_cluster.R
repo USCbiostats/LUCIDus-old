@@ -265,6 +265,9 @@ est_cluster <- function(G=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, 
       }
       r <- r/rowSums(r)
 
+      r[which(!is.finite(r[,1])),1] <- 0.5
+      r[which(!is.finite(r[,2])),2] <- 0.5
+
       #------check r------#
       valid_r <- all(is.finite(as.matrix(r)))
 
