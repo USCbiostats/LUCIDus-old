@@ -562,6 +562,7 @@ est_cluster <- function(G=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, 
 
       # gamma are deleted in the following section of estimating SE by SEM
       if(!Pred){
+
         estClust <- list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster, K=K, Gnames=colnames(G), Znames=colnames(Z),
                          Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu)
         class(estClust) <- c("IntClust")
