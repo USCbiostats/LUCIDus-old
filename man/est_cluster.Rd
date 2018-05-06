@@ -4,9 +4,9 @@
 \alias{est_cluster}
 \title{Estimating latent clusters with multi-omics data}
 \usage{
-est_cluster(G = NULL, Z = NULL, Y, useY = TRUE, family = "binary",
-  K = 2, Pred = FALSE, initial = def_initial(), itr_tol = def_tol(),
-  tunepar = def_tune())
+est_cluster(G = NULL, CoG = NULL, Z = NULL, Y, useY = TRUE,
+  family = "binary", K = 2, Pred = FALSE, initial = def_initial(),
+  itr_tol = def_tol(), tunepar = def_tune())
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}
@@ -43,9 +43,32 @@ est_cluster(G = NULL, Z = NULL, Y, useY = TRUE, family = "binary",
 }
 \examples{
 # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-est_cluster(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
-            initial=def_initial(), itr_tol=def_tol(),
-            tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+ncluster <- 2
+IntClusFit <- est_cluster(G=G1,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+                          initial=def_initial(), itr_tol=def_tol(),
+                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+# Identify selected features
+G_diff <- apply(apply(IntClusFit$beta,2,range),2,function(x){x[2]-x[1]})[-1]
+select_G <- G_diff != 0
+InvSigmaMu <- solve(IntClusFit$sigma[[1]])\%*\%IntClusFit$mu[1,]
+for(i in 2:ncluster){
+    InvSigmaMu <- cbind(InvSigmaMu, solve(IntClusFit$sigma[[i]])\%*\%IntClusFit$mu[i,])
+}
+Z_diff <- apply(apply(InvSigmaMu,1,range),2,function(x){x[2]-x[1]})
+select_Z <- Z_diff != 0
+sum(select_G); sum(select_Z)
+colnames(G1)[select_G]; colnames(Z1)[select_Z]
+# Select the features
+if(!all(select_G==FALSE)){
+    G_select <- G1[,select_G]
+}
+if(!all(select_Z==FALSE)){
+    Z_select <- Z1[,select_Z]
+}
+# Re-fit with selected features
+set.seed(10)
+IntClusFitFinal <- est_cluster(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+                               initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
 }
 \references{
 Peng, C., Yang, Z., Conti, D.V.
