@@ -42,7 +42,7 @@
 #'             initial=def_initial(), itr_tol=def_tol(),
 #'             tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 
-est_cluster <- function(G=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, Pred = FALSE,
+est_cluster <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, Pred = FALSE,
                         initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune()){
 
   init_b <- initial$init_b; init_m <- initial$init_m; init_s <- initial$init_s; init_g <- initial$init_g; init_pcluster <- initial$init_pcluster
@@ -51,6 +51,10 @@ est_cluster <- function(G=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, 
   Select_G <- tunepar$Select_G; Select_Z <- tunepar$Select_Z; Rho_G <- tunepar$Rho_G; Rho_Z_InvCov <- tunepar$Rho_Z_InvCov; Rho_Z_CovMu <- tunepar$Rho_Z_CovMu
 
   # check input
+
+  if(!is.null(CoG)){
+    G <- cbind(G, CoG)
+  }
 
   if(family != "binary" && family!= "normal"){
     print("family can only be 'binary' or 'linear'...")
@@ -353,10 +357,20 @@ est_cluster <- function(G=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, 
           #estimate new beta
           if(Select_G){
             if(Rho_G == -9){
-              tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial"))
+              if(is.null(CoG)){
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial"))
+              }
+              else{
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial", penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(COG)))))
+              }
             }
             else{
-              tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G))
+              if(is.null(CoG)){
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G))
+              }
+              else{
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G, penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(COG)))))
+              }
             }
 
             if("try-error" %in% class(tryLasso)){
@@ -585,3 +599,4 @@ est_cluster <- function(G=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, 
   }
 
 }
+
