@@ -2,7 +2,7 @@
 #'
 #' \code{est_cluster} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided. An \code{IntClust} object will be produced.
 #' @param G Genetic effects, a matrix
-#' @param CoG Covariates needed to be included in the G->X path
+#' @param CoG Covariates to be included in the G->X path
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
 #' @param family "binary" or "normal" for Y
