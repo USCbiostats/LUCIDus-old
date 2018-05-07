@@ -2,6 +2,7 @@
 #'
 #' \code{est_cluster} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided.
 #' @param G Genetic effects, a matrix
+#' @param CoG Covariates needed to be included in the G->X path
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
 #' @param family "binary" or "normal" for Y
@@ -42,6 +43,7 @@
 #' IntClusFit <- est_cluster(G=G1,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
 #'                           initial=def_initial(), itr_tol=def_tol(),
 #'                           tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+#'
 #' # Identify selected features
 #' G_diff <- apply(apply(IntClusFit$beta,2,range),2,function(x){x[2]-x[1]})[-1]
 #' select_G <- G_diff != 0
@@ -53,6 +55,7 @@
 #' select_Z <- Z_diff != 0
 #' sum(select_G); sum(select_Z)
 #' colnames(G1)[select_G]; colnames(Z1)[select_Z]
+#'
 #' # Select the features
 #' if(!all(select_G==FALSE)){
 #'     G_select <- G1[,select_G]
@@ -60,10 +63,26 @@
 #' if(!all(select_Z==FALSE)){
 #'     Z_select <- Z1[,select_Z]
 #' }
+#'
 #' # Re-fit with selected features
 #' set.seed(10)
 #' IntClusFitFinal <- est_cluster(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
 #'                                initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
+#'
+#' # Visualize the results using Sankey diagram
+#' plot_cluster(IntClusFitFinal)
+#'
+#' # Re-run the model with covariates in the G->X path
+#' IntClusCoFit <- est_cluster(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+#'                             initial=def_initial(), itr_tol=def_tol(),
+#'                             tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+#'
+#' # Re-fit with selected features with covariates
+#' IntClusCoFitFinal <- est_cluster(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+#'                                  initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
+#'
+#' # Visualize the results
+#' plot_cluster(IntClusCoFitFinal)
 
 est_cluster <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, Pred = FALSE,
                         initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune()){
@@ -384,7 +403,7 @@ est_cluster <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary
                 tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial"))
               }
               else{
-                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial", penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(COG)))))
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial", penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(CoG)))))
               }
             }
             else{
@@ -392,7 +411,7 @@ est_cluster <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary
                 tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G))
               }
               else{
-                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G, penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(COG)))))
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G, penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(CoG)))))
               }
             }
 
