@@ -2,7 +2,7 @@ LUCid: Latent or Unobserved Clustering with integrated data
 ================
 
 Introduction
-============
+------------
 
 An R package allows users to achieve a joint estimation of latent or unobserved clusters using multi-omics data with/without the outcome of interest.
 
@@ -123,7 +123,7 @@ Built With
 Versioning
 ----------
 
-The current version is 0.3.0.
+The current version is 0.5.0.
 
 For the versions available, see the [Version on this repository](https://github.com/your/project/Version) (not available yet).
 
