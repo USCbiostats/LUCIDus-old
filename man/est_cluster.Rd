@@ -41,7 +41,7 @@ est_cluster(G = NULL, CoG = NULL, Z = NULL, Y, useY = TRUE,
 \item{pred}{Predicted probability of belonging to each latent cluster}
 }
 \description{
-\code{est_cluster} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided.
+\code{est_cluster} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided. An \code{IntClust} object will be produced.
 }
 \examples{
 # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
