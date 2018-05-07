@@ -1,9 +1,9 @@
 ---
-title: "LUCid: Latent or unobserved clustering with integrated data"
+title: "LUCid: Latent or Unobserved Clustering with integrated data"
 output: github_document
 ---
 
-# LUCid
+# Introduction
 
 An R package allows users to achieve a joint estimation of latent or unobserved clusters using multi-omics data with/without the outcome of interest.
 
@@ -37,8 +37,7 @@ setwd("..")
 devtools::install("LUCid")
 ```
 
-```{r include=FALSE}
-library(networkD3)
+```{r eval=FALSE}
 library(LUCid)
 ```
 
@@ -53,12 +52,13 @@ Estimating latent clusters with multi-omics data
 
 #### Example
 
-```{r echo=TRUE}
+```{r eval=FALSE}
 # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
 ncluster <- 2
 IntClusFit <- est_cluster(G=G1,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
                           initial=def_initial(), itr_tol=def_tol(),
-                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
+                                             Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 
 # Identify selected features
 G_diff <- apply(apply(IntClusFit$beta,2,range),2,function(x){x[2]-x[1]})[-1]
@@ -89,9 +89,11 @@ IntClusFitFinal <- est_cluster(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="bin
 
 #### *Visualize the results using Sankey diagram*
 
-```{r}
+```{r eval=FALSE}
 plot_cluster(IntClusFitFinal)
 ```
+
+![](README_files/figure-markdown_github/Sankey1.png)
 
 ### *sem_cluster*
 
