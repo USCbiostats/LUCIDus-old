@@ -23,21 +23,25 @@ We have a plan to submit the package to CRAN/Bioconductor when the development c
 
 For now, it can be installed from GitHub using the following codes:
 
-    install.packages("devtools")
-    devtools::install_github("USCbiostats/LUCid")
+``` r
+install.packages("devtools")
+devtools::install_github("USCbiostats/LUCid")
+```
 
 Otherwise, one can download the package from GitHub, and run the following codes from the parent working directory that contains the LUCid folder:
 
-    install.packages("devtools")
-    setwd("..")
-    devtools::install("LUCid")
-
 ``` r
-library(LUCid)
+install.packages("devtools")
+setwd("..")
+devtools::install("LUCid")
 ```
 
 Fitting the latent cluster models
 ---------------------------------
+
+``` r
+library(LUCid)
+```
 
 Three functions, including *est\_cluster*, *sem\_cluster*, & *tune\_cluster*, are currently available for model fitting and selection.
 
@@ -95,8 +99,10 @@ Supplemented EM-algorithm for latent cluster estimation
 
 #### Example
 
-    sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
-                def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
+``` r
+sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
+            def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
+```
 
 ### *tune\_cluster*
 
@@ -104,13 +110,15 @@ Grid search for tuning parameters using parallel computing
 
 #### Example
 
-    # Better be run on a server or HPC
-    GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
-                               LRho_g = 0.001, URho_g = 0.1, NoRho_g = 10,
-                               LRho_z_invcov = 0.05, URho_z_invcov = 0.3, NoRho_z_invcov = 6,
-                               LRho_z_covmu = 75, URho_z_covmu = 100, NoRho_z_covmu = 6)
-    GridSearch$Results
-    GridSearch$Optimal
+``` r
+# Better be run on a server or HPC
+GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
+                           LRho_g = 0.001, URho_g = 0.1, NoRho_g = 10,
+                           LRho_z_invcov = 0.05, URho_z_invcov = 0.3, NoRho_z_invcov = 6,
+                           LRho_z_covmu = 75, URho_z_covmu = 100, NoRho_z_covmu = 6)
+GridSearch$Results
+GridSearch$Optimal
+```
 
 For more details, see documentations for each function in the R package.
 

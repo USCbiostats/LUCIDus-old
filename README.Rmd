@@ -25,24 +25,25 @@ We have a plan to submit the package to CRAN/Bioconductor when the development c
 
 For now, it can be installed from GitHub using the following codes:
 
-```
+```{r eval=FALSE}
 install.packages("devtools")
 devtools::install_github("USCbiostats/LUCid")
 ```
+
 Otherwise, one can download the package from GitHub, and run the following codes from the parent working directory that contains the LUCid folder:
 
-```
+```{r eval=FALSE}
 install.packages("devtools")
 setwd("..")
 devtools::install("LUCid")
 ```
 
+
+## Fitting the latent cluster models
+
 ```{r eval=FALSE}
 library(LUCid)
 ```
-
-
-## Fitting the latent cluster models
 
 Three functions, including *est_cluster*, *sem_cluster*, & *tune_cluster*, are currently available for model fitting and selection. 
 
@@ -101,7 +102,7 @@ Supplemented EM-algorithm for latent cluster estimation
 
 #### Example
 
-```
+```{r eval=FALSE}
 sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
             def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
 ```
@@ -112,7 +113,7 @@ Grid search for tuning parameters using parallel computing
 
 #### Example
 
-```
+```{r eval=FALSE}
 # Better be run on a server or HPC
 GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
                            LRho_g = 0.001, URho_g = 0.1, NoRho_g = 10,
@@ -121,6 +122,7 @@ GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
 GridSearch$Results
 GridSearch$Optimal
 ```
+
 For more details, see documentations for each function in the R package.
 
 
