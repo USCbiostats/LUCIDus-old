@@ -88,7 +88,7 @@ IntClusFitFinal <- est_cluster(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="bin
 
 ```
 
-#### *Visualize the results using Sankey diagram*
+#### Visualize the results with Sankey diagram using *plot_cluster*
 
 ```{r eval=FALSE}
 plot_cluster(IntClusFitFinal)
