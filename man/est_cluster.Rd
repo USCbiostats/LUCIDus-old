@@ -11,7 +11,7 @@ est_cluster(G = NULL, CoG = NULL, Z = NULL, Y, useY = TRUE,
 \arguments{
 \item{G}{Genetic effects, a matrix}
 
-\item{CoG}{Covariates needed to be included in the G->X path}
+\item{CoG}{Covariates to be included in the G->X path}
 
 \item{Z}{Biomarker data, a matrix}
 
