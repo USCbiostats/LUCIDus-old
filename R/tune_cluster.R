@@ -2,6 +2,7 @@
 #'
 #' \code{tune_cluster} fits regularized latent cluster models with various combinations of three tuning parameters based on joint inference across data types to perform a grid-search helping determine an optimal choice of three tuning parameters with minimum model BIC.
 #' @param G Genetic effects, a matrix
+#' @param CoG Covariates to be added in G->X path
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
 #' @param K Pre-specified # of latent clusters

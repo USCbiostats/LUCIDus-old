@@ -4,13 +4,15 @@
 \alias{tune_cluster}
 \title{Parallel Grid Search for Tuning Parameters in Latent Cluster Analysis}
 \usage{
-tune_cluster(G = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
+tune_cluster(G = NULL, CoG = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
   initial = def_initial(), LRho_g, URho_g, NoRho_g, LRho_z_invcov,
   URho_z_invcov, NoRho_z_invcov, LRho_z_covmu, URho_z_covmu, NoRho_z_covmu,
   NoCores = detectCores() - 1)
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}
+
+\item{CoG}{Covariates to be added in G->X path}
 
 \item{Z}{Biomarker data, a matrix}
 
