@@ -1,6 +1,6 @@
 #' Define tuning parameters for regularization during integrative clustering
 #'
-#' @description Defines selection options and tuning parameters in \code{\link{est_cluster}}, \code{\link{sem_cluster}} fitting.
+#' @description Defines selection options and tuning parameters in \code{\link{est_lucid}}, \code{\link{sem_lucid}} fitting.
 #' @param Select_G Flag to do model selection on genetic data, default is FALSE
 #' @param Select_Z Flag to do model selection on biomarker data, default is FALSE
 #' @param Rho_G Penalty for selection on genetic data, numeric, default is -9 using a sequence of penalties

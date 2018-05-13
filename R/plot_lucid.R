@@ -1,6 +1,6 @@
 #' Plot Sankey diagram for integrative clustering
 #'
-#'\code{plot_cluster} generates a Sankey diagram for the results of integrative clustering based on an \code{IntClust} object.
+#'\code{plot_lucid} generates a Sankey diagram for the results of integrative clustering based on an \code{IntClust} object.
 #' @param x An \code{IntClust} class object
 #' @param ... Additional graphics parameters
 #' @export
@@ -9,7 +9,7 @@
 #' @references
 #' Peng, C., Yang, Z., Conti, D.V.
 
-plot_cluster <- function(x, ...) {
+plot_lucid <- function(x, ...) {
 
   name <- c(x$Gnames, paste0("IntClust", 1:x$K), x$Znames, "Outcome")
   nodegroup <- c(rep(2, length(x$Gnames)), rep(3, x$K), rep(4, length(x$Znames)), 5)

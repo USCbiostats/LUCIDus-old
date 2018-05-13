@@ -22,7 +22,7 @@ def_tune(Rho_G = -9, Rho_Z_InvCov = 0, Rho_Z_CovMu = 0,
 A list of tuning parameters and settings will be returned for integrative clustering.
 }
 \description{
-Defines selection options and tuning parameters in \code{\link{est_cluster}}, \code{\link{sem_cluster}} fitting.
+Defines selection options and tuning parameters in \code{\link{est_lucid}}, \code{\link{sem_lucid}} fitting.
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

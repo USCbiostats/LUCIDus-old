@@ -22,7 +22,7 @@ def_initial(init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
 A list of initial model parameters will be returned for integrative clustering.
 }
 \description{
-Defines initial values of model parameters in \code{\link{est_cluster}}, \code{\link{sem_cluster}} , & \code{\link{tune_cluster}} fitting.
+Defines initial values of model parameters in \code{\link{est_lucid}}, \code{\link{sem_lucid}} , & \code{\link{tune_lucid}} fitting.
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

@@ -1,6 +1,6 @@
 #' Define initial values of parameters for clustering
 #'
-#' @description Defines initial values of model parameters in \code{\link{est_cluster}}, \code{\link{sem_cluster}} , & \code{\link{tune_cluster}} fitting.
+#' @description Defines initial values of model parameters in \code{\link{est_lucid}}, \code{\link{sem_lucid}} , & \code{\link{tune_lucid}} fitting.
 #'
 #' @param init_b Initial model parameters of \eqn{\beta}, genetic effects parameter
 #' @param init_m Initial model parameters of \eqn{\mu}, biomarker mean effects parameters

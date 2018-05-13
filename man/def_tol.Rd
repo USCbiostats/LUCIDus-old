@@ -31,7 +31,7 @@ def_tol(MAX_ITR = 100, MAX_TOT_ITR = 10000, reltol = 1e-08,
 A list of tolerance settings will be returned for integrative clustering.
 }
 \description{
-Defines tolerance settings in \code{\link{est_cluster}}, \code{\link{sem_cluster}} , & \code{\link{tune_cluster}} fitting.
+Defines tolerance settings in \code{\link{est_lucid}}, \code{\link{sem_lucid}} , & \code{\link{tune_lucid}} fitting.
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

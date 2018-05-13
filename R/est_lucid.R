@@ -1,6 +1,6 @@
 #' Estimating latent clusters with multi-omics data
 #'
-#' \code{est_cluster} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided. An \code{IntClust} object will be produced.
+#' \code{est_lucid} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided. An \code{IntClust} object will be produced.
 #' @param G Genetic effects, a matrix
 #' @param CoG Covariates to be included in the G->X path
 #' @param Z Biomarker data, a matrix
@@ -13,7 +13,7 @@
 #' @param tunepar A list of tuning parameters and settings will be returned for integrative clustering
 #' @param Pred Flag to compute posterior probability of latent cluster with fitted model, default is FALSE
 #' @keywords latent cluster
-#' @return \code{est_cluster} returns an object of list containing parameters estimates, predicted probability of latent clusters, and other features:
+#' @return \code{est_lucid} returns an object of list containing parameters estimates, predicted probability of latent clusters, and other features:
 #' \item{beta}{Estimates of genetic effects, matrix}
 #' \item{mu}{Estimates of cluster-specific biomarker means, matrix}
 #' \item{sigma}{Estimates of cluster-specific biomarker covariance matrix, list}
@@ -40,7 +40,7 @@
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
 #' ncluster <- 2
-#' IntClusFit <- est_cluster(G=G1,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+#' IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
 #'                           initial=def_initial(), itr_tol=def_tol(),
 #'                           tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 #'
@@ -66,25 +66,25 @@
 #'
 #' # Re-fit with selected features
 #' set.seed(10)
-#' IntClusFitFinal <- est_cluster(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+#' IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
 #'                                initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
 #'
 #' # Visualize the results using Sankey diagram
 #' plot_cluster(IntClusFitFinal)
 #'
 #' # Re-run the model with covariates in the G->X path
-#' IntClusCoFit <- est_cluster(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+#' IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
 #'                             initial=def_initial(), itr_tol=def_tol(),
 #'                             tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 #'
 #' # Re-fit with selected features with covariates
-#' IntClusCoFitFinal <- est_cluster(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+#' IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
 #'                                  initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
 #'
 #' # Visualize the results
 #' plot_cluster(IntClusCoFitFinal)
 
-est_cluster <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, Pred = FALSE,
+est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, Pred = FALSE,
                         initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune()){
 
   init_b <- initial$init_b; init_m <- initial$init_m; init_s <- initial$init_s; init_g <- initial$init_g; init_pcluster <- initial$init_pcluster

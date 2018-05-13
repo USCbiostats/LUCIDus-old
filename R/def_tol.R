@@ -1,6 +1,6 @@
 #' Define maximum number of iteration and convergence
 #'
-#' @description Defines tolerance settings in \code{\link{est_cluster}}, \code{\link{sem_cluster}} , & \code{\link{tune_cluster}} fitting.
+#' @description Defines tolerance settings in \code{\link{est_lucid}}, \code{\link{sem_lucid}} , & \code{\link{tune_lucid}} fitting.
 #' @param MAX_ITR Maximum number of iterations, integer, default is 100
 #' @param MAX_TOT_ITR Maximum number of total iterations, integer, default is 10000
 #' @param reltol Convergence cut-off using a relative tolerance, default is 1e-8

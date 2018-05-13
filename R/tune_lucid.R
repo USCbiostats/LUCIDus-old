@@ -1,6 +1,6 @@
 #' Parallel Grid Search for Tuning Parameters in Latent Cluster Analysis
 #'
-#' \code{tune_cluster} fits regularized latent cluster models with various combinations of three tuning parameters based on joint inference across data types to perform a grid-search helping determine an optimal choice of three tuning parameters with minimum model BIC.
+#' \code{tune_lucid} fits regularized latent cluster models with various combinations of three tuning parameters based on joint inference across data types to perform a grid-search helping determine an optimal choice of three tuning parameters with minimum model BIC.
 #' @param G Genetic effects, a matrix
 #' @param CoG Covariates to be added in G->X path
 #' @param Z Biomarker data, a matrix
@@ -20,7 +20,7 @@
 #' @param NoRho_z_covmu Number of \code{Rho_z_covmu} for grid-search
 #' @param NoCores Number of CPU cores for parallel grid-search, default is total number of cores minus 1
 #' @keywords Tunning Parameter, Grid-search
-#' @return \code{tune_cluster} returns an object of list containing Modelfits, Results, and Optimal:
+#' @return \code{tune_lucid} returns an object of list containing Modelfits, Results, and Optimal:
 #' \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
 #' \item{Results}{Summary results of grid-search}
 #' \item{Optimal}{Features of the optimal model with minimun BIC in the grid-search summary}
@@ -46,14 +46,14 @@
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
 #' # Parallel grid-search with 100 combinations of tuning parameters
-#' GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
+#' GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
 #'                            LRho_g = 0.006, URho_g = 0.014, NoRho_g = 5,
 #'                            LRho_z_invcov = 0.03, URho_z_invcov = 0.06, NoRho_z_invcov = 4,
 #'                            LRho_z_covmu = 80, URho_z_covmu = 100, NoRho_z_covmu = 5)
 #' GridSearch$Results
 #' GridSearch$Optimal
 
-tune_cluster <- function(G = NULL, CoG = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
+tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
                          initial = def_initial(),
                          LRho_g, URho_g, NoRho_g,
                          LRho_z_invcov, URho_z_invcov, NoRho_z_invcov,
@@ -70,7 +70,7 @@ tune_cluster <- function(G = NULL, CoG = NULL, Z = NULL, Y, K, Family, USEY = TR
                 .combine = list, .multicombine = TRUE, .maxcombine = 2000, .errorhandling = 'pass',
                 .export=c("G", "CoG", "Z", "Y", "K", "Family", "USEY", "initial"),
                 .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix", "LUCid"))  %dopar%{
-                  est_cluster(G=G,CoG=CoG,Z=Z,Y=Y,K=K,useY=USEY,family=Family,Pred=TRUE,
+                  est_lucid(G=G,CoG=CoG,Z=Z,Y=Y,K=K,useY=USEY,family=Family,Pred=TRUE,
                               initial = initial, tunepar = def_tune(Select_G=T,Select_Z=T,Rho_G=rho_g,Rho_Z_InvCov=rho_z_invcov,Rho_Z_CovMu=rho_z_covmu),
                               def_tol(MAX_ITR = 500,MAX_TOT_ITR=1000))
                 }
