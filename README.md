@@ -156,7 +156,7 @@ Versioning
 
 The current version is 0.5.0.
 
-For the versions available, see the [Version on this repository](https://github.com/your/project/Version) (not available yet).
+For the versions available, see the [Release](https://github.com/USCbiostats/LUCid/releases) on this repository.
 
 Authors
 -------
