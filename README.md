@@ -43,9 +43,9 @@ Fitting the latent cluster models
 library(LUCid)
 ```
 
-Three functions, including *est\_cluster*, *sem\_cluster*, & *tune\_cluster*, are currently available for model fitting and selection.
+Three functions, including *est\_lucid*, *sem\_lucid*, & *tune\_lucid*, are currently available for model fitting and selection.
 
-### *est\_cluster*
+### *est\_lucid*
 
 Estimating latent clusters with multi-omics data
 
@@ -57,7 +57,7 @@ For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 ca
 
 ``` r
 set.seed(10)
-IntClusFit <- est_cluster(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
 #### Visualize the results with Sankey diagram using *plot\_cluster*
@@ -68,18 +68,18 @@ plot_cluster(IntClusFit)
 
 ![](README_files/figure-markdown_github/Sankey2.png)
 
-### *sem\_cluster*
+### *sem\_lucid*
 
 Supplemented EM-algorithm for latent cluster estimation
 
 #### Example
 
 ``` r
-sem_cluster(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
+sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
             def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
 ```
 
-### *tune\_cluster*
+### *tune\_lucid*
 
 #### Example
 
@@ -88,7 +88,7 @@ Grid search for tuning parameters using parallel computing
 ``` r
 # Better be run on a server or HPC
 set.seed(10)
-GridSearch <- tune_cluster(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
+GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
                            LRho_g = 0.008, URho_g = 0.012, NoRho_g = 3,
                            LRho_z_invcov = 0.04, URho_z_invcov = 0.06, NoRho_z_invcov = 3,
                            LRho_z_covmu = 90, URho_z_covmu = 110, NoRho_z_covmu = 2)
@@ -100,7 +100,7 @@ Run LUCid with best tuning parameters and select informative features
 
 ``` r
 set.seed(10)
-IntClusFit <- est_cluster(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
+IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
                           initial=def_initial(), itr_tol=def_tol(),
                           tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
                                              Rho_G=0.01,Rho_Z_InvCov=0.06,Rho_Z_CovMu=90))
@@ -131,7 +131,7 @@ if(!all(select_Z==FALSE)){
 
 ``` r
 set.seed(10)
-IntClusFitFinal <- est_cluster(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
                                initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
 ```
 
