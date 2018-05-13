@@ -60,10 +60,10 @@ set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
-#### Visualize the results with Sankey diagram using *plot\_cluster*
+#### Visualize the results with Sankey diagram using *plot\_lucid*
 
 ``` r
-plot_cluster(IntClusFit)
+plot_lucid(IntClusFit)
 ```
 
 ![](README_files/figure-markdown_github/Sankey2.png)
@@ -135,10 +135,10 @@ IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binar
                                initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
 ```
 
-#### Visualize the results with Sankey diagram using *plot\_cluster*
+#### Visualize the results with Sankey diagram using *plot\_lucid*
 
 ``` r
-plot_cluster(IntClusFitFinal)
+plot_lucid(IntClusFitFinal)
 ```
 
 ![](README_files/figure-markdown_github/Sankey1.png)
