@@ -15,7 +15,7 @@ This supplementary package is based on the research paper "Integrative Latent Cl
 
 R (&gt;= 3.1.0).
 
-    Package Dependencies: "mvtnorm", "nnet", "glmnet", "glasso", "lbfgs".
+    Package Dependencies: "mvtnorm", "nnet", "glmnet", "glasso", "lbfgs", "networkD3".
 
 ### Installing
 
