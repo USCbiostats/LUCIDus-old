@@ -16,6 +16,7 @@ Imports:
     lbfgs,
     stats,
     methods,
+    networkD3,
     doParallel
 Suggests: testthat
 License: GPL-2
