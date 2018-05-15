@@ -18,12 +18,18 @@
 #' Peng, C., Yang, Z., Conti, D.V.
 
 summary_lucid <- function(x, ...) {
+  K <- x$K
+
   Beta <- x$beta
   Mu <- x$mu
   Gamma <- x$gamma
   Pred <- x$pred
 
-  K <- x$K
+  colnames(Beta) <- c("Int", x$Gnames)
+  rownames(Beta) <- paste0("Cluster", 1:K)
+  colnames(Mu) <- x$Znames
+  rownames(Mu) <- paste0("Cluster", 1:K)
+  names(Gamma) <- paste0("Cluster", 1:K)
 
   G_diff <- apply(apply(x$beta,2,range),2,function(x){x[2]-x[1]})[-1]
   select_G <- G_diff != 0
