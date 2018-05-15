@@ -45,47 +45,58 @@ est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, useY = TRUE,
 }
 \examples{
 # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-ncluster <- 2
-IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
-                          initial=def_initial(), itr_tol=def_tol(),
-                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+
+# Integrative clustering without feature selection
+set.seed(10)
+IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+
+# Check important model outputs
+summary_lucid(IntClusFit)
+
+# Visualize the results
+plot_cluster(IntClusFit)
+
+# Re-run the model with covariates in the G->X path
+IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+
+# Check important model outputs
+summary_lucid(IntClusCoFit)
+
+# Visualize the results
+plot_lucid(IntClusCoFit)
+
+# Run LUCid to select informative features
+set.seed(10)
+IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
+                        tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
+                                           Rho_G=0.01,Rho_Z_InvCov=0.06,Rho_Z_CovMu=90))
 
 # Identify selected features
-G_diff <- apply(apply(IntClusFit$beta,2,range),2,function(x){x[2]-x[1]})[-1]
-select_G <- G_diff != 0
-InvSigmaMu <- solve(IntClusFit$sigma[[1]])\%*\%IntClusFit$mu[1,]
-for(i in 2:ncluster){
-    InvSigmaMu <- cbind(InvSigmaMu, solve(IntClusFit$sigma[[i]])\%*\%IntClusFit$mu[i,])
-}
-Z_diff <- apply(apply(InvSigmaMu,1,range),2,function(x){x[2]-x[1]})
-select_Z <- Z_diff != 0
-sum(select_G); sum(select_Z)
-colnames(G1)[select_G]; colnames(Z1)[select_Z]
+summary_lucid(IntClusFit)$No0G; summary_lucid(IntClusFit)$No0Z
+colnames(G1)[summary_lucid(IntClusFit)$select_G]; colnames(Z1)[summary_lucid(IntClusFit)$select_Z]
 
 # Select the features
-if(!all(select_G==FALSE)){
-    G_select <- G1[,select_G]
+if(!all(summary_lucid(IntClusFit)$select_G==FALSE)){
+    G_select <- G1[,summary_lucid(IntClusFit)$select_G]
 }
-if(!all(select_Z==FALSE)){
-    Z_select <- Z1[,select_Z]
+if(!all(summary_lucid(IntClusFit)$select_Z==FALSE)){
+    Z_select <- Z1[,summary_lucid(IntClusFit)$select_Z]
 }
 
 # Re-fit with selected features
 set.seed(10)
-IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
-                               initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
+IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
 
-# Visualize the results using Sankey diagram
+# Visualize the results
 plot_cluster(IntClusFitFinal)
 
-# Re-run the model with covariates in the G->X path
+# Re-run feature selection with covariates in the G->X path
 IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
                             initial=def_initial(), itr_tol=def_tol(),
                             tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 
 # Re-fit with selected features with covariates
-IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
-                                 initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
+IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE)
 
 # Visualize the results
 plot_cluster(IntClusCoFitFinal)

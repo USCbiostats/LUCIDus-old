@@ -77,6 +77,24 @@ plot_lucid(IntClusFit)
 
 ![](README_files/figure-markdown_github/Sankey2.png)
 
+#### Re-run the model with covariates in the G->X path
+
+```{r eval=FALSE}
+IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+```
+
+#### Check important model outputs
+
+```{r eval=FALSE}
+summary_lucid(IntClusCoFit)
+```
+
+#### Visualize the results
+
+```{r eval=FALSE}
+plot_lucid(IntClusCoFit)
+```
+
 
 ### *sem_lucid*
 
@@ -141,8 +159,25 @@ plot_lucid(IntClusFitFinal)
 
 ![](README_files/figure-markdown_github/Sankey1.png)
 
-For more details, see documentations for each function in the R package.
+#### Re-run feature selection with covariates in the G->X path
+```{r eval=FALSE}
+IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+                          initial=def_initial(), itr_tol=def_tol(),
+                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+summary_lucid(IntClusCoFit)
+```
 
+#### Re-fit with selected features with covariates
+```{r eval=FALSE}
+IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE)
+```
+
+#### Visualize the results
+```{r eval=FALSE}
+plot_cluster(IntClusCoFitFinal)
+```
+
+For more details, see documentations for each function in the R package.
 
 ## Built With
 

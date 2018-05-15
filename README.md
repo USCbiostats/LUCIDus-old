@@ -74,6 +74,24 @@ plot_lucid(IntClusFit)
 
 ![](README_files/figure-markdown_github/Sankey2.png)
 
+#### Re-run the model with covariates in the G-&gt;X path
+
+``` r
+IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+```
+
+#### Check important model outputs
+
+``` r
+summary_lucid(IntClusCoFit)
+```
+
+#### Visualize the results
+
+``` r
+plot_lucid(IntClusCoFit)
+```
+
 ### *sem\_lucid*
 
 Supplemented EM-algorithm for latent cluster estimation
@@ -138,6 +156,27 @@ plot_lucid(IntClusFitFinal)
 ```
 
 ![](README_files/figure-markdown_github/Sankey1.png)
+
+#### Re-run feature selection with covariates in the G-&gt;X path
+
+``` r
+IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
+                          initial=def_initial(), itr_tol=def_tol(),
+                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+summary_lucid(IntClusCoFit)
+```
+
+#### Re-fit with selected features with covariates
+
+``` r
+IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE)
+```
+
+#### Visualize the results
+
+``` r
+plot_cluster(IntClusCoFitFinal)
+```
 
 For more details, see documentations for each function in the R package.
 

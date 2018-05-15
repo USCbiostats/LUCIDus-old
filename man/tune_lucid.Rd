@@ -63,6 +63,7 @@ GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
                            LRho_z_invcov = 0.03, URho_z_invcov = 0.06, NoRho_z_invcov = 4,
                            LRho_z_covmu = 80, URho_z_covmu = 100, NoRho_z_covmu = 5)
 GridSearch$Results
+# Determine the best tuning parameters
 GridSearch$Optimal
 }
 \references{

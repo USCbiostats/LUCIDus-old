@@ -51,6 +51,7 @@
 #'                            LRho_z_invcov = 0.03, URho_z_invcov = 0.06, NoRho_z_invcov = 4,
 #'                            LRho_z_covmu = 80, URho_z_covmu = 100, NoRho_z_covmu = 5)
 #' GridSearch$Results
+#' # Determine the best tuning parameters
 #' GridSearch$Optimal
 
 tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
