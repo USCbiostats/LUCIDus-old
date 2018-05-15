@@ -60,7 +60,7 @@ set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
-#### Important model outputs
+#### Checking important model outputs
 
 ``` r
 summary_lucid(IntClusFit)
@@ -81,6 +81,7 @@ Supplemented EM-algorithm for latent cluster estimation
 #### Example
 
 ``` r
+set.seed(100)
 sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
             def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
 ```
@@ -107,29 +108,19 @@ Run LUCid with best tuning parameters and select informative features
 ``` r
 set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
-                          initial=def_initial(), itr_tol=def_tol(),
-                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
-                                             Rho_G=0.01,Rho_Z_InvCov=0.06,Rho_Z_CovMu=90))
+                        tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
+                                           Rho_G=0.01,Rho_Z_InvCov=0.06,Rho_Z_CovMu=90))
 
 # Identify selected features
-ncluster <- 2
-G_diff <- apply(apply(IntClusFit$beta,2,range),2,function(x){x[2]-x[1]})[-1]
-select_G <- G_diff != 0
-InvSigmaMu <- solve(IntClusFit$sigma[[1]])%*%IntClusFit$mu[1,]
-for(i in 2:ncluster){
-    InvSigmaMu <- cbind(InvSigmaMu, solve(IntClusFit$sigma[[i]])%*%IntClusFit$mu[i,])
-}
-Z_diff <- apply(apply(InvSigmaMu,1,range),2,function(x){x[2]-x[1]})
-select_Z <- Z_diff != 0
-sum(select_G); sum(select_Z)
-colnames(G1)[select_G]; colnames(Z1)[select_Z]
+summary_lucid(IntClusFit)$No0G; summary_lucid(IntClusFit)$No0Z
+colnames(G1)[summary_lucid(IntClusFit)$select_G]; colnames(Z1)[summary_lucid(IntClusFit)$select_Z]
 
 # Select the features
-if(!all(select_G==FALSE)){
-    G_select <- G1[,select_G]
+if(!all(summary_lucid(IntClusFit)$select_G==FALSE)){
+    G_select <- G1[,summary_lucid(IntClusFit)$select_G]
 }
-if(!all(select_Z==FALSE)){
-    Z_select <- Z1[,select_Z]
+if(!all(summary_lucid(IntClusFit)$select_Z==FALSE)){
+    Z_select <- Z1[,summary_lucid(IntClusFit)$select_Z]
 }
 ```
 
@@ -137,8 +128,7 @@ if(!all(select_Z==FALSE)){
 
 ``` r
 set.seed(10)
-IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=ncluster,family="binary",Pred=TRUE,
-                               initial=def_initial(), itr_tol=def_tol(), tunepar = def_tune())
+IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
 #### Visualize the results with Sankey diagram using *plot\_lucid*
