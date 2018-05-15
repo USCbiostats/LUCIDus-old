@@ -60,6 +60,12 @@ set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
+#### Important model outputs
+
+``` r
+summary_lucid(IntClusFit)
+```
+
 #### Visualize the results with Sankey diagram using *plot\_lucid*
 
 ``` r
