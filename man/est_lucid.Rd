@@ -54,7 +54,7 @@ IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 summary_lucid(IntClusFit)
 
 # Visualize the results
-plot_cluster(IntClusFit)
+plot_lucid(IntClusFit)
 
 # Re-run the model with covariates in the G->X path
 IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
@@ -88,7 +88,7 @@ set.seed(10)
 IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
 
 # Visualize the results
-plot_cluster(IntClusFitFinal)
+plot_lucid(IntClusFitFinal)
 
 # Re-run feature selection with covariates in the G->X path
 IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
@@ -99,7 +99,7 @@ IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
 IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
 
 # Visualize the results
-plot_cluster(IntClusCoFitFinal)
+plot_lucid(IntClusCoFitFinal)
 }
 \references{
 Peng, C., Yang, Z., Conti, D.V.
