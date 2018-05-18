@@ -17,6 +17,7 @@ Imports:
     stats,
     methods,
     networkD3,
+    foreach,
     doParallel
 Suggests: testthat
 License: GPL-2
