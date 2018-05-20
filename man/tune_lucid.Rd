@@ -58,6 +58,7 @@ tune_lucid(G = NULL, CoG = NULL, Z = NULL, Y, K, Family, USEY = TRUE,
 \examples{
 # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
 # Parallel grid-search with 100 combinations of tuning parameters
+set.seed(10)
 GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
                            LRho_g = 0.006, URho_g = 0.014, NoRho_g = 5,
                            LRho_z_invcov = 0.03, URho_z_invcov = 0.06, NoRho_z_invcov = 4,
@@ -74,4 +75,4 @@ Cheng Peng, Zhao Yang, David V. Conti
 }
 \keyword{Grid-search}
 \keyword{Parameter,}
-\keyword{Tunning}
+\keyword{Tuning}

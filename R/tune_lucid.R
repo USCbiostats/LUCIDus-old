@@ -19,7 +19,7 @@
 #' @param URho_z_covmu Upper limit of the penalty for the product of covariance and mean of biomarkers
 #' @param NoRho_z_covmu Number of \code{Rho_z_covmu} for grid-search
 #' @param NoCores Number of CPU cores for parallel grid-search, default is total number of cores minus 1
-#' @keywords Tunning Parameter, Grid-search
+#' @keywords Tuning Parameter, Grid-search
 #' @return \code{tune_lucid} returns an object of list containing Modelfits, Results, and Optimal:
 #' \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
 #' \item{Results}{Summary results of grid-search}
@@ -46,6 +46,7 @@
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
 #' # Parallel grid-search with 100 combinations of tuning parameters
+#' set.seed(10)
 #' GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE,
 #'                            LRho_g = 0.006, URho_g = 0.014, NoRho_g = 5,
 #'                            LRho_z_invcov = 0.03, URho_z_invcov = 0.06, NoRho_z_invcov = 4,
