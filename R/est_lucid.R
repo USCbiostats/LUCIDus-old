@@ -86,8 +86,9 @@
 #'
 #' # Re-run feature selection with covariates in the G->X path
 #' IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
-#'                             initial=def_initial(), itr_tol=def_tol(),
-#'                             tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+#'                           initial=def_initial(), itr_tol=def_tol(),
+#'                           tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
+#'                           Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 #'
 #' # Re-fit with selected features with covariates
 #' IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
