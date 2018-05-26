@@ -52,13 +52,31 @@
 #' plot_lucid(IntClusFit)
 #'
 #' # Re-run the model with covariates in the G->X path
-#' IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+#' IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 #'
 #' # Check important model outputs
-#' summary_lucid(IntClusCoFit)
+#' summary_lucid(IntClusCoFit1)
 #'
 #' # Visualize the results
-#' plot_lucid(IntClusCoFit)
+#' plot_lucid(IntClusCoFit1)
+#'
+#' # Re-run the model with covariates in the X->Y path
+#' IntClusCoFit2 <- est_lucid(G=G1,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
+#'
+#' # Check important model outputs
+#' summary_lucid(IntClusCoFit2)
+#'
+#' # Visualize the results
+#' plot_lucid(IntClusCoFit2)
+#'
+#' # Re-run the model with covariates in both G->X and X->Y paths
+#' IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
+#'
+#' # Check important model outputs
+#' summary_lucid(IntClusCoFit3)
+#'
+#' # Visualize the results
+#' plot_lucid(IntClusCoFit3)
 #'
 #' # Run LUCid to select informative features
 #' set.seed(10)
@@ -86,13 +104,13 @@
 #' plot_lucid(IntClusFitFinal)
 #'
 #' # Re-run feature selection with covariates in the G->X path
-#' IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
+#' IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE,
 #'                           initial=def_initial(), itr_tol=def_tol(),
 #'                           tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
 #'                           Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 #'
 #' # Re-fit with selected features with covariates
-#' IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
+#' IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
 #'
 #' # Visualize the results
 #' plot_lucid(IntClusCoFitFinal)
