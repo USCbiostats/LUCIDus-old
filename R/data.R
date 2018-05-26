@@ -40,10 +40,22 @@
 #'
 #' @format A set with 2000 rows and 5 variables:
 #' \describe{
-#'   \item{C1 - C3}{Three continuous covariates}
-#'   \item{C4, C5}{Two binary covariates}
+#'   \item{GC1 - GC3}{Three continuous covariates}
+#'   \item{GC4, GC5}{Two binary covariates}
 #' }
 "CoG"
+
+#' Covariate Set in the X->Y path
+#'
+#' A simulated dataset containing one of the optional components to run est_lucid,
+#' plot_lucid, and tune_lucid. The variables are as follows:
+#'
+#' @format A set with 2000 rows and 5 variables:
+#' \describe{
+#'   \item{YC1 - YC3}{Three continuous covariates}
+#'   \item{YC4, YC5}{Two binary covariates}
+#' }
+"CoY"
 
 #' Genetic Features Set 2
 #'
