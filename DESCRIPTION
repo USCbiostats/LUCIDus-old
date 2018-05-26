@@ -1,7 +1,7 @@
 Package: LUCid
 Type: Package
 Title: Latent cluster analysis of integrated data
-Version: 0.6.0
+Version: 0.7.0
 Author: Cheng Peng, Zhao Yang, David V. Conti
 Maintainer: Cheng Peng <chengpen@ucs.edu>
 Description: Joint estimation of latent clusters using multi-omics data 
