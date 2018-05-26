@@ -1,6 +1,8 @@
 LUCid: Latent or Unobserved Clustering with integrated data
 ================
 
+[![Build Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCid)
+
 Introduction
 ------------
 

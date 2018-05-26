@@ -3,6 +3,8 @@ title: "LUCid: Latent or Unobserved Clustering with integrated data"
 output: github_document
 ---
 
+[![Build Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCid)
+
 ## Introduction
 
 An R package allows users to achieve a joint estimation of latent or unobserved clusters using multi-omics data with/without the outcome of interest.
