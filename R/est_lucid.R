@@ -5,6 +5,7 @@
 #' @param CoG Covariates to be included in the G->X path
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
+#' @param CoY Covariates to be included in the X->Y path
 #' @param family "binary" or "normal" for Y
 #' @param useY Using Y or not, default is TRUE
 #' @param K Pre-specified # of latent clusters, default is 2
@@ -96,8 +97,8 @@
 #' # Visualize the results
 #' plot_lucid(IntClusCoFitFinal)
 
-est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary", K = 2, Pred = FALSE,
-                        initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune()){
+est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family="binary", K = 2, Pred = FALSE,
+                      initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune()){
 
   init_b <- initial$init_b; init_m <- initial$init_m; init_s <- initial$init_s; init_g <- initial$init_g; init_pcluster <- initial$init_pcluster
   MAX_ITR <- itr_tol$MAX_ITR; MAX_TOT_ITR <- itr_tol$MAX_TOT_ITR; reltol <- itr_tol$reltol
@@ -146,7 +147,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
       new_gamma <- array(0,2*K) #store estimated gamma in M-step
     }
     if(family=="binary"){
-      new_gamma <- array(0,K)
+      new_gamma <- array(1,K)
     }
   }else{
     new_gamma <- NULL
@@ -168,7 +169,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
 
   success <- FALSE #flag for successful convergence
 
-  likelihood <- function(Beta=NULL,Mu=NULL,Sigma=NULL,Gamma=NULL,Family){
+  likelihood <- function(Beta=NULL,Mu=NULL,Sigma=NULL,Gamma=NULL,Family,total_ITR){
 
     if(!is.null(Gamma)){
       if(!is.null(Beta)){
@@ -185,17 +186,44 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
 
       pYgA <- mat.or.vec(N,K)
 
-      if(Family == "binary"){
-        for(k in 1:K){
-          pYgA[,k] <- ((exp(Gamma[k])/(1+exp(Gamma[k])))^Y)*(1/(1+exp(Gamma[k])))^(1-Y)
+      if(total_ITR==1){
+        if(Family == "binary"){
+          for(k in 1:K){
+            pYgA[,k] <- ((exp(Gamma[k])/(1+exp(Gamma[k])))^Y)*(1/(1+exp(Gamma[k])))^(1-Y)
+          }
+        }
+
+        if(Family == "normal"){
+          for(k in 1:K){
+            pYgA[,k] <- dnorm(Y,mean = Gamma[k],sd = sqrt(Gamma[k+K]))
+          }
+        }
+      }
+      else{
+        if(Family == "binary"){
+          for(k in 1:K){
+            if(is.null(CoY)){
+              SetK <- as.data.frame(mat.or.vec(N,K-1))
+              colnames(SetK) <- colnames(Set0)[-1]
+            }
+            else{
+              SetK <- as.data.frame(cbind(mat.or.vec(N,K-1), CoY))
+              colnames(SetK) <- colnames(Set0)[-1]
+            }
+            if(k>1){
+              SetK[,k-1] <- 1
+            }
+            pYgA[,k] <- dbinom(Y, 1, predict(Yfit, newdata = SetK, type = "response"))
+          }
+        }
+
+        if(Family == "normal"){
+          for(k in 1:K){
+            pYgA[,k] <- dnorm(Y,mean = Gamma[k],sd = sigma(Yfit))
+          }
         }
       }
 
-      if(Family == "normal"){
-        for(k in 1:K){
-          pYgA[,k] <- dnorm(Y,mean = Gamma[k],sd = sqrt(Gamma[k+K]))
-        }
-      }
 
       if(!is.null(Mu)&&is.null(Beta)){
         return (pZgA*pYgA)
@@ -316,7 +344,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
       itr <- itr + 1
 
       #------E-step------#
-      r <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family)
+      r <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
       if(is.null(G)){
         r <- t(t(r)*pcluster)
@@ -455,11 +483,38 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
         if(useY){
           #estimate new gamma
           if(family == "binary"){
-            new_gamma <- apply(r,2,function(x) return(log(sum(x*Y)/(sum(x)-sum(x*Y)))))
+            if(is.null(CoY)){
+              Set0 <- as.data.frame(cbind(Y, r[,-1]))
+              Yfit <- glm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0,family="binomial")
+              new_gamma[2:K] <- exp(coef(Yfit)[2:K])
+            }
+            else{
+              Set0 <- as.data.frame(cbind(Y, r[,-1], CoY))
+              Yfit <- glm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0,family="binomial")
+              new_gamma[2:K] <- exp(coef(Yfit)[2:K])
+            }
           }
           if(family == "normal"){
-            new_gamma[1:K] <- apply(r,2,function(x) return(sum(x*Y)/sum(x)))
-            new_gamma[(K+1):(2*K)] <- colSums(r*apply(matrix(new_gamma[1:K]),1,function(x){(x-Y)^2}))/colSums(r)
+            if(is.null(CoY)){
+              Set0 <- as.data.frame(cbind(Y, r[,-1]))
+              Yfit <- lm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
+              lincom <- mat.or.vec(K,length(coef(Yfit)))
+              lincom[,1] <- 1
+              diag(lincom[,2:K]) <- 1
+              lincomtest <- summary(glht(model=Yfit, linfct=lincom))
+              new_gamma[1:K] <- lincomtest$test$coefficients
+              new_gamma[(K+1):(2*K)] <- lincomtest$test$sigma
+            }
+            else{
+              Set0 <- as.data.frame(cbind(Y, r[,-1], CoY))
+              Yfit <- lm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
+              lincom <- mat.or.vec(K,length(coef(Yfit)))
+              lincom[,1] <- 1
+              diag(lincom[,2:K]) <- 1
+              lincomtest <- summary(glht(model=Yfit, linfct=lincom))
+              new_gamma[1:K] <- lincomtest$test$coefficients
+              new_gamma[(K+1):(2*K)] <- lincomtest$test$sigma
+            }
           }
         }
 
@@ -574,7 +629,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
   }
   else{
     if(useY){
-      jointP <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family)
+      jointP <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
       if(!Pred){
         estClust <-list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, K=K, Gnames=colnames(G), Znames=colnames(Z),
@@ -598,7 +653,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
     }else{
       # Y not used in EM algorithm to estimate beta, mu and sigma
 
-      estX <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=NULL, Family=family)
+      estX <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=NULL, Family=family, total_ITR=total_itr)
 
       if(is.null(G)){
         estX <- t(t(estX)*pcluster)
@@ -626,7 +681,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
         se_gamma <- summary(fit_y_model)$coef[,2]
       }
 
-      jointP <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma_for_likelihood, Family=family)
+      jointP <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma_for_likelihood, Family=family, total_ITR=total_itr)
 
       # gamma are deleted in the following section of estimating SE by SEM
       if(!Pred){
@@ -653,4 +708,3 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, useY = TRUE, family="binary",
   }
 
 }
-
