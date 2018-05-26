@@ -4,7 +4,7 @@
 \alias{est_lucid}
 \title{Estimating latent clusters with multi-omics data}
 \usage{
-est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, useY = TRUE,
+est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL, useY = TRUE,
   family = "binary", K = 2, Pred = FALSE, initial = def_initial(),
   itr_tol = def_tol(), tunepar = def_tune())
 }
@@ -16,6 +16,8 @@ est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, useY = TRUE,
 \item{Z}{Biomarker data, a matrix}
 
 \item{Y}{Disease outcome, a vector}
+
+\item{CoY}{Covariates to be included in the X->Y path}
 
 \item{useY}{Using Y or not, default is TRUE}
 
