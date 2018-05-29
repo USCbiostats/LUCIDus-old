@@ -110,7 +110,7 @@ IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred
 # Visualize the results
 plot_lucid(IntClusFitFinal)
 
-# Re-run feature selection with covariates in the G->X path
+# Re-run feature selection with covariates in both paths
 IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE,
                           initial=def_initial(), itr_tol=def_tol(),
                           tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
