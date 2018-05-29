@@ -461,7 +461,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
                 tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial"))
               }
               else{
-                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial", penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(CoG)))))
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial", penalty.factor = c(rep(1,ncol(G)-ncol(CoG)), rep(0, ncol(CoG)))))
               }
             }
             else{
@@ -469,7 +469,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
                 tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G))
               }
               else{
-                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G, penalty.factor = c(rep(1,ncol(G)-ncol(CoG)+1), rep(0, ncol(CoG)))))
+                tryLasso <- try(glmnet(as.matrix(G),as.matrix(r),family="multinomial",lambda=Rho_G, penalty.factor = c(rep(1,ncol(G)-ncol(CoG)), rep(0, ncol(CoG)))))
               }
             }
 
