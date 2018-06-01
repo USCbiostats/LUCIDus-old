@@ -369,8 +369,9 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
       }
       r <- r/rowSums(r)
 
-      r[which(!is.finite(r[,1])),1] <- 0.5
-      r[which(!is.finite(r[,2])),2] <- 0.5
+      for (k in 1:K) {
+        r[which(!is.finite(r[,k])),k] <- 0.5
+      }
 
       #------check r------#
       valid_r <- all(is.finite(as.matrix(r)))
