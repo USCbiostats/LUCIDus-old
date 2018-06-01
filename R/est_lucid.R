@@ -370,7 +370,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
       r <- r/rowSums(r)
 
       for (k in 1:K) {
-        r[which(!is.finite(r[,k])),k] <- 0.5
+        r[which(!is.finite(r[,k])),k] <- 1/K
       }
 
       #------check r------#
