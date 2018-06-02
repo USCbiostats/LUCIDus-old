@@ -22,7 +22,7 @@ summary_lucid <- function(x, ...) {
 
   Beta <- x$beta
   Mu <- x$mu
-  Gamma <- x$gamma
+  Gamma <- x$gamma[1:K]
   Pred <- x$pred
 
   colnames(Beta) <- c("Int", x$Gnames)
