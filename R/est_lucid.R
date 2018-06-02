@@ -515,24 +515,16 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           }
           if(family == "normal"){
             if(is.null(CoY)){
-              Set0 <- as.data.frame(cbind(Y, r[,-1]))
-              Yfit <- lm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
-              lincom <- mat.or.vec(K,length(coef(Yfit)))
-              lincom[,1] <- 1
-              diag(lincom[,2:K]) <- 1
-              lincomtest <- summary(glht(model=Yfit, linfct=lincom))
-              new_gamma[1:K] <- lincomtest$test$coefficients
-              new_gamma[(K+1):(2*K)] <- lincomtest$test$sigma
+              Set0 <- as.data.frame(cbind(Y, r))
+              Yfit <- glm(as.formula(paste("Y~-1+", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
+              new_gamma[1:K] <- summary(Yfit)$coef[,1]
+              new_gamma[(K+1):(2*K)] <- summary(Yfit)$coef[,2]
             }
             else{
-              Set0 <- as.data.frame(cbind(Y, r[,-1], CoY))
-              Yfit <- lm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
-              lincom <- mat.or.vec(K,length(coef(Yfit)))
-              lincom[,1] <- 1
-              diag(lincom[,2:K]) <- 1
-              lincomtest <- summary(glht(model=Yfit, linfct=lincom))
-              new_gamma[1:K] <- lincomtest$test$coefficients
-              new_gamma[(K+1):(2*K)] <- lincomtest$test$sigma
+              Set0 <- as.data.frame(cbind(Y, r, CoY))
+              Yfit <- glm(as.formula(paste("Y~-1+", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
+              new_gamma[1:K] <- summary(Yfit)$coef[1:K,1]
+              new_gamma[(K+1):(2*K)] <- summary(Yfit)$coef[1:K,2]
             }
           }
         }
