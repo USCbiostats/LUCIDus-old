@@ -19,6 +19,7 @@
 
 summary_lucid <- function(x, ...) {
   K <- x$K
+  family <- x$family
 
   Beta <- x$beta
   Mu <- x$mu
