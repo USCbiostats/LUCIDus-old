@@ -47,6 +47,12 @@ summary_lucid <- function(x, ...) {
   BIC <- -2*model_LL + Nparm*log(nrow(x$pred))
 
   SumResults <- list(Beta, Mu, Gamma, select_G, select_Z, No0G, No0Z, BIC)
-  names(SumResults) <- c("Beta", "Mu", "Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC")
+
+  if(family == "normal"){
+    names(SumResults) <- c("Beta", "Mu", "Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC")
+  }
+  if(family == "binary"){
+    names(SumResults) <- c("Beta", "Mu", "OR_Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC")
+  }
   return(SumResults)
 }
