@@ -644,7 +644,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
 
       if(!Pred){
         estClust <-list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, K=K, Gnames=colnames(G), Znames=colnames(Z),
-                        Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu)
+                        Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family)
         class(estClust) <- c("IntClust")
         return(estClust)
       }
@@ -656,7 +656,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
         preR <- jointP/rowSums(jointP)
 
         estClust <- list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, pred = preR, K=K, Gnames=colnames(G), Znames=colnames(Z),
-                         Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu)
+                         Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family)
         class(estClust) <- c("IntClust")
         return(estClust)
       }
@@ -698,7 +698,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
       if(!Pred){
 
         estClust <- list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster, K=K, Gnames=colnames(G), Znames=colnames(Z),
-                         Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu)
+                         Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family)
         class(estClust) <- c("IntClust")
         return(estClust)
       }
@@ -710,7 +710,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
         preR <- jointP/rowSums(jointP)
 
         estClust <- list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster, pred = preR, K=K, Gnames=colnames(G), Znames=colnames(Z),
-                         Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu)
+                         Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family)
         class(estClust) <- c("IntClust")
         return(estClust)
       }
