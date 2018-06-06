@@ -8,6 +8,6 @@ test_that("Test for est_lucid", {
 
   beta0 <- 5
   beta1 <- abs(IntClusFit$mu[2,1])
-  expect_length(IntClusFit, 13)
+  expect_length(IntClusFit, 14)
   expect_equal(beta0, beta1, tolerance = 0.05)
 })
