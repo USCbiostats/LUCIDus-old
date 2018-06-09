@@ -4,6 +4,7 @@
 #' @param G Genetic effects, a matrix
 #' @param CoG Covariates to be added in G->X path
 #' @param Z Biomarker data, a matrix
+#' @param CoY Covariates to be added in X->Y path
 #' @param Y Disease outcome, a vector
 #' @param K Pre-specified # of latent clusters
 #' @param Family "binary" or "normal" for Y
