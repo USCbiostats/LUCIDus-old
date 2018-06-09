@@ -45,7 +45,7 @@ Fitting the latent cluster models
 library(LUCid)
 ```
 
-Three functions, including *est\_lucid*, *sem\_lucid*, & *tune\_lucid*, are currently available for model fitting and selection.
+Three functions, including *est\_lucid*, *sem\_lucid*, & *tune\_lucid*, are currently available for model fitting and selection. The model outputs can be summarized and visualized using *summary\_lucid* and *plot\_lucid* respectively.
 
 ### *est\_lucid*
 
