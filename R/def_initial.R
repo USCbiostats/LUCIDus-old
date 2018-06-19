@@ -2,10 +2,10 @@
 #'
 #' @description Defines initial values of model parameters in \code{\link{est_lucid}}, \code{\link{sem_lucid}} , & \code{\link{tune_lucid}} fitting.
 #'
-#' @param init_b Initial model parameters of \eqn{\beta}, genetic effects parameter
-#' @param init_m Initial model parameters of \eqn{\mu}, biomarker mean effects parameters
-#' @param init_s Initial model parameters of \eqn{\Sigma}, biomarker covariance matrix
-#' @param init_g Initial model parameters of \eqn{\gamma}, outcome effects parameter
+#' @param init_b Initial model parameters of \eqn{\beta}, genetic effects parameter: \code{K*(ncol(G)+1)} dimensional matrix
+#' @param init_m Initial model parameters of \eqn{\mu}, biomarker mean effects parameters: \code{K*ncol(Z)} dimensional matrix
+#' @param init_s Initial model parameters of \eqn{\Sigma}, biomarker covariance matrix: a list of \code{K} \code{ncol(Z)*ncol(Z)} matrices
+#' @param init_g Initial model parameters of \eqn{\gamma}, outcome effects parameter: a vector with a length of \code{K} for binary Y or \code{2K} for continuous Y
 #' @param init_pcluster Initial probabilites of latent clusters
 #' @return A list of initial model parameters will be returned for integrative clustering.
 #' @export
