@@ -8,15 +8,15 @@ def_initial(init_b = NULL, init_m = NULL, init_s = NULL, init_g = NULL,
   init_pcluster = NULL)
 }
 \arguments{
-\item{init_b}{Initial model parameters of \eqn{\beta}, genetic effects parameter: \code{K*(ncol(G)+1)} dimensional matrix}
+\item{init_b}{Initial model parameters of \eqn{\beta}, genetic effects parameter: \code{K*(ncol(G)+1)} dimensional matrix, each row refers to a latent cluster and the first column is the intercept.}
 
-\item{init_m}{Initial model parameters of \eqn{\mu}, biomarker mean effects parameters: \code{K*ncol(Z)} dimensional matrix}
+\item{init_m}{Initial model parameters of \eqn{\mu}, biomarker mean effects parameters: \code{K*ncol(Z)} dimensional matrix, each row refers to a latent cluster.}
 
-\item{init_s}{Initial model parameters of \eqn{\Sigma}, biomarker covariance matrix: a list of \code{K} \code{ncol(Z)*ncol(Z)} matrices}
+\item{init_s}{Initial model parameters of \eqn{\Sigma}, biomarker covariance matrix: a list of \code{K} \code{ncol(Z)*ncol(Z)} matrices.}
 
-\item{init_g}{Initial model parameters of \eqn{\gamma}, outcome effects parameter: a vector with a length of \code{K} for binary Y or \code{2K} for continuous Y}
+\item{init_g}{Initial model parameters of \eqn{\gamma}, outcome effects parameter: a vector with a length of \code{K} for binary Y or \code{2K} for continuous Y. For binary Y, they are log odds in K cluters; for continuous Y, they are K cluster-specific means followed by standard deviations in K clusters.}
 
-\item{init_pcluster}{Initial probabilites of latent clusters}
+\item{init_pcluster}{Initial probabilites of latent clusters.}
 }
 \value{
 A list of initial model parameters will be returned for integrative clustering.
