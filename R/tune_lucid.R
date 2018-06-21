@@ -49,9 +49,9 @@
 #' # Parallel grid-search with 100 combinations of tuning parameters
 #' set.seed(10)
 #' GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE, NoCores = 2,
-#'                          LRho_g = 0.008, URho_g = 0.012, NoRho_g = 3,
-#'                          LRho_z_invcov = 0.04, URho_z_invcov = 0.06, NoRho_z_invcov = 3,
-#'                          LRho_z_covmu = 90, URho_z_covmu = 110, NoRho_z_covmu = 2)
+#'                          LRho_g = 0.008, URho_g = 0.016, NoRho_g = 5,
+#'                          LRho_z_invcov = 0.05, URho_z_invcov = 0.08, NoRho_z_invcov = 4,
+#'                          LRho_z_covmu = 90, URho_z_covmu = 110, NoRho_z_covmu = 5)
 #' GridSearch$Results
 #' # Determine the best tuning parameters
 #' GridSearch$Optimal
@@ -73,6 +73,7 @@ tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
                 .combine = list, .multicombine = TRUE, .maxcombine = 2000, .errorhandling = 'pass',
                 .export=c("G", "CoG", "Z", "CoY", "Y", "K", "Family", "USEY", "initial"),
                 .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix", "LUCid"))  %dopar%{
+                  set.seed(rho_g*rho_z_invcov*rho_z_covmu)
                   est_lucid(G=G,CoG=CoG,Z=Z,CoY=CoY,Y=Y,K=K,useY=USEY,family=Family,Pred=TRUE,
                               initial = initial, tunepar = def_tune(Select_G=T,Select_Z=T,Rho_G=rho_g,Rho_Z_InvCov=rho_z_invcov,Rho_Z_CovMu=rho_z_covmu),
                               def_tol(MAX_ITR = 500,MAX_TOT_ITR=1000))
