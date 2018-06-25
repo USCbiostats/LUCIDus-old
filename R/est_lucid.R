@@ -110,7 +110,8 @@
 #'                           Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
 #'
 #' # Re-fit with selected features with covariates
-#' IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
+#' IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,CoY=CoY,K=2,
+#'                                family="binary",Pred=TRUE)
 #'
 #' # Visualize the results
 #' plot_lucid(IntClusCoFitFinal)
