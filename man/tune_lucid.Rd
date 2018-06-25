@@ -62,9 +62,9 @@ tune_lucid(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
 # Parallel grid-search with 100 combinations of tuning parameters
 set.seed(10)
 GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE, NoCores = 2,
-                         LRho_g = 0.008, URho_g = 0.016, NoRho_g = 5,
-                         LRho_z_invcov = 0.05, URho_z_invcov = 0.08, NoRho_z_invcov = 4,
-                         LRho_z_covmu = 90, URho_z_covmu = 110, NoRho_z_covmu = 5)
+                         LRho_g = 0.008, URho_g = 0.012, NoRho_g = 3,
+                         LRho_z_invcov = 0.04, URho_z_invcov = 0.06, NoRho_z_invcov = 3,
+                         LRho_z_covmu = 90, URho_z_covmu = 100, NoRho_z_covmu = 3)
 GridSearch$Results
 # Determine the best tuning parameters
 GridSearch$Optimal
