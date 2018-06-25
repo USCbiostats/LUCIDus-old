@@ -32,6 +32,11 @@ summary_lucid <- function(x, ...) {
   rownames(Mu) <- paste0("Cluster", 1:K)
   names(Gamma) <- paste0("Cluster", 1:K)
 
+  if(family == "binary"){
+    OR_Gamma <- c(1,exp(coef(x$YFIT)[2:K]))
+    names(OR_Gamma) <- paste0("Cluster", 1:K)
+  }
+
   G_diff <- apply(apply(x$beta,2,range),2,function(x){x[2]-x[1]})[-1]
   select_G <- G_diff != 0
   InvSigmaMu <- solve(x$sigma[[1]])%*%x$mu[1,]
@@ -47,12 +52,13 @@ summary_lucid <- function(x, ...) {
   Nparm <- (No0G+1)*(K-1) + (No0Z*K + No0Z*(No0Z+1)/2*K) + K*2
   BIC <- -2*model_LL + Nparm*log(nrow(x$pred))
 
-  SumResults <- list(Beta, Mu, Gamma, select_G, select_Z, No0G, No0Z, BIC)
 
   if(family == "normal"){
+    SumResults <- list(Beta, Mu, Gamma, select_G, select_Z, No0G, No0Z, BIC)
     names(SumResults) <- c("Beta", "Mu", "Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC")
   }
   if(family == "binary"){
+    SumResults <- list(Beta, Mu, OR_Gamma, select_G, select_Z, No0G, No0Z, BIC)
     names(SumResults) <- c("Beta", "Mu", "OR_Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC")
   }
   return(SumResults)
