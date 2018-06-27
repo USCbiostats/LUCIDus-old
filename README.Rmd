@@ -47,7 +47,7 @@ devtools::install("LUCid")
 library(LUCid)
 ```
 
-Three functions, including *est_lucid*, *sem_lucid*, & *tune_lucid*, are currently available for model fitting and selection. The model outputs can be summarized and visualized using *summary_lucid* and *plot_lucid* respectively.
+Three functions, including *est_lucid*, *sem_lucid*, & *tune_lucid*, are currently available for model fitting and selection. The model outputs can be summarized and visualized using *summary_lucid* and *plot_lucid* respectively. Predictions could be made with *pred_lucid*.
 
 ### *est_lucid*
 
@@ -188,7 +188,7 @@ For more details, see documentations for each function in the R package.
 
 ## Versioning
 
-The current version is 0.6.0.
+The current version is 0.7.7.
 
 For the versions available, see the [Release](https://github.com/USCbiostats/LUCid/releases) on this repository. 
 

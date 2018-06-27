@@ -45,7 +45,7 @@ Fitting the latent cluster models
 library(LUCid)
 ```
 
-Three functions, including *est\_lucid*, *sem\_lucid*, & *tune\_lucid*, are currently available for model fitting and selection. The model outputs can be summarized and visualized using *summary\_lucid* and *plot\_lucid* respectively.
+Three functions, including *est\_lucid*, *sem\_lucid*, & *tune\_lucid*, are currently available for model fitting and selection. The model outputs can be summarized and visualized using *summary\_lucid* and *plot\_lucid* respectively. Predictions could be made with *pred\_lucid*.
 
 ### *est\_lucid*
 
@@ -191,7 +191,7 @@ Built With
 Versioning
 ----------
 
-The current version is 0.6.0.
+The current version is 0.7.7.
 
 For the versions available, see the [Release](https://github.com/USCbiostats/LUCid/releases) on this repository.
 
