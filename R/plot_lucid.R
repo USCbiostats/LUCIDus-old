@@ -17,7 +17,7 @@ plot_lucid <- function(x, ...) {
 
   source <- c(rep(0:(length(x$Gnames)-1), x$K), rep(length(x$Gnames):(length(x$Gnames)+x$K-1), each=length(x$Znames)), length(x$Gnames):(length(x$Gnames)+x$K-1))
   target <- c(rep(length(x$Gnames):(length(x$Gnames)+x$K-1), each=length(x$Gnames)), rep((length(x$Gnames)+x$K):(length(x$Gnames)+x$K+length(x$Znames)-1), x$K), rep(length(x$Gnames)+x$K+length(x$Znames), x$K))
-  orgvalue <- c(x$beta[1,-1], x$beta[2,-1], x$mu[1, ], x$mu[2, ], x$gamma)
+  orgvalue <- c(c(t(x$beta[,-1])), c(t(x$mu)), x$gamma[1:x$K])
   linkgroup <- numeric()
   value <- numeric()
   for (i in 1:length(orgvalue)) {
