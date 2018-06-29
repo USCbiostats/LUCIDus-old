@@ -27,7 +27,7 @@ For now, it can be installed from GitHub using the following codes:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("USCbiostats/LUCid")
+devtools::install_github("USCbiostats/LUCid",ref = "HPC")
 ```
 
 Otherwise, one can download the package from GitHub, and run the following codes from the parent working directory that contains the LUCid folder:
