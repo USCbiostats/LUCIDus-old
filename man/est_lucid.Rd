@@ -55,8 +55,6 @@ IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 # Check important model outputs
 summary_lucid(IntClusFit)
 
-# Visualize the results
-plot_lucid(IntClusFit)
 
 # Re-run the model with covariates in the G->X path
 IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
@@ -64,8 +62,6 @@ IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 # Check important model outputs
 summary_lucid(IntClusCoFit1)
 
-# Visualize the results
-plot_lucid(IntClusCoFit1)
 
 # Re-run the model with covariates in the X->Y path
 IntClusCoFit2 <- est_lucid(G=G1,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
@@ -73,8 +69,6 @@ IntClusCoFit2 <- est_lucid(G=G1,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
 # Check important model outputs
 summary_lucid(IntClusCoFit2)
 
-# Visualize the results
-plot_lucid(IntClusCoFit2)
 
 # Re-run the model with covariates in both G->X and X->Y paths
 IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
@@ -82,8 +76,6 @@ IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pr
 # Check important model outputs
 summary_lucid(IntClusCoFit3)
 
-# Visualize the results
-plot_lucid(IntClusCoFit3)
 
 # Run LUCid to select informative features
 set.seed(10)
@@ -107,8 +99,6 @@ if(!all(summary_lucid(IntClusFit)$select_Z==FALSE)){
 set.seed(10)
 IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
 
-# Visualize the results
-plot_lucid(IntClusFitFinal)
 
 # Re-run feature selection with covariates in both paths
 IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE,
@@ -120,8 +110,6 @@ IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pre
 IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,CoY=CoY,K=2,
                                family="binary",Pred=TRUE)
 
-# Visualize the results
-plot_lucid(IntClusCoFitFinal)
 }
 \references{
 Peng, C., Yang, Z., Conti, D.V.
