@@ -47,7 +47,6 @@
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
 #' # Parallel grid-search with 100 combinations of tuning parameters
-#' set.seed(10)
 #' GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE, NoCores = 2,
 #'                          LRho_g = 0.008, URho_g = 0.012, NoRho_g = 3,
 #'                          LRho_z_invcov = 0.04, URho_z_invcov = 0.06, NoRho_z_invcov = 3,
@@ -81,43 +80,38 @@ tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
   }
 
   parallel_results <- function(Norho_g, Norho_z_invcov, Norho_z_covmu){
-    foreach(e=1:Norho_g, .combine = 'rbind') %:%
-      foreach(f=1:Norho_z_invcov, .combine = 'rbind') %:%
-        foreach(g=1:Norho_z_covmu, .combine = 'rbind', .errorhandling = 'remove', .export=c("modelfits", "K", "G", "Z", "Y")) %dopar%{
-          G_diff <- apply(apply(modelfits[[e]][[f]][[g]]$beta,2,range),2,function(x){x[2]-x[1]})[-1]
-          select_G <- G_diff != 0
+    if(Norho_z_covmu==1){
+      foreach(e=1:Norho_g, .combine = 'rbind') %:%
+        foreach(f=1:Norho_z_invcov, .combine = 'rbind', .errorhandling = 'remove',
+                .export=c("modelfits", "K"), .packages=c("stats", "LUCid")) %do%{
 
-          InvSigmaMu <- solve(modelfits[[e]][[f]][[g]]$sigma[[1]])%*%modelfits[[e]][[f]][[g]]$mu[1,]
-          for(j in 2:K){
-            InvSigmaMu <- cbind(InvSigmaMu, solve(modelfits[[e]][[f]][[g]]$sigma[[j]])%*%modelfits[[e]][[f]][[g]]$mu[j,])
-          }
+                  Non0g <- summary_lucid(modelfits[[e]][[f]])$No0G
+                  Non0z <- summary_lucid(modelfits[[e]][[f]])$No0Z
 
-          Z_diff <- apply(apply(InvSigmaMu,1,range),2,function(x){x[2]-x[1]})
-          select_Z <- Z_diff != 0
+                  bic <- summary_lucid(modelfits[[e]][[f]])$BIC
+                  #Other types of GIC
+                  gic1 <- summary_lucid(modelfits[[e]][[f]])$GIC1
+                  gic2 <- summary_lucid(modelfits[[e]][[f]])$GIC2
 
-          G_select <- NULL
-          Z_select <- NULL
+                  data.frame(Rho_G=modelfits[[e]][[f]]$rho_g, Rho_Z_InvCov=modelfits[[e]][[f]]$rho_z_InvCov, Rho_Z_CovMu=modelfits[[e]][[f]]$rho_z_CovMu, Non0G=Non0g, Non0Z=Non0z, BIC=bic, GIC1=gic1, GIC2=gic2)
+                }
+    }else{
+      foreach(e=1:Norho_g, .combine = 'rbind') %:%
+        foreach(f=1:Norho_z_invcov, .combine = 'rbind') %:%
+          foreach(g=1:Norho_z_covmu, .combine = 'rbind', .errorhandling = 'remove',
+                  .export=c("modelfits", "K"), .packages=c("stats", "LUCid")) %do%{
 
-          if(!all(select_G==FALSE)){
-            G_select <- G[,select_G]
-          }
-          if(!all(select_Z==FALSE)){
-            Z_select <- Z[,select_Z]
-          }
+                    Non0g <- summary_lucid(modelfits[[e]][[f]][[g]])$No0G
+                    Non0z <- summary_lucid(modelfits[[e]][[f]][[g]])$No0Z
 
-          Non0g <- sum(select_G)
-          Non0z <- sum(select_Z)
+                    bic <- summary_lucid(modelfits[[e]][[f]][[g]])$BIC
+                    #Other types of GIC
+                    gic1 <- summary_lucid(modelfits[[e]][[f]][[g]])$GIC1
+                    gic2 <- summary_lucid(modelfits[[e]][[f]][[g]])$GIC2
 
-          model_LL <- sum(log(rowSums(modelfits[[e]][[f]][[g]]$Likelihood)))
-          Nparm <- ifelse(is.null(G_select),0,(ncol(G_select)+1)*(K-1)) + ifelse(is.null(Z_select),0,ncol(Z_select)*K + ncol(Z_select)*(ncol(Z_select)+1)/2*K) + K*2
-          # Nparm <- ifelse(is.null(G),0,(ncol(G)+1)*(K-1)) + ifelse(is.null(Z),0,ncol(Z)*K + ncol(Z)*(ncol(Z)+1)/2*K) + K*2
-          bic <- -2*model_LL + Nparm*log(length(Y))
-          #Other types of GIC
-          gic1 <- -2*model_LL + Nparm*log(log(length(Y)))*log(length(Y))
-          gic2 <- -2*model_LL + Nparm*log(log(length(Y)))*log(ncol(G)+ncol(Z))
-
-          data.frame(Rho_G=modelfits[[e]][[f]][[g]]$rho_g, Rho_Z_InvCov=modelfits[[e]][[f]][[g]]$rho_z_InvCov, Rho_Z_CovMu=modelfits[[e]][[f]][[g]]$rho_z_CovMu, Non0G=Non0g, Non0Z=Non0z, BIC=bic, GIC1=gic1, GIC2=gic2)
-        }
+                    data.frame(Rho_G=modelfits[[e]][[f]][[g]]$rho_g, Rho_Z_InvCov=modelfits[[e]][[f]][[g]]$rho_z_InvCov, Rho_Z_CovMu=modelfits[[e]][[f]][[g]]$rho_z_CovMu, Non0G=Non0g, Non0Z=Non0z, BIC=bic, GIC1=gic1, GIC2=gic2)
+                  }
+    }
   }
 
   # Initiate cluster
@@ -129,10 +123,9 @@ tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
                                 Lrho_z_invcov = LRho_z_invcov, Urho_z_invcov = URho_z_invcov, Norho_z_invcov = NoRho_z_invcov,
                                 Lrho_z_covmu = LRho_z_covmu, Urho_z_covmu = URho_z_covmu, Norho_z_covmu = NoRho_z_covmu)
 
+  stopCluster(cl)
 
   results <- parallel_results(Norho_g = NoRho_g, Norho_z_invcov = NoRho_z_invcov, Norho_z_covmu = NoRho_z_covmu)
-
-  stopCluster(cl)
 
   #Show the BEST Model with minBIC
   optimal <- results[which.min(results$BIC), ]
