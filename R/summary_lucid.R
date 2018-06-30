@@ -1,4 +1,4 @@
-#' Plot Sankey diagram for integrative clustering
+#' Summarize results for integrative clustering
 #'
 #'\code{summary_lucid} generates a summary for the results of integrative clustering based on an \code{IntClust} object.
 #' @param x An \code{IntClust} class object
@@ -50,16 +50,19 @@ summary_lucid <- function(x, ...) {
 
   model_LL <- sum(log(rowSums(x$Likelihood)))
   Nparm <- (No0G+1)*(K-1) + (No0Z*K + No0Z*(No0Z+1)/2*K) + K*2
+  # Nparm <- ifelse(is.null(G),0,(ncol(G)+1)*(K-1)) + ifelse(is.null(Z),0,ncol(Z)*K + ncol(Z)*(ncol(Z)+1)/2*K) + K*2
   BIC <- -2*model_LL + Nparm*log(nrow(x$pred))
-
+  #Other types of GIC
+  GIC1 <- -2*model_LL + Nparm*log(log(nrow(x$pred)))*log(nrow(x$pred))
+  GIC2 <- -2*model_LL + Nparm*log(log(nrow(x$pred)))*log(ncol(x$beta)-1+ncol(x$mu))
 
   if(family == "normal"){
-    SumResults <- list(Beta, Mu, Gamma, select_G, select_Z, No0G, No0Z, BIC)
-    names(SumResults) <- c("Beta", "Mu", "Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC")
+    SumResults <- list(Beta, Mu, Gamma, select_G, select_Z, No0G, No0Z, BIC, GIC1, GIC2)
+    names(SumResults) <- c("Beta", "Mu", "Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC", "GIC1", "GIC2")
   }
   if(family == "binary"){
-    SumResults <- list(Beta, Mu, OR_Gamma, select_G, select_Z, No0G, No0Z, BIC)
-    names(SumResults) <- c("Beta", "Mu", "OR_Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC")
+    SumResults <- list(Beta, Mu, OR_Gamma, select_G, select_Z, No0G, No0Z, BIC, GIC1, GIC2)
+    names(SumResults) <- c("Beta", "Mu", "OR_Gamma", "select_G", "select_Z", "No0G", "No0Z", "BIC", "GIC1", "GIC2")
   }
   return(SumResults)
 }

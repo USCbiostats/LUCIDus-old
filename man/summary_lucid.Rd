@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_lucid.R
 \name{summary_lucid}
 \alias{summary_lucid}
-\title{Plot Sankey diagram for integrative clustering}
+\title{Summarize results for integrative clustering}
 \usage{
 summary_lucid(x, ...)
 }
