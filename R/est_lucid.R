@@ -79,10 +79,10 @@
 #' plot_lucid(IntClusCoFit3)
 #'
 #' # Run LUCid to select informative features
-#' set.seed(10)
+#' set.seed(0.01*0.05*95)
 #' IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
 #'                         tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
-#'                                            Rho_G=0.01,Rho_Z_InvCov=0.06,Rho_Z_CovMu=90))
+#'                                            Rho_G=0.01,Rho_Z_InvCov=0.05,Rho_Z_CovMu=95))
 #'
 #' # Identify selected features
 #' summary_lucid(IntClusFit)$No0G; summary_lucid(IntClusFit)$No0Z
