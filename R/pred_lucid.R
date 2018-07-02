@@ -5,7 +5,7 @@
 #' @param G Genetic effects, a matrix
 #' @param CoG Covariates to be included in the G->X path
 #' @param Z Biomarker data, a matrix
-#' @param Y Disease outcome, a vector
+#' @param Y Disease outcome, a vector; default is NULL
 #' @param CoY Covariates to be included in the X->Y path
 #' @return \code{pred_lucid} returns a list containing predicted values.
 #' \item{pred_cluster}{predicted probabilities for latent clusters}
@@ -17,9 +17,9 @@
 #' @examples
 #' set.seed(10)
 #' IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
-#' PRED <- pred_lucid(Fit = IntClusFit, G=G1, CoG = NULL, Z=Z1, Y=Y1, CoY = NULL)
+#' PRED <- pred_lucid(Fit = IntClusFit, G=G1, CoG = NULL, Z=Z1, CoY = NULL)
 
-pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL){
+pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y=NULL, CoY=NULL){
 
   if(!is.null(CoG)){
     G <- cbind(G, CoG)
@@ -28,7 +28,11 @@ pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL){
   Beta <- Fit$beta
   Mu <- Fit$mu
   Sigma <- Fit$sigma
-  Gamma <- Fit$gamma
+  if(is.null(Y)){
+    Gamma <- NULL
+  }else{
+    Gamma <- Fit$gamma
+  }
   family <- Fit$family
   K <- Fit$K
 
@@ -133,15 +137,18 @@ pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL){
   #Posterior Probabilities
   r <- likelihood(Beta=Beta,Mu=Mu,Sigma=Sigma,Gamma=Gamma,Family=family)
   pred_cluster <- r/rowSums(r)
+  colnames(pred_cluster) <- paste0("V", 1:K)
 
   #Predicted Outcome
   if(family == "binary"){
-    SetF <- as.data.frame(cbind(Y, pred_cluster[,-1], CoY))
+    SetF <- as.data.frame(cbind(pred_cluster[,-1], CoY))
+    colnames(SetF) <- names(coef(Fit$YFIT))[-1]
     pred_outcome <- predict(Fit$YFIT, newdata = SetF, type = "response")
   }
 
   if(family == "normal"){
-    SetF <- as.data.frame(cbind(Y, pred_cluster, CoY))
+    SetF <- as.data.frame(cbind(pred_cluster, CoY))
+    colnames(SetF) <- names(coef(Fit$YFIT))[-1]
     pred_outcome <- predict(Fit$YFIT, newdata = SetF)
   }
 

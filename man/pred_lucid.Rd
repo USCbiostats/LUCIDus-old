@@ -4,7 +4,8 @@
 \alias{pred_lucid}
 \title{Model Predictions for LUCid}
 \usage{
-pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL)
+pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y = NULL,
+  CoY = NULL)
 }
 \arguments{
 \item{Fit}{An \code{IntClust} class object}
@@ -15,7 +16,7 @@ pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL)
 
 \item{Z}{Biomarker data, a matrix}
 
-\item{Y}{Disease outcome, a vector}
+\item{Y}{Disease outcome, a vector; default is NULL}
 
 \item{CoY}{Covariates to be included in the X->Y path}
 }
@@ -30,7 +31,7 @@ pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL)
 \examples{
 set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
-PRED <- pred_lucid(Fit = IntClusFit, G=G1, CoG = NULL, Z=Z1, Y=Y1, CoY = NULL)
+PRED <- pred_lucid(Fit = IntClusFit, G=G1, CoG = NULL, Z=Z1, CoY = NULL)
 }
 \references{
 Peng, C., Yang, Z., Conti, D.V.
