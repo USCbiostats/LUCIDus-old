@@ -22,7 +22,7 @@ pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y = NULL,
 }
 \value{
 \code{pred_lucid} returns a list containing predicted values.
-\item{pred_cluster}{predicted probabilities for latent clusters}
+\item{pred_cluster}{predicted probabilities for latent clusters with/without the outcome}
 \item{pred_outcome}{predicted values for outcome}
 }
 \description{

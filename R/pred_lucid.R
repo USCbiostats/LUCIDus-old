@@ -8,7 +8,7 @@
 #' @param Y Disease outcome, a vector; default is NULL
 #' @param CoY Covariates to be included in the X->Y path
 #' @return \code{pred_lucid} returns a list containing predicted values.
-#' \item{pred_cluster}{predicted probabilities for latent clusters}
+#' \item{pred_cluster}{predicted probabilities for latent clusters with/without the outcome}
 #' \item{pred_outcome}{predicted values for outcome}
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
