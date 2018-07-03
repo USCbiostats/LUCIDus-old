@@ -147,7 +147,7 @@ pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y=NULL, CoY=NULL){
 
   if(family == "normal"){
     SetF <- as.data.frame(cbind(pred_cluster, CoY))
-    colnames(SetF) <- names(coef(Fit$YFIT))[-1]
+    colnames(SetF) <- names(coef(Fit$YFIT))
     pred_outcome <- predict(Fit$YFIT, newdata = SetF)
   }
 
