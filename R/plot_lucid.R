@@ -9,7 +9,9 @@
 #' @references
 #' Peng, C., Yang, Z., Conti, D.V.
 
-plot_lucid <- function(x, ...) {
+plot_lucid <- function(x, colorScale=default) {
+
+  default <- 'd3.scaleOrdinal() .domain(["0", "1", "2", "3", "4", "5"]) .range(["lightsteelblue", "royalblue", "mediumorchid", "gold", "cyan", "tan"])'
 
   name <- c(x$Gnames, paste0("IntClust", 1:x$K), x$Znames, "Outcome")
   nodegroup <- c(rep(2, length(x$Gnames)), rep(3, x$K), rep(4, length(x$Znames)), 5)
@@ -33,12 +35,10 @@ plot_lucid <- function(x, ...) {
   links <- as.data.frame(Links)
   links$linkgroup <- as.factor(links$linkgroup)
 
-  my_color <- 'd3.scaleOrdinal() .domain(["0", "1", "2", "3", "4", "5"]) .range(["lightsteelblue", "royalblue", "mediumorchid", "gold", "cyan", "tan"])'
-
   SankeyFOCM <- sankeyNetwork(Links = links, Nodes = nodes,
                               Source = "source", Target = "target", Value = "value",
                               NodeID = "name", NodeGroup = "nodegroup",LinkGroup = "linkgroup",
-                              fontSize = 10, nodeWidth = 20, colourScale = my_color)
+                              fontSize = 10, nodeWidth = 20, colourScale = colorScale)
 
   return(SankeyFOCM)
 }
