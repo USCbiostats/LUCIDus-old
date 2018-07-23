@@ -4,12 +4,12 @@
 \alias{plot_lucid}
 \title{Plot Sankey diagram for integrative clustering}
 \usage{
-plot_lucid(x, ...)
+plot_lucid(x, colorScale = default)
 }
 \arguments{
 \item{x}{An \code{IntClust} class object}
 
-\item{...}{Additional graphics parameters}
+\item{colorScale}{D3 color scheme for the Sankey diagram}
 }
 \description{
 \code{plot_lucid} generates a Sankey diagram for the results of integrative clustering based on an \code{IntClust} object.

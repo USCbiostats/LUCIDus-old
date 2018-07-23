@@ -2,7 +2,7 @@
 #'
 #'\code{plot_lucid} generates a Sankey diagram for the results of integrative clustering based on an \code{IntClust} object.
 #' @param x An \code{IntClust} class object
-#' @param ... Additional graphics parameters
+#' @param colorScale D3 color scheme for the Sankey diagram
 #' @export
 #' @import networkD3
 #' @author Cheng Peng, Zhao Yang, David V. Conti
