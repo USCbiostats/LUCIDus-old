@@ -505,11 +505,13 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           if(family == "binary"){
             if(is.null(CoY)){
               Set0 <- as.data.frame(cbind(Y, r[,-1]))
+              colnames(Set0)[2:K] <- paste0("LC", 2:K)
               Yfit <- glm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0,family="binomial")
               new_gamma[2:K] <- exp(coef(Yfit)[2:K])
             }
             else{
               Set0 <- as.data.frame(cbind(Y, r[,-1], CoY))
+              colnames(Set0)[2:K] <- paste0("LC", 2:K)
               Yfit <- glm(as.formula(paste("Y~", paste(colnames(Set0)[-1],collapse="+"))),data=Set0,family="binomial")
               new_gamma[2:K] <- exp(coef(Yfit)[2:K])
             }
@@ -517,12 +519,14 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           if(family == "normal"){
             if(is.null(CoY)){
               Set0 <- as.data.frame(cbind(Y, r))
+              colnames(Set0)[2:(K+1)] <- paste0("LC", 1:K)
               Yfit <- glm(as.formula(paste("Y~-1+", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
               new_gamma[1:K] <- summary(Yfit)$coef[,1]
               new_gamma[(K+1):(2*K)] <- summary(Yfit)$coef[,2]
             }
             else{
               Set0 <- as.data.frame(cbind(Y, r, CoY))
+              colnames(Set0)[2:(K+1)] <- paste0("LC", 1:K)
               Yfit <- glm(as.formula(paste("Y~-1+", paste(colnames(Set0)[-1],collapse="+"))),data=Set0)
               new_gamma[1:K] <- summary(Yfit)$coef[1:K,1]
               new_gamma[(K+1):(2*K)] <- summary(Yfit)$coef[1:K,2]
