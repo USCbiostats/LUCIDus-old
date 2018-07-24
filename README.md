@@ -191,7 +191,7 @@ Built With
 Versioning
 ----------
 
-The current version is 0.7.8.
+The current version is 0.7.9.
 
 For the versions available, see the [Release](https://github.com/USCbiostats/LUCid/releases) on this repository.
 
