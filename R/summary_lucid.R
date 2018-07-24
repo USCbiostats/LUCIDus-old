@@ -26,14 +26,14 @@ summary_lucid <- function(x, ...) {
   Gamma <- x$gamma[1:K]
   Pred <- x$pred
 
-  if(family == "normal"){
-    Beta <- Beta[order(Gamma),]
-    Base_Beta <- Beta[1,]
-    Beta <- t(apply(Beta, 1, function(m) return(m-Base_Beta)))
-    Mu <- Mu[order(Gamma),]
-    Pred <- Pred[,order(Gamma)]
-    Gamma <- Gamma[order(Gamma)]
-  }
+  # if(family == "normal"){
+  #   Beta <- Beta[order(Gamma),]
+  #   Base_Beta <- Beta[1,]
+  #   Beta <- t(apply(Beta, 1, function(m) return(m-Base_Beta)))
+  #   Mu <- Mu[order(Gamma),]
+  #   Pred <- Pred[,order(Gamma)]
+  #   Gamma <- Gamma[order(Gamma)]
+  # }
 
   colnames(Beta) <- c("Int", x$Gnames)
   rownames(Beta) <- paste0("Cluster", 1:K)
