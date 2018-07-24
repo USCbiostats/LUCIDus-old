@@ -644,10 +644,20 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
     return (list(err = err))
   }
   else{
+
     if(useY){
       jointP <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
       if(!Pred){
+
+        if(family == "normal"){
+          beta <- beta[order(gamma[1:K]),]
+          Base_beta <- beta[1,]
+          beta <- t(apply(beta, 1, function(m) return(m-Base_beta)))
+          mu <- mu[order(gamma[1:K]),]
+          gamma <- gamma[c(order(gamma[1:K]), order(gamma[1:K])+K)]
+        }
+
         estClust <-list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, K=K, Gnames=colnames(G), Znames=colnames(Z),
                         Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family, YFIT=Yfit)
         class(estClust) <- c("IntClust")
@@ -659,6 +669,15 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           preR <- t(t(jointP)*pcluster)
         }
         preR <- jointP/rowSums(jointP)
+
+        if(family == "normal"){
+          beta <- beta[order(gamma[1:K]),]
+          Base_beta <- beta[1,]
+          beta <- t(apply(beta, 1, function(m) return(m-Base_beta)))
+          mu <- mu[order(gamma[1:K]),]
+          preR <- preR[,order(gamma[1:K])]
+          gamma <- gamma[c(order(gamma[1:K]), order(gamma[1:K])+K)]
+        }
 
         estClust <- list(beta = beta, mu = mu, sigma = sigma, gamma = gamma, pcluster = pcluster, pred = preR, K=K, Gnames=colnames(G), Znames=colnames(Z),
                          Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family, YFIT=Yfit)
@@ -702,6 +721,14 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
       # gamma are deleted in the following section of estimating SE by SEM
       if(!Pred){
 
+        if(family == "normal"){
+          beta <- beta[order(gamma[1:K]),]
+          Base_beta <- beta[1,]
+          beta <- t(apply(beta, 1, function(m) return(m-Base_beta)))
+          mu <- mu[order(gamma[1:K]),]
+          gamma <- gamma[c(order(gamma[1:K]), order(gamma[1:K])+K)]
+        }
+
         estClust <- list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster, K=K, Gnames=colnames(G), Znames=colnames(Z),
                          Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family, YFIT=fit_y_model)
         class(estClust) <- c("IntClust")
@@ -713,6 +740,15 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           preR <- t(t(jointP)*pcluster)
         }
         preR <- jointP/rowSums(jointP)
+
+        if(family == "normal"){
+          beta <- beta[order(gamma[1:K]),]
+          Base_beta <- beta[1,]
+          beta <- t(apply(beta, 1, function(m) return(m-Base_beta)))
+          mu <- mu[order(gamma[1:K]),]
+          preR <- preR[,order(gamma[1:K])]
+          gamma <- gamma[c(order(gamma[1:K]), order(gamma[1:K])+K)]
+        }
 
         estClust <- list(beta = beta, mu = mu, sigma = sigma, gamma = gamma_for_likelihood, pcluster = pcluster, pred = preR, K=K, Gnames=colnames(G), Znames=colnames(Z),
                          Likelihood = jointP, rho_g = Rho_G, rho_z_InvCov = Rho_Z_InvCov, rho_z_CovMu = Rho_Z_CovMu, family=family, YFIT=fit_y_model)
