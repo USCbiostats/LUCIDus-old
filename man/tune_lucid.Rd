@@ -4,10 +4,10 @@
 \alias{tune_lucid}
 \title{Parallel Grid Search for Tuning Parameters in Latent Cluster Analysis}
 \usage{
-tune_lucid(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
-  USEY = TRUE, initial = def_initial(), LRho_g, URho_g, NoRho_g,
-  LRho_z_invcov, URho_z_invcov, NoRho_z_invcov, LRho_z_covmu, URho_z_covmu,
-  NoRho_z_covmu, NoCores = detectCores() - 1)
+tune_lucid(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K,
+  Family, USEY = TRUE, initial = def_initial(), LRho_g, URho_g,
+  NoRho_g, LRho_z_invcov, URho_z_invcov, NoRho_z_invcov, LRho_z_covmu,
+  URho_z_covmu, NoRho_z_covmu, NoCores = detectCores() - 1)
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}

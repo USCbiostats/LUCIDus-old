@@ -4,9 +4,9 @@
 \alias{est_lucid}
 \title{Estimating latent clusters with multi-omics data}
 \usage{
-est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL, useY = TRUE,
-  family = "binary", K = 2, Pred = FALSE, initial = def_initial(),
-  itr_tol = def_tol(), tunepar = def_tune())
+est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL,
+  useY = TRUE, family = "binary", K = 2, Pred = FALSE,
+  initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune())
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}

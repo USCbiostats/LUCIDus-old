@@ -5,8 +5,8 @@
 \title{SEM for latent cluster estimation}
 \usage{
 sem_lucid(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
-  K = 2, initial = def_initial(), itr_tol = def_tol(), Pred = FALSE,
-  Get_SE = TRUE, Ad_Hoc_SE = FALSE)
+  K = 2, initial = def_initial(), itr_tol = def_tol(),
+  Pred = FALSE, Get_SE = TRUE, Ad_Hoc_SE = FALSE)
 }
 \arguments{
 \item{G}{Genetic effects, a matrix}
