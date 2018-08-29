@@ -43,7 +43,11 @@ summary_lucid <- function(x, ...) {
   colnames(Pred) <- paste0("Cluster", 1:K)
 
   if(family == "binary"){
-    OR_Gamma <- c(1,exp(coef(x$YFIT)[2:K]))
+    if(is.null(x$YFIT)){
+      OR_Gamma <- c(1,exp(Gamma[2:K]-Gamma[1]))
+    }else{
+      OR_Gamma <- c(1,exp(coef(x$YFIT)[2:K]))
+    }
     names(OR_Gamma) <- paste0("Cluster", 1:K)
   }
 

@@ -69,26 +69,40 @@ pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y=NULL, CoY=NULL){
         }
       }
       else{
-        if(Family == "binary"){
-          for(k in 1:K){
-            if(is.null(CoY)){
-              SetK <- as.data.frame(mat.or.vec(N,K-1))
-              colnames(SetK) <- names(coef(Fit$YFIT))[-1]
+        if(is.null(Fit$YFIT)){
+          if(Family == "binary"){
+            for(k in 1:K){
+              pYgA[,k] <- ((exp(Gamma[k])/(1+exp(Gamma[k])))^Y)*(1/(1+exp(Gamma[k])))^(1-Y)
             }
-            else{
-              SetK <- as.data.frame(cbind(mat.or.vec(N,K-1), CoY))
-              colnames(SetK) <- names(coef(Fit$YFIT))[-1]
-            }
-            if(k>1){
-              SetK[,k-1] <- 1
-            }
-            pYgA[,k] <- dbinom(Y, 1, predict(Fit$YFIT, newdata = SetK, type = "response"))
           }
-        }
 
-        if(Family == "normal"){
-          for(k in 1:K){
-            pYgA[,k] <- dnorm(Y,mean = Gamma[k],sd = sigma(Fit$YFIT))
+          if(Family == "normal"){
+            for(k in 1:K){
+              pYgA[,k] <- dnorm(Y,mean = Gamma[k],sd = sqrt(Gamma[k+K]))
+            }
+          }
+        }else{
+          if(Family == "binary"){
+            for(k in 1:K){
+              if(is.null(CoY)){
+                SetK <- as.data.frame(mat.or.vec(N,K-1))
+                colnames(SetK) <- names(coef(Fit$YFIT))[-1]
+              }
+              else{
+                SetK <- as.data.frame(cbind(mat.or.vec(N,K-1), CoY))
+                colnames(SetK) <- names(coef(Fit$YFIT))[-1]
+              }
+              if(k>1){
+                SetK[,k-1] <- 1
+              }
+              pYgA[,k] <- dbinom(Y, 1, predict(Fit$YFIT, newdata = SetK, type = "response"))
+            }
+          }
+
+          if(Family == "normal"){
+            for(k in 1:K){
+              pYgA[,k] <- dnorm(Y,mean = Gamma[k],sd = sigma(Fit$YFIT))
+            }
           }
         }
       }
@@ -128,10 +142,17 @@ pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y=NULL, CoY=NULL){
     }
   }
 
-  PYgX <- function(X=NULL, Gamma=NULL){
-    lincom <- as.matrix(cbind(rep(1,N),X[,-1]))%*%as.matrix(Gamma)
-    # lincom <- as.matrix(X)%*%as.matrix(Gamma)
-    pi <- exp(lincom)/(1+exp(lincom))
+  PYgX <- function(X=NULL, Gamma=NULL, family){
+    if(family == "binary"){
+      lincom <- as.matrix(cbind(rep(1,N),X[,-1]))%*%as.matrix(Gamma)
+      # lincom <- as.matrix(X)%*%as.matrix(Gamma)
+      pi <- exp(lincom)/(1+exp(lincom))
+      return(pi)
+    }
+    if(family == "normal"){
+      lincom <- as.matrix(X)%*%as.matrix(Gamma[1:K])
+      return(lincom)
+    }
   }
 
   #Posterior Probabilities
@@ -139,16 +160,21 @@ pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y=NULL, CoY=NULL){
   pred_cluster <- r/rowSums(r)
 
   #Predicted Outcome
-  if(family == "binary"){
-    SetF <- as.data.frame(cbind(pred_cluster[,-1], CoY))
-    colnames(SetF) <- names(coef(Fit$YFIT))[-1]
-    pred_outcome <- predict(Fit$YFIT, newdata = SetF, type = "response")
-  }
 
-  if(family == "normal"){
-    SetF <- as.data.frame(cbind(pred_cluster, CoY))
-    colnames(SetF) <- names(coef(Fit$YFIT))
-    pred_outcome <- predict(Fit$YFIT, newdata = SetF)
+  if(is.null(Fit$YFIT)){
+    pred_outcome <- PYgX(X=pred_cluster, Gamma=Fit$gamma, family=family)
+  }else{
+    if(family == "binary"){
+      SetF <- as.data.frame(cbind(pred_cluster[,-1], CoY))
+      colnames(SetF) <- names(coef(Fit$YFIT))[-1]
+      pred_outcome <- predict(Fit$YFIT, newdata = SetF, type = "response")
+    }
+
+    if(family == "normal"){
+      SetF <- as.data.frame(cbind(pred_cluster, CoY))
+      colnames(SetF) <- names(coef(Fit$YFIT))
+      pred_outcome <- predict(Fit$YFIT, newdata = SetF)
+    }
   }
 
   Preds <- list(pred_cluster,pred_outcome)
