@@ -4,12 +4,14 @@
 \alias{summary_lucid}
 \title{Summarize results for integrative clustering}
 \usage{
-summary_lucid(x, ...)
+summary_lucid(x, switch = FALSE, order = NULL)
 }
 \arguments{
 \item{x}{An \code{IntClust} class object}
 
-\item{...}{Additional parameters}
+\item{switch}{An indicator to do label switching or not, the default is FALSE}
+
+\item{order}{A customized order for label switching, a vector with a length of K; the default is NULL, which is a descending order in gamma}
 }
 \value{
 \code{summary_lucid} returns a list containing important outputs from an \code{IntClust} object.

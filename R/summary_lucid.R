@@ -2,7 +2,8 @@
 #'
 #'\code{summary_lucid} generates a summary for the results of integrative clustering based on an \code{IntClust} object.
 #' @param x An \code{IntClust} class object
-#' @param ... Additional parameters
+#' @param switch An indicator to do label switching or not, the default is FALSE
+#' @param order A customized order for label switching, a vector with a length of K; the default is NULL, which is a descending order in gamma
 #' @return \code{summary_lucid} returns a list containing important outputs from an \code{IntClust} object.
 #' \item{Beta}{Estimates of genetic effects, matrix}
 #' \item{Mu}{Estimates of cluster-specific biomarker means, matrix}
