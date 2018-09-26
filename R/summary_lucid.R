@@ -17,7 +17,7 @@
 #' @references
 #' Peng, C., Yang, Z., Conti, D.V.
 
-summary_lucid <- function(x, ...) {
+summary_lucid <- function(x, switch=FALSE, order=NULL) {
   K <- x$K
   family <- x$family
 
@@ -26,14 +26,24 @@ summary_lucid <- function(x, ...) {
   Gamma <- x$gamma[1:K]
   Pred <- x$pred
 
-  # if(family == "normal"){
-  #   Beta <- Beta[order(Gamma),]
-  #   Base_Beta <- Beta[1,]
-  #   Beta <- t(apply(Beta, 1, function(m) return(m-Base_Beta)))
-  #   Mu <- Mu[order(Gamma),]
-  #   Pred <- Pred[,order(Gamma)]
-  #   Gamma <- Gamma[order(Gamma)]
-  # }
+  if(switch){
+    if(is.null(order)){
+      Beta <- Beta[order(Gamma),]
+      Base_Beta <- Beta[1,]
+      Beta <- t(apply(Beta, 1, function(m) return(m-Base_Beta)))
+      Mu <- Mu[order(Gamma),]
+      Pred <- Pred[,order(Gamma)]
+      Gamma <- Gamma[order(Gamma)]
+    }
+    else{
+      Beta <- Beta[order,]
+      Base_Beta <- Beta[1,]
+      Beta <- t(apply(Beta, 1, function(m) return(m-Base_Beta)))
+      Mu <- Mu[order,]
+      Pred <- Pred[,order]
+      Gamma <- Gamma[order]
+    }
+  }
 
   colnames(Beta) <- c("Int", x$Gnames)
   rownames(Beta) <- paste0("Cluster", 1:K)
@@ -62,7 +72,8 @@ summary_lucid <- function(x, ...) {
   No0G <- sum(select_G)
   No0Z <- sum(select_Z)
 
-  model_LL <- sum(log(rowSums(x$Likelihood)))
+  lambda <- apply(x$pred, 2, mean)
+  model_LL <- sum(log(rowSums(lambda*x$Likelihood)))
   Nparm <- (No0G+1)*(K-1) + (No0Z*K + No0Z*(No0Z+1)/2*K) + K*2
   # Nparm <- ifelse(is.null(G),0,(ncol(G)+1)*(K-1)) + ifelse(is.null(Z),0,ncol(Z)*K + ncol(Z)*(ncol(Z)+1)/2*K) + K*2
   BIC <- -2*model_LL + Nparm*log(nrow(x$pred))
