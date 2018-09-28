@@ -4,10 +4,12 @@
 \alias{plot_lucid}
 \title{Plot Sankey diagram for integrative clustering}
 \usage{
-plot_lucid(x, colorScale = default)
+plot_lucid(x, switch = FALSE, colorScale = default)
 }
 \arguments{
 \item{x}{An \code{IntClust} class object}
+
+\item{switch}{An indicator to do label switching with a descending order in gamma or not, the default is FALSE}
 
 \item{colorScale}{D3 color scheme for the Sankey diagram}
 }
