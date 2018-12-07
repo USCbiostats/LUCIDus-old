@@ -46,82 +46,18 @@ est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL,
 \code{est_lucid} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided. An \code{IntClust} object will be produced.
 }
 \examples{
-# For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
-
 # Integrative clustering without feature selection
 set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 
-# Check important model outputs
-summary_lucid(IntClusFit)
-
-# Visualize the results
-plot_lucid(IntClusFit)
-
 # Re-run the model with covariates in the G->X path
 IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
-
-# Check important model outputs
-summary_lucid(IntClusCoFit1)
-
-# Visualize the results
-plot_lucid(IntClusCoFit1)
 
 # Re-run the model with covariates in the X->Y path
 IntClusCoFit2 <- est_lucid(G=G1,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
 
-# Check important model outputs
-summary_lucid(IntClusCoFit2)
-
-# Visualize the results
-plot_lucid(IntClusCoFit2)
-
 # Re-run the model with covariates in both G->X and X->Y paths
 IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
-
-# Check important model outputs
-summary_lucid(IntClusCoFit3)
-
-# Visualize the results
-plot_lucid(IntClusCoFit3)
-
-# Run LUCid to select informative features
-set.seed(0.01*0.05*95)
-IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
-                        tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
-                                           Rho_G=0.01,Rho_Z_InvCov=0.05,Rho_Z_CovMu=95))
-
-# Identify selected features
-summary_lucid(IntClusFit)$No0G; summary_lucid(IntClusFit)$No0Z
-colnames(G1)[summary_lucid(IntClusFit)$select_G]; colnames(Z1)[summary_lucid(IntClusFit)$select_Z]
-
-# Select the features
-if(!all(summary_lucid(IntClusFit)$select_G==FALSE)){
-    G_select <- G1[,summary_lucid(IntClusFit)$select_G]
-}
-if(!all(summary_lucid(IntClusFit)$select_Z==FALSE)){
-    Z_select <- Z1[,summary_lucid(IntClusFit)$select_Z]
-}
-
-# Re-fit with selected features
-set.seed(10)
-IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
-
-# Visualize the results
-plot_lucid(IntClusFitFinal)
-
-# Re-run feature selection with covariates in both paths
-IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE,
-                          initial=def_initial(), itr_tol=def_tol(),
-                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
-                          Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
-
-# Re-fit with selected features with covariates
-IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,CoY=CoY,K=2,
-                               family="binary",Pred=TRUE)
-
-# Visualize the results
-plot_lucid(IntClusCoFitFinal)
 }
 \references{
 Peng, C., Yang, Z., Conti, D.V.

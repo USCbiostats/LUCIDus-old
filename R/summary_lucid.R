@@ -17,6 +17,15 @@
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
 #' Peng, C., Yang, Z., Conti, D.V.
+#' @examples
+#' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
+#'
+#' # Integrative clustering without feature selection
+#' set.seed(10)
+#' IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+#'
+#' # Check important model outputs
+#' summary_lucid(IntClusFit)
 
 summary_lucid <- function(x, switch=FALSE, order=NULL) {
   K <- x$K

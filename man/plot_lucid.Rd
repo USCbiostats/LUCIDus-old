@@ -16,6 +16,16 @@ plot_lucid(x, switch = FALSE, colorScale = default)
 \description{
 \code{plot_lucid} generates a Sankey diagram for the results of integrative clustering based on an \code{IntClust} object.
 }
+\examples{
+# Run the model with covariates in the G->X path
+IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+
+# Check important model outputs
+summary_lucid(IntClusCoFit1)
+
+# Visualize the results
+plot_lucid(IntClusCoFit1)
+}
 \references{
 Peng, C., Yang, Z., Conti, D.V.
 }

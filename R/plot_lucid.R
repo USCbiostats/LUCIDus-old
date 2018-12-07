@@ -9,6 +9,15 @@
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
 #' Peng, C., Yang, Z., Conti, D.V.
+#' @examples
+#' # Run the model with covariates in the G->X path
+#' IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+#'
+#' # Check important model outputs
+#' summary_lucid(IntClusCoFit1)
+#'
+#' # Visualize the results
+#' plot_lucid(IntClusCoFit1)
 
 plot_lucid <- function(x, switch = FALSE, colorScale=default) {
 
