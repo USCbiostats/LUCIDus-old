@@ -62,6 +62,8 @@ tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
                          LRho_z_covmu, URho_z_covmu, NoRho_z_covmu,
                          NoCores = detectCores()-1){
 
+  e=f=g=rho_g=rho_z_covmu=rho_z_invcov=NULL
+
   M <- dim(G)[2]
   Q <- dim(Z)[2]
 
