@@ -3,6 +3,10 @@ LUCid: Latent Unknown Clustering with integrated data
 
 [![Build
 Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCid)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LUCid?color=green)](https://cran.r-project.org/package=LUCid)
+![](https://cranlogs.r-pkg.org/badges/grand-total/LUCid?color=blue)
+![](https://cranlogs.r-pkg.org/badges/LUCid?color=yellow)
+![](https://cranlogs.r-pkg.org/badges/last-week/LUCid?color=red)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -198,7 +202,7 @@ For more details, see documentations for each function in the R
 
 ## Versioning
 
-The current version is 0.8.2.
+The current version is 0.9.0.
 
 For the versions available, see the
 [Release](https://github.com/USCbiostats/LUCid/releases) on this
