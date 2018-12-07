@@ -4,7 +4,7 @@ Title: Latent Unknown Clustering with integrated data
 Version: 0.9.0
 Author: Cheng Peng, Zhao Yang, David V. Conti
 Maintainer: Cheng Peng <chengpen@usc.edu>
-Description: The LUCid method is an integrative tool to obtain a joint estimation of latent or unknown clusters/subgroups with mult-omics data and phenotypic traits.
+Description: The LUCid method is an integrative tool to obtain a joint estimation of latent or unknown clusters/subgroups with multi-omics data and phenotypic traits.
 Depends: R (>= 3.1.0)
 Imports:
     mvtnorm,

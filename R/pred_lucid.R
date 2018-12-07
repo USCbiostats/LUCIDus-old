@@ -1,6 +1,6 @@
 #' Model Predictions for LUCid
 #'
-#'\code{pred_lucid} produces predicted values for latent clusers and outcome with an \code{IntClust} object and new data.
+#'\code{pred_lucid} produces predicted values for latent clusters and outcome with an \code{IntClust} object and new data.
 #' @param Fit An \code{IntClust} class object
 #' @param G Genetic effects, a matrix
 #' @param CoG Covariates to be included in the G->X path

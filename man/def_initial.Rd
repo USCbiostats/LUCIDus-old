@@ -14,9 +14,9 @@ def_initial(init_b = NULL, init_m = NULL, init_s = NULL,
 
 \item{init_s}{Initial model parameters of \eqn{\Sigma}, biomarker covariance matrix: a list of \code{K} \code{ncol(Z)*ncol(Z)} matrices.}
 
-\item{init_g}{Initial model parameters of \eqn{\gamma}, outcome effects parameter: a vector with a length of \code{K} for binary Y or \code{2K} for continuous Y. For binary Y, they are log odds in K cluters; for continuous Y, they are K cluster-specific means followed by standard deviations in K clusters.}
+\item{init_g}{Initial model parameters of \eqn{\gamma}, outcome effects parameter: a vector with a length of \code{K} for binary Y or \code{2K} for continuous Y. For binary Y, they are log odds in K clusters; for continuous Y, they are K cluster-specific means followed by standard deviations in K clusters.}
 
-\item{init_pcluster}{Initial probabilites of latent clusters.}
+\item{init_pcluster}{Initial probabilities of latent clusters.}
 }
 \value{
 A list of initial model parameters will be returned for integrative clustering.

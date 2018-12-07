@@ -26,7 +26,7 @@ pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y = NULL,
 \item{pred_outcome}{predicted values for outcome}
 }
 \description{
-\code{pred_lucid} produces predicted values for latent clusers and outcome with an \code{IntClust} object and new data.
+\code{pred_lucid} produces predicted values for latent clusters and outcome with an \code{IntClust} object and new data.
 }
 \examples{
 set.seed(10)

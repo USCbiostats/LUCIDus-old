@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 ```
 ## Introduction
 
-The LUCid R package is an integrative tool to obtain a joint estimation of latent or unknown clusters/subgroups with mult-omics data and phenotypic traits. This package is an implementation for the novel statistical method proposed in the research paper "Latent Unknown Clustering Integrating Multi-Omics Data with Phenotypic Traits (LUCid)^[Under development, citation coming soon]." 
+The LUCid R package is an integrative tool to obtain a joint estimation of latent or unknown clusters/subgroups with multi-omics data and phenotypic traits. This package is an implementation for the novel statistical method proposed in the research paper "Latent Unknown Clustering Integrating Multi-Omics Data with Phenotypic Traits (LUCid)^[Under development, citation coming soon]." 
 
 ## Installation
 

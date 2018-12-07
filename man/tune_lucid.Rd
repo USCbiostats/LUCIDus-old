@@ -52,7 +52,7 @@ tune_lucid(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K,
 \code{tune_lucid} returns an object of list containing Modelfits, Results, and Optimal:
 \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
 \item{Results}{Summary results of grid-search}
-\item{Optimal}{Features of the optimal model with minimun BIC in the grid-search summary}
+\item{Optimal}{Features of the optimal model with minimum BIC in the grid-search summary}
 }
 \description{
 \code{tune_lucid} fits regularized latent cluster models with various combinations of three tuning parameters based on joint inference across data types to perform a grid-search helping determine an optimal choice of three tuning parameters with minimum model BIC.

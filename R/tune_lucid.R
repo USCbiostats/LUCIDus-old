@@ -24,7 +24,7 @@
 #' @return \code{tune_lucid} returns an object of list containing Modelfits, Results, and Optimal:
 #' \item{Modelfits}{Latent cluster model fits for a combination of given tuning parameters}
 #' \item{Results}{Summary results of grid-search}
-#' \item{Optimal}{Features of the optimal model with minimun BIC in the grid-search summary}
+#' \item{Optimal}{Features of the optimal model with minimum BIC in the grid-search summary}
 #' @importFrom mvtnorm dmvnorm
 #' @importFrom nnet multinom
 #' @importFrom glmnet glmnet
