@@ -1,27 +1,28 @@
-LUCid: Latent or Unobserved Clustering with integrated data
+LUCid: Latent Unknown Clustering with integrated data
 ================
 
-[![Build Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCid)
+[![Build
+Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCid)
 
-Introduction
-------------
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-An R package allows users to achieve a joint estimation of latent or unobserved clusters using multi-omics data with/without the outcome of interest.
+## Introduction
 
-Getting Started
----------------
+The LUCid R package is an integrative tool to obtain a joint estimation
+of latent or unknown clusters/subgroups with mult-omics data and
+phenotypic traits. This package is an implementation for the novel
+statistical method based on the research paper “Latent Unknown
+Clustering Integrating Multi-Omics Data with Phenotypic Traits
+(LUCid)\[1\].”
 
-This supplementary package is based on the research paper "Integrative Latent Cluster Assignment Using Multi-Omics Data with Phenotypic Traits" (Under development, will replace this field with a citation when we have one).
+## Installation
 
-### Prerequisites
+You will be able to install the released version of LUCid from
+[CRAN](https://CRAN.R-project.org) soon with:
 
-R (&gt;= 3.1.0).
-
-    Package Dependencies: "mvtnorm", "nnet", "glmnet", "glasso", "lbfgs", "networkD3".
-
-### Installing
-
-We have a plan to submit the package to CRAN/Bioconductor when the development cycle is done.
+``` r
+install.packages("LUCid")
+```
 
 For now, it can be installed from GitHub using the following codes:
 
@@ -30,7 +31,9 @@ install.packages("devtools")
 devtools::install_github("USCbiostats/LUCid")
 ```
 
-Otherwise, one can download the package from GitHub, and run the following codes from the parent working directory that contains the LUCid folder:
+Otherwise, one can download the package from GitHub, and run the
+following codes from the parent working directory that contains the
+LUCid folder:
 
 ``` r
 install.packages("devtools")
@@ -38,22 +41,26 @@ setwd("..")
 devtools::install("LUCid")
 ```
 
-Fitting the latent cluster models
----------------------------------
+## Fitting the latent cluster models
 
 ``` r
 library(LUCid)
 ```
 
-Three functions, including *est\_lucid*, *sem\_lucid*, & *tune\_lucid*, are currently available for model fitting and selection. The model outputs can be summarized and visualized using *summary\_lucid* and *plot\_lucid* respectively. Predictions could be made with *pred\_lucid*.
+Three functions, including `est_lucid()`, `sem_lucid()`, and
+`tune_lucid()`, are currently available for model fitting and selection.
+The model outputs can be summarized and visualized using
+`summary_lucid()` and `plot_lucid()` respectively. Predictions could be
+made with `pred_lucid()`.
 
-### *est\_lucid*
+### `est_lucid()`
 
 Estimating latent clusters with multi-omics data
 
 #### Example
 
-For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
+For a testing dataset with 10 genetic features (5 causal) and 4
+biomarkers (2 causal)
 
 ##### Integrative clustering without feature selection
 
@@ -62,21 +69,21 @@ set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
-#### Checking important model outputs
+#### Checking important model outputs with `summary_lucid()`
 
 ``` r
 summary_lucid(IntClusFit)
 ```
 
-#### Visualize the results with Sankey diagram using *plot\_lucid*
+#### Visualize the results with Sankey diagram using `plot_lucid()`
 
 ``` r
 plot_lucid(IntClusFit)
 ```
 
-![](README_files/figure-markdown_github/Sankey2.png)
+![](man/figures/Sankey2.png)
 
-#### Re-run the model with covariates in the G-&gt;X path
+#### Re-run the model with covariates in the G-\>X path
 
 ``` r
 IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
@@ -94,7 +101,7 @@ summary_lucid(IntClusCoFit)
 plot_lucid(IntClusCoFit)
 ```
 
-### *sem\_lucid*
+### `sem_lucid()`
 
 Supplemented EM-algorithm for latent cluster estimation
 
@@ -106,7 +113,7 @@ sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
             def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
 ```
 
-### *tune\_lucid*
+### `tune_lucid()`
 
 #### Example
 
@@ -130,11 +137,9 @@ set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
                         tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
                                            Rho_G=0.01,Rho_Z_InvCov=0.06,Rho_Z_CovMu=90))
-
 # Identify selected features
 summary_lucid(IntClusFit)$No0G; summary_lucid(IntClusFit)$No0Z
 colnames(G1)[summary_lucid(IntClusFit)$select_G]; colnames(Z1)[summary_lucid(IntClusFit)$select_Z]
-
 # Select the features
 if(!all(summary_lucid(IntClusFit)$select_G==FALSE)){
     G_select <- G1[,summary_lucid(IntClusFit)$select_G]
@@ -151,15 +156,15 @@ set.seed(10)
 IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
-#### Visualize the results with Sankey diagram using *plot\_lucid*
+#### Visualize the results with a Sankey diagram
 
 ``` r
 plot_lucid(IntClusFitFinal)
 ```
 
-![](README_files/figure-markdown_github/Sankey1.png)
+![](man/figures/Sankey1.png)
 
-#### Re-run feature selection with covariates in the G-&gt;X path
+#### Re-run feature selection with covariates in the G-\>X path
 
 ``` r
 IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
@@ -180,34 +185,39 @@ IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=2,family="bi
 plot_lucid(IntClusCoFitFinal)
 ```
 
-For more details, see documentations for each function in the R package.
+For more details, see documentations for each function in the R
+    package.
 
-Built With
-----------
+## Built With
 
--   [devtools](https://cran.r-project.org/web/packages/devtools/index.html) - Tools to Make Developing R Packages Easier
--   [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html) - In-Line Documentation for R
+  - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
+    - Tools to Make Developing R Packages
+    Easier
+  - [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html)
+    - In-Line Documentation for R
 
-Versioning
-----------
+## Versioning
 
 The current version is 0.8.2.
 
-For the versions available, see the [Release](https://github.com/USCbiostats/LUCid/releases) on this repository.
+For the versions available, see the
+[Release](https://github.com/USCbiostats/LUCid/releases) on this
+repository.
 
-Authors
--------
+## Authors
 
--   **Cheng Peng**
+  - **Cheng Peng**
 
-License
--------
+## License
 
 This project is licensed under the GPL-2 License.
 
-Acknowledgments
----------------
+## Acknowledgments
 
--   Dr. David V. Conti
--   Dr. Zhao Yang
--   USC IMAGE P01 Group.
+  - Dr. David V. Conti
+  - Dr. Zhao Yang
+  - USC IMAGE P1 Group
+
+<!-- end list -->
+
+1.  Under development, citation coming soon

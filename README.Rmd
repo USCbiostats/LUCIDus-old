@@ -1,29 +1,30 @@
 ---
-title: "LUCid: Latent or Unobserved Clustering with integrated data"
+title: "LUCid: Latent Unknown Clustering with integrated data"
 output: github_document
 ---
-
 [![Build Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCid)
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 ## Introduction
 
-An R package allows users to achieve a joint estimation of latent or unobserved clusters using multi-omics data with/without the outcome of interest.
+The LUCid R package is an integrative tool to obtain a joint estimation of latent or unknown clusters/subgroups with mult-omics data and phenotypic traits. This package is an implementation for the novel statistical method based on the research paper "Latent Unknown Clustering Integrating Multi-Omics Data with Phenotypic Traits (LUCid)^[Under development, citation coming soon]." 
 
-## Getting Started
+## Installation
 
-This supplementary package is based on the research paper "Integrative Latent Cluster Assignment Using Multi-Omics Data with Phenotypic Traits" (Under development, will replace this field with a citation when we have one). 
+You will be able to install the released version of LUCid from [CRAN](https://CRAN.R-project.org) soon with:
 
-### Prerequisites
-
-R (>= 3.1.0).
-
+``` r
+install.packages("LUCid")
 ```
-Package Dependencies: "mvtnorm", "nnet", "glmnet", "glasso", "lbfgs", "networkD3".
-```
-
-### Installing
-
-We have a plan to submit the package to CRAN/Bioconductor when the development cycle is done.
 
 For now, it can be installed from GitHub using the following codes:
 
@@ -47,9 +48,9 @@ devtools::install("LUCid")
 library(LUCid)
 ```
 
-Three functions, including *est_lucid*, *sem_lucid*, & *tune_lucid*, are currently available for model fitting and selection. The model outputs can be summarized and visualized using *summary_lucid* and *plot_lucid* respectively. Predictions could be made with *pred_lucid*.
+Three functions, including `est_lucid()`, `sem_lucid()`, and `tune_lucid()`, are currently available for model fitting and selection. The model outputs can be summarized and visualized using `summary_lucid()` and `plot_lucid()` respectively. Predictions could be made with `pred_lucid()`.
 
-### *est_lucid*
+### `est_lucid()`
 
 Estimating latent clusters with multi-omics data
 
@@ -64,20 +65,20 @@ set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
-#### Checking important model outputs
+#### Checking important model outputs with `summary_lucid()`
 
 ```{r eval=FALSE}
 summary_lucid(IntClusFit)
 ```
 
 
-#### Visualize the results with Sankey diagram using *plot_lucid*
+#### Visualize the results with Sankey diagram using `plot_lucid()`
 
 ```{r eval=FALSE}
 plot_lucid(IntClusFit)
 ```
 
-![](README_files/figure-markdown_github/Sankey2.png)
+![](man/figures/Sankey2.png)
 
 #### Re-run the model with covariates in the G->X path
 
@@ -98,7 +99,7 @@ plot_lucid(IntClusCoFit)
 ```
 
 
-### *sem_lucid*
+### `sem_lucid()`
 
 Supplemented EM-algorithm for latent cluster estimation
 
@@ -110,7 +111,7 @@ sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
             def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
 ```
 
-### *tune_lucid*
+### `tune_lucid()`
 
 #### Example
 
@@ -133,11 +134,9 @@ set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
                         tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
                                            Rho_G=0.01,Rho_Z_InvCov=0.06,Rho_Z_CovMu=90))
-
 # Identify selected features
 summary_lucid(IntClusFit)$No0G; summary_lucid(IntClusFit)$No0Z
 colnames(G1)[summary_lucid(IntClusFit)$select_G]; colnames(Z1)[summary_lucid(IntClusFit)$select_Z]
-
 # Select the features
 if(!all(summary_lucid(IntClusFit)$select_G==FALSE)){
     G_select <- G1[,summary_lucid(IntClusFit)$select_G]
@@ -153,13 +152,13 @@ set.seed(10)
 IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
 ```
 
-#### Visualize the results with Sankey diagram using *plot_lucid*
+#### Visualize the results with a Sankey diagram
 
 ```{r eval=FALSE}
 plot_lucid(IntClusFitFinal)
 ```
 
-![](README_files/figure-markdown_github/Sankey1.png)
+![](man/figures/Sankey1.png)
 
 #### Re-run feature selection with covariates in the G->X path
 ```{r eval=FALSE}
@@ -204,4 +203,4 @@ This project is licensed under the GPL-2 License.
 
 * Dr. David V. Conti
 * Dr. Zhao Yang
-* USC IMAGE P01 Group.
+* USC IMAGE P1 Group
