@@ -1,0 +1,171 @@
+---
+title: "LUCid: Latent Unknown Clustering with integrated data"
+author: "Cheng Peng"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{LUCid}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(LUCid)
+```
+
+## About LUCid
+
+The **LUCid** package is aiming to provide researchers in the genetic epidemiology community with an integrative tool in R to obtain a joint estimation of latent or unknown clusters/subgroups with mult-omics data and phenotypic traits. LUCid improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.
+
+This package is an implementation for the novel statistical method based on the research paper "Latent Unknown Clustering Integrating Multi-Omics Data with Phenotypic Traits (LUCid)^[Under development, citation coming soon]." 
+
+## LUCid Functions and Model Fitting
+
+Three main functions, including `est_lucid`, `sem_lucid`, and `tune_lucid`, are currently available for model fitting and feature selection. The model outputs can be summarized and visualized using `summary_lucid` and `plot_lucid` respectively. Predictions could be made with `pred_lucid`.
+
+Here are the descriptions of LUCid functions:
+
+| Function | Description |
+|:-----:|:---------------------|
+| `est_lucid()` | Estimates latent clusters using multi-omics data with/without the outcome of interest, and producing an IntClust object |
+| `sem_lucid()` | Latent cluster estimation with supplemented E-M algorithm for statistical inference |
+| `tune_lucid()` | Grid search for tuning parameters using parallel computing to determine an optimal choice of three tuning parameters with minimum model BIC |
+| `summary_lucid()` | Summarizes the results of integrative clustering based on an `IntClust` object |
+| `plot_lucid()` | Produces a Sankey diagram for the results of integrative clustering based on an `IntClust` object |
+| `pred_lucid()` | Predicts latent clusters and outcomes with an `IntClust` object and new data |
+| `def_initial()` | Defines initial values of model parameters in `est_lucid()`, `sem_lucid()` , and `tune_lucid()` fitting |
+| `def_tune()` | Defines selection options and tuning parameters in `est_lucid()`, `sem_lucid()` , and `tune_lucid()` fitting |
+| `def_tol()` | Defines tolerance settings in `est_lucid()`, `sem_lucid()` , and `tune_lucid()` fitting |
+
+### Examples
+
+For a simulated data with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
+
+- Integrative clustering without feature selection applying `est_lucid()`^[Parameter initials and stopping criteria can be specified using `def_initial()` and `def_tol()`]
+```{r}
+set.seed(10)
+IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+```
+
+- Check important model outputs with `summary_lucid()`
+```{r}
+summary_lucid(IntClusFit)
+```
+
+- Visualize the results with a Sankey diagram via `plot_lucid()`
+```{r fig.height=4, fig.width=7.25}
+plot_lucid(IntClusFit)
+```
+
+- Run LUCid to select informative features
+- Parallel grid-search with 100 combinations of tuning parameters using `tune_lucid()`
+```{r}
+GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE, NoCores = 2,
+                         LRho_g = 0.008, URho_g = 0.012, NoRho_g = 3,
+                         LRho_z_invcov = 0.04, URho_z_invcov = 0.06, NoRho_z_invcov = 3,
+                         LRho_z_covmu = 90, URho_z_covmu = 100, NoRho_z_covmu = 3)
+```
+
+- Check the grid-search results
+```{r}
+GridSearch$Results
+```
+
+- Determine the best tuning parameters
+```{r}
+GridSearch$Optimal
+```
+
+- Run LUCid to select informative features^[Note tuning parameters in `est_lucid()` are defined by `def_tune()`]
+```{r}
+set.seed(0.01*0.05*95)
+IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
+                        tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
+                                           Rho_G=0.01,Rho_Z_InvCov=0.05,Rho_Z_CovMu=95))
+```
+
+- Identify selected features
+```{r}
+summary_lucid(IntClusFit)$No0G; summary_lucid(IntClusFit)$No0Z
+colnames(G1)[summary_lucid(IntClusFit)$select_G]; colnames(Z1)[summary_lucid(IntClusFit)$select_Z]
+```
+
+- Select the informative features
+```{r}
+if(!all(summary_lucid(IntClusFit)$select_G==FALSE)){
+    G_select <- G1[,summary_lucid(IntClusFit)$select_G]
+}
+if(!all(summary_lucid(IntClusFit)$select_Z==FALSE)){
+    Z_select <- Z1[,summary_lucid(IntClusFit)$select_Z]
+}
+```
+
+- Re-fit with selected features
+```{r}
+set.seed(10)
+IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred=TRUE)
+```
+
+- Visualize the results
+```{r fig.height=4, fig.width=7.25}
+plot_lucid(IntClusFitFinal)
+```
+
+- Covariates can be easily adjusted in LUCid
+```{r}
+# Re-run the model with covariates in the G->X path
+set.seed(10)
+IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
+```
+
+- Check clustering summary and visualize the results
+```{r fig.height=4, fig.width=7.25}
+# Check important model outputs
+summary_lucid(IntClusCoFit)
+
+# Visualize the results
+plot_lucid(IntClusCoFit)
+```
+
+- Feature selection can be done with covariates which are forced to stay in the model
+```{r fig.height=4, fig.width=7.25}
+# Re-run feature selection with covariates in both paths
+set.seed(10)
+IntClusCoFit <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE,
+                          initial=def_initial(), itr_tol=def_tol(),
+                          tunepar = def_tune(Select_G=TRUE,Select_Z=TRUE,
+                          Rho_G=0.02,Rho_Z_InvCov=0.1,Rho_Z_CovMu=93))
+
+# Re-fit with selected features with covariates
+set.seed(10)
+IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,CoY=CoY,K=2,
+                               family="binary",Pred=TRUE)
+
+# Visualize the results
+plot_lucid(IntClusCoFitFinal)
+```
+
+
+- Supplemented EM-algorithm for variance estimation
+```{r eval = FALSE}
+set.seed(10)
+sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
+            itr_tol = def_tol(tol_b = 1e-02, tol_m = 1e-02, tol_s = 1e-02, tol_g = 1e-02))
+```
+
+
+## Final Remarks
+- We recommend applying LUCid as a framework instead of separate functions;
+- Extension to handle missingness in metabolomics data (Z) is on the way;
+- An alternative option to obtain SE of parameter estimates is under testing.
+
+## Acknowledgements
+- Dr. David V. Conti
+- Dr. Zhao Yang
+- USC IMAGE Group^[Supported by the National Cancer Institute at the National Institutes of Health Grant P01 CA196569]
+
