@@ -15,7 +15,7 @@ Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://trav
 The LUCid R package is an integrative tool to obtain a joint estimation
 of latent or unknown clusters/subgroups with mult-omics data and
 phenotypic traits. This package is an implementation for the novel
-statistical method based on the research paper “Latent Unknown
+statistical method proposed in the research paper “Latent Unknown
 Clustering Integrating Multi-Omics Data with Phenotypic Traits
 (LUCid)\[1\].”
 

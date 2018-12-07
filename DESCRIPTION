@@ -1,6 +1,6 @@
 Package: LUCid
 Type: Package
-Title: Latent cluster analysis of integrated data
+Title: Latent Unknown Clustering with integrated data
 Version: 0.9.0
 Author: Cheng Peng, Zhao Yang, David V. Conti
 Maintainer: Cheng Peng <chengpen@ucs.edu>

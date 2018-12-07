@@ -22,7 +22,7 @@ library(LUCid)
 
 The **LUCid** package is aiming to provide researchers in the genetic epidemiology community with an integrative tool in R to obtain a joint estimation of latent or unknown clusters/subgroups with mult-omics data and phenotypic traits. LUCid improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.
 
-This package is an implementation for the novel statistical method based on the research paper "Latent Unknown Clustering Integrating Multi-Omics Data with Phenotypic Traits (LUCid)^[Under development, citation coming soon]." 
+This package is an implementation for the novel statistical method proposed in the research paper "Latent Unknown Clustering Integrating Multi-Omics Data with Phenotypic Traits (LUCid)^[Under development, citation coming soon]." 
 
 ## LUCid Functions and Model Fitting
 
