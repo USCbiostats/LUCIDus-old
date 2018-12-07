@@ -10,6 +10,9 @@
 #' @return \code{pred_lucid} returns a list containing predicted values.
 #' \item{pred_cluster}{predicted probabilities for latent clusters with/without the outcome}
 #' \item{pred_outcome}{predicted values for outcome}
+#' @importFrom stats dbinom
+#' @importFrom stats predict
+#' @importFrom stats sigma
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references

@@ -34,6 +34,9 @@
 #' @importFrom stats sd
 #' @importFrom stats dnorm
 #' @importFrom stats gaussian
+#' @importFrom stats dbinom
+#' @importFrom stats predict
+#' @importFrom stats as.formula
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
@@ -377,7 +380,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
                 try_optim_mu <- try(lbfgs(call_eval=fn,call_grad = gr, vars = rep(0,Q), invisible=1, orthantwise_c = Rho_Z_CovMu))
 
                 if("try-error" %in% class(try_optim_mu)){
-                  breakdown <- true
+                  breakdown <- TRUE
                 }
                 else{
                   new_mu[k,] <- new_sigma[[k]]%*%(try_optim_mu$par)
