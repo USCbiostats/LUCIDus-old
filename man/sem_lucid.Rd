@@ -50,8 +50,10 @@ sem_lucid(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
 \code{sem_lucid} provides standard errors (SE) of parameter estimates when performing latent cluster analysis with multi-omics data. SEs are obtained through supplemented EM-algorithm (SEM).
 }
 \examples{
+\dontrun{
 sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
-            def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
+            itr_tol = def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
+}
 }
 \references{
 Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm.

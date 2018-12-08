@@ -46,6 +46,7 @@
 #' set.seed(10)
 #' IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 #'
+#' \dontrun{
 #' # Re-run the model with covariates in the G->X path
 #' IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 #'
@@ -54,6 +55,7 @@
 #'
 #' # Re-run the model with covariates in both G->X and X->Y paths
 #' IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
+#' }
 
 
 est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family="binary", K = 2, Pred = FALSE,
