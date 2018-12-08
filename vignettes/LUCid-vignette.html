@@ -12,7 +12,7 @@
 
 <meta name="author" content="Cheng Peng" />
 
-<meta name="date" content="2018-12-07" />
+<meta name="date" content="2018-12-08" />
 
 <title>LUCid: Latent Unknown Clustering with integrated data</title>
 
@@ -1784,14 +1784,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">LUCid: Latent Unknown Clustering with integrated data</h1>
 <h4 class="author"><em>Cheng Peng</em></h4>
-<h4 class="date"><em>2018-12-07</em></h4>
+<h4 class="date"><em>2018-12-08</em></h4>
 
 
 
 <div id="about-lucid" class="section level2">
 <h2>About LUCid</h2>
 <p>The <strong>LUCid</strong> package is aiming to provide researchers in the genetic epidemiology community with an integrative tool in R to obtain a joint estimation of latent or unknown clusters/subgroups with multi-omics data and phenotypic traits. LUCid improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.</p>
-<p>This package is an implementation for the novel statistical method proposed in the research paper “Latent Unknown Clustering Integrating Multi-Omics Data with Phenotypic Traits (LUCid)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.”</p>
+<p>This package is an implementation for the novel statistical method proposed in the research paper “Latent Unknown Clustering Integrating Multi-omics Data with Phenotypic Traits (LUCid)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.”</p>
 </div>
 <div id="lucid-functions-and-model-fitting" class="section level2">
 <h2>LUCid Functions and Model Fitting</h2>
@@ -1919,7 +1919,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <script type="application/json" data-for="htmlwidget-c55b89172be66cbfd2f4">{"x":{"links":{"source":[0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,10,10,10,10,11,11,11,11,10,11],"target":[10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,12,13,14,15,12,13,14,15,16,16],"value":[0,0,0,0,0,0,0,0,0,0,0.874437876890391,0.72626600775773,0.792736798022752,0.600916124469043,0.762503825795089,0.0583360460254528,0.0847513241983454,0.0125426479289606,0.111449071122862,0.0921568757284351,4.99121095421903,4.968509115101,0.0188708593688104,0.0480196611988971,5.02277937050838,5.0740465046789,0.0317653212979511,0.0265957057944798,1,2.29418582190458],"group":["1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","0","0","1","0","0","0","0","0","1","1","1","0","1","6","7"]},"nodes":{"name":["CG1","CG2","CG3","CG4","CG5","NG1","NG2","NG3","NG4","NG5","IntClust1","IntClust2","CZ1","CZ2","NZ1","NZ2","Outcome"],"group":["2","2","2","2","2","2","2","2","2","2","3","3","4","4","4","4","5"]},"options":{"NodeID":"name","NodeGroup":"nodegroup","LinkGroup":"linkgroup","colourScale":"d3.scaleOrdinal() .domain([\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\"]) .range([\"lightsteelblue\", \"royalblue\", \"mediumorchid\", \"gold\", \"cyan\", \"tan\", \"darkgray\", \"red\", \"green\"])","fontSize":10,"fontFamily":null,"nodeWidth":20,"nodePadding":10,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>Run LUCid to select informative features</li>
-<li>Parallel grid-search with 100 combinations of tuning parameters using <code>tune_lucid()</code></li>
+<li>Parallel grid-search with 27 combinations of tuning parameters using <code>tune_lucid()</code></li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">GridSearch &lt;-<span class="st"> </span><span class="kw">tune_lucid</span>(<span class="dt">G=</span>G1, <span class="dt">Z=</span>Z1, <span class="dt">Y=</span>Y1, <span class="dt">K=</span><span class="dv">2</span>, <span class="dt">Family=</span><span class="st">&quot;binary&quot;</span>, <span class="dt">USEY =</span> <span class="ot">TRUE</span>, <span class="dt">NoCores =</span> <span class="dv">2</span>,</a>
 <a class="sourceLine" id="cb4-2" title="2">                         <span class="dt">LRho_g =</span> <span class="fl">0.008</span>, <span class="dt">URho_g =</span> <span class="fl">0.012</span>, <span class="dt">NoRho_g =</span> <span class="dv">3</span>,</a>
