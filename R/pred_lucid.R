@@ -20,7 +20,8 @@
 #' @examples
 #' set.seed(10)
 #' IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
-#' PRED <- pred_lucid(Fit = IntClusFit, G=G1, CoG = NULL, Z=Z1, CoY = NULL)
+#' GPred <- G2[1:50,]; ZPred <- Z2[1:50,]
+#' PRED <- pred_lucid(Fit = IntClusFit, G=GPred, CoG = NULL, Z=ZPred, CoY = NULL)
 
 pred_lucid <- function(Fit=NULL, G=NULL, CoG=NULL, Z=NULL, Y=NULL, CoY=NULL){
 
