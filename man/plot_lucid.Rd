@@ -20,10 +20,7 @@ plot_lucid(x, switch = FALSE, colorScale = default)
 # Run the model with covariates in the G->X path
 IntClusCoFit1 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
 
-# Check important model outputs
-summary_lucid(IntClusCoFit1)
-
-# Visualize the results
+# Visualize the results of integrative clustering
 plot_lucid(IntClusCoFit1)
 }
 \references{
