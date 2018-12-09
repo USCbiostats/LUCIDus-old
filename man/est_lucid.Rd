@@ -62,7 +62,7 @@ IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pr
 }
 }
 \references{
-Peng, C., Yang, Z., Conti, D.V.
+Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

@@ -16,7 +16,7 @@
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
-#' Peng, C., Yang, Z., Conti, D.V.
+#' Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
 #' @examples
 #' # For a testing dataset with 10 genetic features (5 causal) and 4 biomarkers (2 causal)
 #'

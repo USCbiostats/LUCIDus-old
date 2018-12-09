@@ -31,11 +31,11 @@ pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y = NULL,
 \examples{
 set.seed(10)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE)
-GPred <- G2[1:50,]; ZPred <- Z2[1:50,]
+GPred <- G2[1:20,]; ZPred <- Z2[1:20,]
 PRED <- pred_lucid(Fit = IntClusFit, G=GPred, CoG = NULL, Z=ZPred, CoY = NULL)
 }
 \references{
-Peng, C., Yang, Z., Conti, D.V.
+Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

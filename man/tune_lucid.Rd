@@ -71,7 +71,7 @@ GridSearch$Optimal
 }
 }
 \references{
-Peng, C., Yang, Z., Conti, D.V.
+Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

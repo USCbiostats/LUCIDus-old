@@ -35,8 +35,9 @@
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
-#' Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm.
-#' Journal of the American Statistical Association, 86(416), 899-909. http://doi.org/10.2307/2290503
+#' Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm. Journal of the American Statistical Association, 86(416), 899-909. http://doi.org/10.2307/2290503
+#'
+#' Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
 #' @examples
 #' \dontrun{
 #' sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
