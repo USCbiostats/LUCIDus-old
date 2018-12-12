@@ -1,4 +1,4 @@
 library(testthat)
-library(LUCid)
+library(LUCIDus)
 
-test_check("LUCid")
+test_check("LUCIDus")

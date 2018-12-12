@@ -1,4 +1,4 @@
-context("LUCid Testing")
+context("LUCIDus Testing")
 
 test_that("Test for est_lucid", {
   set.seed(10)
