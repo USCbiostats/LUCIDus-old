@@ -75,7 +75,7 @@ tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
         foreach(rho_z_covmu = seq(Lrho_z_covmu, Urho_z_covmu, length.out=Norho_z_covmu),
                 .combine = list, .multicombine = TRUE, .maxcombine = 2000, .errorhandling = 'pass',
                 .export=c("G", "CoG", "Z", "CoY", "Y", "K", "Family", "USEY", "initial"),
-                .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix", "LUCid"))  %dopar%{
+                .packages = c("glmnet", "glasso", "mvtnorm", "nnet", "lbfgs", "stats", "Matrix", "LUCIDus"))  %dopar%{
                   set.seed(rho_g*rho_z_invcov*rho_z_covmu)
                   est_lucid(G=G,CoG=CoG,Z=Z,CoY=CoY,Y=Y,K=K,useY=USEY,family=Family,Pred=TRUE,
                               initial = initial, tunepar = def_tune(Select_G=T,Select_Z=T,Rho_G=rho_g,Rho_Z_InvCov=rho_z_invcov,Rho_Z_CovMu=rho_z_covmu),
@@ -87,7 +87,7 @@ tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
     if(Norho_z_covmu==1){
       foreach(e=1:Norho_g, .combine = 'rbind') %:%
         foreach(f=1:Norho_z_invcov, .combine = 'rbind', .errorhandling = 'remove',
-                .export=c("modelfits", "K"), .packages=c("stats", "LUCid")) %do%{
+                .export=c("modelfits", "K"), .packages=c("stats", "LUCIDus")) %do%{
 
                   Non0g <- summary_lucid(modelfits[[e]][[f]])$No0G
                   Non0z <- summary_lucid(modelfits[[e]][[f]])$No0Z
@@ -103,7 +103,7 @@ tune_lucid <- function(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K, Family,
       foreach(e=1:Norho_g, .combine = 'rbind') %:%
         foreach(f=1:Norho_z_invcov, .combine = 'rbind') %:%
           foreach(g=1:Norho_z_covmu, .combine = 'rbind', .errorhandling = 'remove',
-                  .export=c("modelfits", "K"), .packages=c("stats", "LUCid")) %do%{
+                  .export=c("modelfits", "K"), .packages=c("stats", "LUCIDus")) %do%{
 
                     Non0g <- summary_lucid(modelfits[[e]][[f]][[g]])$No0G
                     Non0z <- summary_lucid(modelfits[[e]][[f]][[g]])$No0Z

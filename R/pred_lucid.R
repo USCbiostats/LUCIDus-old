@@ -1,4 +1,4 @@
-#' Model Predictions for LUCid
+#' Model Predictions for LUCID
 #'
 #'\code{pred_lucid} produces predicted values for latent clusters and outcome with an \code{IntClust} object and new data.
 #' @param Fit An \code{IntClust} class object

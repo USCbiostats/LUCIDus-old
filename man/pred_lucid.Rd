@@ -2,7 +2,7 @@
 % Please edit documentation in R/pred_lucid.R
 \name{pred_lucid}
 \alias{pred_lucid}
-\title{Model Predictions for LUCid}
+\title{Model Predictions for LUCID}
 \usage{
 pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y = NULL,
   CoY = NULL)
