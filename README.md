@@ -1,54 +1,54 @@
-LUCid: Latent Unknown Clustering with integrated data
+LUCIDus: Latent Unknown Clustering with Integrated Data
 ================
 
 [![Build
-Status](https://travis-ci.org/USCbiostats/LUCid.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCid)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LUCid?color=green)](https://cran.r-project.org/package=LUCid)
-![](https://cranlogs.r-pkg.org/badges/grand-total/LUCid?color=blue)
-![](https://cranlogs.r-pkg.org/badges/LUCid?color=yellow)
-![](https://cranlogs.r-pkg.org/badges/last-week/LUCid?color=red)
+Status](https://travis-ci.org/USCbiostats/LUCIDus.svg?branch=master)](https://travis-ci.org/USCbiostats/LUCIDus)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LUCIDus?color=green)](https://cran.r-project.org/package=LUCIDus)
+![](https://cranlogs.r-pkg.org/badges/grand-total/LUCIDus?color=blue)
+![](https://cranlogs.r-pkg.org/badges/LUCIDus?color=yellow)
+![](https://cranlogs.r-pkg.org/badges/last-week/LUCIDus?color=red)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ## Introduction
 
-The LUCid R package is an integrative tool to obtain a joint estimation
-of latent or unknown clusters/subgroups with multi-omics data and
-phenotypic traits. This package is an implementation for the novel
+The LUCIDus R package is an integrative tool to obtain a joint
+estimation of latent or unknown clusters/subgroups with multi-omics data
+and phenotypic traits. This package is an implementation for the novel
 statistical method proposed in the research paper “Latent Unknown
 Clustering Integrating Multi-Omics Data with Phenotypic Traits
-(LUCid)\[1\].”
+(LUCID)\[1\].”
 
 ## Installation
 
-You will be able to install the released version of LUCid from
+You will be able to install the released version of LUCIDus from
 [CRAN](https://CRAN.R-project.org) soon with:
 
 ``` r
-install.packages("LUCid")
+install.packages("LUCIDus")
 ```
 
 For now, it can be installed from GitHub using the following codes:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("USCbiostats/LUCid")
+devtools::install_github("USCbiostats/LUCIDus")
 ```
 
 Otherwise, one can download the package from GitHub, and run the
 following codes from the parent working directory that contains the
-LUCid folder:
+LUCIDus folder:
 
 ``` r
 install.packages("devtools")
 setwd("..")
-devtools::install("LUCid")
+devtools::install("LUCIDus")
 ```
 
 ## Fitting the latent cluster models
 
 ``` r
-library(LUCid)
+library(LUCIDus)
 ```
 
 Three functions, including `est_lucid()`, `sem_lucid()`, and
@@ -134,7 +134,7 @@ GridSearch$Results
 GridSearch$Optimal
 ```
 
-Run LUCid with best tuning parameters and select informative features
+Run LUCID with best tuning parameters and select informative features
 
 ``` r
 set.seed(10)
@@ -205,7 +205,7 @@ For more details, see documentations for each function in the R
 The current version is 0.9.0.
 
 For the versions available, see the
-[Release](https://github.com/USCbiostats/LUCid/releases) on this
+[Release](https://github.com/USCbiostats/LUCIDus/releases) on this
 repository.
 
 ## Authors
@@ -218,8 +218,8 @@ This project is licensed under the GPL-2 License.
 
 ## Acknowledgments
 
-  - Dr. David V. Conti
-  - Dr. Zhao Yang
+  - David V. Conti, Ph.D.
+  - Zhao Yang, Ph.D.
   - USC IMAGE P1 Group
 
 <!-- end list -->
