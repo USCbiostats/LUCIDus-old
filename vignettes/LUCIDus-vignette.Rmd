@@ -1,10 +1,10 @@
 ---
-title: "LUCid: Latent Unknown Clustering with integrated data"
+title: "LUCID: Latent Unknown Clustering with integrated data"
 author: "Cheng Peng"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{LUCid}
+  %\VignetteIndexEntry{LUCIDus}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,20 +15,20 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(LUCid)
+library(LUCIDus)
 ```
 
-## About LUCid
+## About LUCIDus
 
-The **LUCid** package is aiming to provide researchers in the genetic epidemiology community with an integrative tool in R to obtain a joint estimation of latent or unknown clusters/subgroups with multi-omics data and phenotypic traits. LUCid improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.
+The **LUCIDus** package is aiming to provide researchers in the genetic epidemiology community with an integrative tool in R to obtain a joint estimation of latent or unknown clusters/subgroups with multi-omics data and phenotypic traits. 
 
-This package is an implementation for the novel statistical method proposed in the research paper "Latent Unknown Clustering Integrating Multi-omics Data with Phenotypic Traits (LUCid)^[Under development, citation coming soon]." 
+This package is an implementation for the novel statistical method proposed in the research paper "Latent Unknown Clustering Integrating Multi-omics Data with Phenotypic Traits (LUCID)^[Under development, citation coming soon]." LUCID improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.
 
-## LUCid Functions and Model Fitting
+## LUCIDus Functions and Model Fitting
 
 Three main functions, including `est_lucid`, `sem_lucid`, and `tune_lucid`, are currently available for model fitting and feature selection. The model outputs can be summarized and visualized using `summary_lucid` and `plot_lucid` respectively. Predictions could be made with `pred_lucid`.
 
-Here are the descriptions of LUCid functions:
+Here are the descriptions of LUCIDus functions:
 
 | Function | Description |
 |:-----:|:---------------------|
@@ -62,7 +62,7 @@ summary_lucid(IntClusFit)
 plot_lucid(IntClusFit)
 ```
 
-- Run LUCid to select informative features
+- Run LUCID to select informative features
 - Parallel grid-search with 27 combinations of tuning parameters using `tune_lucid()`
 ```{r}
 GridSearch <- tune_lucid(G=G1, Z=Z1, Y=Y1, K=2, Family="binary", USEY = TRUE, NoCores = 2,
@@ -81,7 +81,7 @@ GridSearch$Results
 GridSearch$Optimal
 ```
 
-- Run LUCid to select informative features^[Note tuning parameters in `est_lucid()` are defined by `def_tune()`]
+- Run LUCID to select informative features^[Note tuning parameters in `est_lucid()` are defined by `def_tune()`]
 ```{r}
 set.seed(0.01*0.05*95)
 IntClusFit <- est_lucid(G=G1,Z=Z1,Y=Y1,K=2,family="binary",Pred=TRUE,
@@ -116,7 +116,7 @@ IntClusFitFinal <- est_lucid(G=G_select,Z=Z_select,Y=Y1,K=2,family="binary",Pred
 plot_lucid(IntClusFitFinal)
 ```
 
-- Covariates can be easily adjusted in LUCid
+- Covariates can be easily adjusted in LUCID
 ```{r}
 # Re-run the model with covariates in the G->X path
 set.seed(10)
@@ -160,7 +160,7 @@ sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
 
 
 ## Final Remarks
-- We recommend applying LUCid as a framework instead of separate functions;
+- We recommend applying LUCIDus as a framework instead of separate functions;
 - Extension to handle missingness in metabolomics data (Z) is on the way;
 - An alternative option to obtain SE of parameter estimates is under testing.
 
