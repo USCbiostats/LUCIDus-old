@@ -1,5 +1,5 @@
 ---
-title: "LUCID: Latent Unknown Clustering with integrated data"
+title: "LUCIDus: Latent Unknown Clustering with Integrated Data"
 author: "Cheng Peng"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -165,7 +165,7 @@ sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
 - An alternative option to obtain SE of parameter estimates is under testing.
 
 ## Acknowledgments
-- Dr. David V. Conti
-- Dr. Zhao Yang
+- David V. Conti, Ph.D.
+- Zhao Yang, Ph.D.
 - USC IMAGE Group^[Supported by the National Cancer Institute at the National Institutes of Health Grant P01 CA196569]
 
