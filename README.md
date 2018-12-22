@@ -21,14 +21,14 @@ Clustering Integrating Multi-Omics Data with Phenotypic Traits
 
 ## Installation
 
-You will be able to install the released version of LUCIDus from
-[CRAN](https://CRAN.R-project.org) soon with:
+You can install the released version of LUCIDus from
+[CRAN](https://CRAN.R-project.org/package=LUCIDus) directly with:
 
 ``` r
 install.packages("LUCIDus")
 ```
 
-For now, it can be installed from GitHub using the following codes:
+Or, it can be installed from GitHub using the following codes:
 
 ``` r
 install.packages("devtools")
