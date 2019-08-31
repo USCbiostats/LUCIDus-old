@@ -15,9 +15,18 @@ Status](https://travis-ci.org/USCbiostats/LUCIDus.svg?branch=master)](https://tr
 The LUCIDus R package is an integrative tool to obtain a joint
 estimation of latent or unknown clusters/subgroups with multi-omics data
 and phenotypic traits. This package is an implementation for the novel
-statistical method proposed in the research paper “Latent Unknown
-Clustering Integrating Multi-Omics Data with Phenotypic Traits
-(LUCID)\[1\].”
+statistical method proposed in the research paper “[A Latent Unknown
+Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic
+Traits](https://doi.org/10.1093/bioinformatics/btz667)” published by the
+*Bioinformatics*.
+
+## Citation
+
+Cheng Peng, Jun Wang, Isaac Asante, Stan Louie, Ran Jin, Lida Chatzi,
+Graham Casey, Duncan C Thomas, David V Conti, A Latent Unknown
+Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits,
+Bioinformatics, , btz667,
+<https://doi.org/10.1093/bioinformatics/btz667>
 
 ## Installation
 
@@ -33,16 +42,6 @@ Or, it can be installed from GitHub using the following codes:
 ``` r
 install.packages("devtools")
 devtools::install_github("USCbiostats/LUCIDus")
-```
-
-Otherwise, one can download the package from GitHub, and run the
-following codes from the parent working directory that contains the
-LUCIDus folder:
-
-``` r
-install.packages("devtools")
-setwd("..")
-devtools::install("LUCIDus")
 ```
 
 ## Fitting the latent cluster models
@@ -221,7 +220,3 @@ This project is licensed under the GPL-2 License.
   - David V. Conti, Ph.D.
   - Zhao Yang, Ph.D.
   - USC IMAGE P1 Group
-
-<!-- end list -->
-
-1.  Under development, citation coming soon
