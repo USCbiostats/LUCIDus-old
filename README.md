@@ -200,7 +200,7 @@ For more details, see documentations for each function in the R
 
 ## Versioning
 
-The current version is 0.9.0.
+The current version is 0.9.5.
 
 For the versions available, see the
 [Release](https://github.com/USCbiostats/LUCIDus/releases) on this
