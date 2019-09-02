@@ -153,7 +153,8 @@ plot_lucid(IntClusCoFitFinal)
 - Bootstrap method for variance estimation
 ```{r}
 set.seed(10)
-BootCIs <- boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, useY = TRUE, family = "binary", K = 2, R=50)
+BootCIs <- boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, 
+                      useY = TRUE, family = "binary", K = 2, R=50)
 BootCIs$Results
 ```
 

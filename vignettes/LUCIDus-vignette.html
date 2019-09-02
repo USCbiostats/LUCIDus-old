@@ -7,12 +7,13 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content="Cheng Peng" />
 
-<meta name="date" content="2018-12-11" />
+<meta name="date" content="2019-09-02" />
 
 <title>LUCIDus: Latent Unknown Clustering with Integrated Data</title>
 
@@ -1602,7 +1603,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -1797,6 +1798,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -1805,19 +1809,19 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">LUCIDus: Latent Unknown Clustering with Integrated Data</h1>
-<h4 class="author"><em>Cheng Peng</em></h4>
-<h4 class="date"><em>2018-12-11</em></h4>
+<h4 class="author">Cheng Peng</h4>
+<h4 class="date">2019-09-02</h4>
 
 
 
 <div id="about-lucidus" class="section level2">
 <h2>About LUCIDus</h2>
 <p>The <strong>LUCIDus</strong> package is aiming to provide researchers in the genetic epidemiology community with an integrative tool in R to obtain a joint estimation of latent or unknown clusters/subgroups with multi-omics data and phenotypic traits.</p>
-<p>This package is an implementation for the novel statistical method proposed in the research paper “Latent Unknown Clustering Integrating Multi-omics Data with Phenotypic Traits (LUCID)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.” LUCID improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.</p>
+<p>This package is an implementation for the novel statistical method proposed in the research paper “A Latent Unknown Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>” published by the <em>Bioinformatics</em>. LUCID improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.</p>
 </div>
 <div id="lucidus-functions-and-model-fitting" class="section level2">
 <h2>LUCIDus Functions and Model Fitting</h2>
-<p>Three main functions, including <code>est_lucid</code>, <code>sem_lucid</code>, and <code>tune_lucid</code>, are currently available for model fitting and feature selection. The model outputs can be summarized and visualized using <code>summary_lucid</code> and <code>plot_lucid</code> respectively. Predictions could be made with <code>pred_lucid</code>.</p>
+<p>Four main functions, including <code>est_lucid</code>, <code>boot_lucid</code>, <code>sem_lucid</code>, and <code>tune_lucid</code>, are currently available for model fitting and feature selection. The model outputs can be summarized and visualized using <code>summary_lucid</code> and <code>plot_lucid</code> respectively. Predictions could be made with <code>pred_lucid</code>.</p>
 <p>Here are the descriptions of LUCIDus functions:</p>
 <table>
 <colgroup>
@@ -1946,13 +1950,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">GridSearch &lt;-<span class="st"> </span><span class="kw">tune_lucid</span>(<span class="dt">G=</span>G1, <span class="dt">Z=</span>Z1, <span class="dt">Y=</span>Y1, <span class="dt">K=</span><span class="dv">2</span>, <span class="dt">Family=</span><span class="st">&quot;binary&quot;</span>, <span class="dt">USEY =</span> <span class="ot">TRUE</span>, <span class="dt">NoCores =</span> <span class="dv">2</span>,</a>
 <a class="sourceLine" id="cb4-2" title="2">                         <span class="dt">LRho_g =</span> <span class="fl">0.008</span>, <span class="dt">URho_g =</span> <span class="fl">0.012</span>, <span class="dt">NoRho_g =</span> <span class="dv">3</span>,</a>
 <a class="sourceLine" id="cb4-3" title="3">                         <span class="dt">LRho_z_invcov =</span> <span class="fl">0.04</span>, <span class="dt">URho_z_invcov =</span> <span class="fl">0.06</span>, <span class="dt">NoRho_z_invcov =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb4-4" title="4">                         <span class="dt">LRho_z_covmu =</span> <span class="dv">90</span>, <span class="dt">URho_z_covmu =</span> <span class="dv">100</span>, <span class="dt">NoRho_z_covmu =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; Attaching package: &#39;LUCid&#39;</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; The following objects are masked from &#39;package:LUCIDus&#39;:</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt;     def_initial, def_tol, def_tune, est_lucid, plot_lucid,</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt;     pred_lucid, sem_lucid, summary_lucid, tune_lucid</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-4" title="4">                         <span class="dt">LRho_z_covmu =</span> <span class="dv">90</span>, <span class="dt">URho_z_covmu =</span> <span class="dv">100</span>, <span class="dt">NoRho_z_covmu =</span> <span class="dv">3</span>)</a></code></pre></div>
 <ul>
 <li>Check the grid-search results</li>
 </ul>
@@ -2161,11 +2159,75 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="htmlwidget-6681081d7865d5c29272" style="width:696px;height:384px;" class="sankeyNetwork html-widget"></div>
 <script type="application/json" data-for="htmlwidget-6681081d7865d5c29272">{"x":{"links":{"source":[0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,10,10,11,11,10,11],"target":[10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,12,13,12,13,14,14],"value":[0,0,0,0,0,0,0,0,0,0,0.880961219508737,0.731924258859052,0.781893933107275,0.605193604561182,0.769723431216838,0.0155575440373789,0.0187239442980675,0.0410363259335639,0.168544824339313,0.0877139091501694,4.99121095421903,4.968509115101,5.02277937050838,5.0740465046789,1,2.29502205598461],"group":["1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","0","0","0","1","1","0","0","1","1","6","7"]},"nodes":{"name":["CG1","CG2","CG3","CG4","CG5","GC1","GC2","GC3","GC4","GC5","IntClust1","IntClust2","CZ1","CZ2","Outcome"],"group":["2","2","2","2","2","2","2","2","2","2","3","3","4","4","5"]},"options":{"NodeID":"name","NodeGroup":"nodegroup","LinkGroup":"linkgroup","colourScale":"d3.scaleOrdinal() .domain([\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\"]) .range([\"lightsteelblue\", \"royalblue\", \"mediumorchid\", \"gold\", \"cyan\", \"tan\", \"darkgray\", \"red\", \"green\"])","fontSize":10,"fontFamily":null,"nodeWidth":20,"nodePadding":10,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true}},"evals":[],"jsHooks":[]}</script>
 <ul>
-<li>Supplemented EM-algorithm for variance estimation</li>
+<li>Bootstrap method for variance estimation</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">set.seed</span>(<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="kw">sem_lucid</span>(<span class="dt">G=</span>G2,<span class="dt">Z=</span>Z2,<span class="dt">Y=</span>Y2,<span class="dt">useY=</span><span class="ot">TRUE</span>,<span class="dt">K=</span><span class="dv">2</span>,<span class="dt">Pred=</span><span class="ot">TRUE</span>,<span class="dt">family=</span><span class="st">&quot;normal&quot;</span>,<span class="dt">Get_SE=</span><span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb15-3" title="3">            <span class="dt">itr_tol =</span> <span class="kw">def_tol</span>(<span class="dt">tol_b =</span> <span class="fl">1e-02</span>, <span class="dt">tol_m =</span> <span class="fl">1e-02</span>, <span class="dt">tol_s =</span> <span class="fl">1e-02</span>, <span class="dt">tol_g =</span> <span class="fl">1e-02</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb15-2" title="2">BootCIs &lt;-<span class="st"> </span><span class="kw">boot_lucid</span>(<span class="dt">G =</span> G1, <span class="dt">CoG =</span> CoG, <span class="dt">Z =</span> Z1, <span class="dt">Y =</span> Y1, <span class="dt">CoY =</span> CoY, </a>
+<a class="sourceLine" id="cb15-3" title="3">                      <span class="dt">useY =</span> <span class="ot">TRUE</span>, <span class="dt">family =</span> <span class="st">&quot;binary&quot;</span>, <span class="dt">K =</span> <span class="dv">2</span>, <span class="dt">R=</span><span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="co">#&gt; [1] &quot;1 : E-step finished&quot;</span></a>
+<a class="sourceLine" id="cb15-5" title="5"><span class="co">#&gt; # weights:  34 (16 variable)</span></a>
+<a class="sourceLine" id="cb15-6" title="6"><span class="co">#&gt; initial  value 1386.294361 </span></a>
+<a class="sourceLine" id="cb15-7" title="7"><span class="co">#&gt; iter  10 value 1264.731333</span></a>
+<a class="sourceLine" id="cb15-8" title="8"><span class="co">#&gt; iter  20 value 1264.590952</span></a>
+<a class="sourceLine" id="cb15-9" title="9"><span class="co">#&gt; final  value 1264.586687 </span></a>
+<a class="sourceLine" id="cb15-10" title="10"><span class="co">#&gt; converged</span></a>
+<a class="sourceLine" id="cb15-11" title="11"><span class="co">#&gt; [1] &quot;1 : Updated parameters&quot;</span></a>
+<a class="sourceLine" id="cb15-12" title="12"><span class="co">#&gt; [1] &quot;2 : E-step finished&quot;</span></a>
+<a class="sourceLine" id="cb15-13" title="13"><span class="co">#&gt; # weights:  34 (16 variable)</span></a>
+<a class="sourceLine" id="cb15-14" title="14"><span class="co">#&gt; initial  value 1386.294361 </span></a>
+<a class="sourceLine" id="cb15-15" title="15"><span class="co">#&gt; iter  10 value 1261.582053</span></a>
+<a class="sourceLine" id="cb15-16" title="16"><span class="co">#&gt; iter  20 value 1261.058904</span></a>
+<a class="sourceLine" id="cb15-17" title="17"><span class="co">#&gt; final  value 1261.057357 </span></a>
+<a class="sourceLine" id="cb15-18" title="18"><span class="co">#&gt; converged</span></a>
+<a class="sourceLine" id="cb15-19" title="19"><span class="co">#&gt; [1] &quot;2 : Updated parameters&quot;</span></a>
+<a class="sourceLine" id="cb15-20" title="20"><span class="co">#&gt; [1] &quot;3 : E-step finished&quot;</span></a>
+<a class="sourceLine" id="cb15-21" title="21"><span class="co">#&gt; # weights:  34 (16 variable)</span></a>
+<a class="sourceLine" id="cb15-22" title="22"><span class="co">#&gt; initial  value 1386.294361 </span></a>
+<a class="sourceLine" id="cb15-23" title="23"><span class="co">#&gt; iter  10 value 1261.582053</span></a>
+<a class="sourceLine" id="cb15-24" title="24"><span class="co">#&gt; iter  20 value 1261.058904</span></a>
+<a class="sourceLine" id="cb15-25" title="25"><span class="co">#&gt; final  value 1261.057357 </span></a>
+<a class="sourceLine" id="cb15-26" title="26"><span class="co">#&gt; converged</span></a>
+<a class="sourceLine" id="cb15-27" title="27"><span class="co">#&gt; [1] &quot;3 : Updated parameters&quot;</span></a>
+<a class="sourceLine" id="cb15-28" title="28"><span class="co">#&gt; [1] &quot;3 : Converged!&quot;</span></a>
+<a class="sourceLine" id="cb15-29" title="29">BootCIs<span class="op">$</span>Results</a>
+<a class="sourceLine" id="cb15-30" title="30"><span class="co">#&gt;         original          bias std. error  lower.norm  upper.norm</span></a>
+<a class="sourceLine" id="cb15-31" title="31"><span class="co">#&gt; CG1  0.885677236  0.0230642157 0.12229484  0.62291954  1.10230650</span></a>
+<a class="sourceLine" id="cb15-32" title="32"><span class="co">#&gt; CG2  0.730892056  0.0003269451 0.12240776  0.49065030  0.97047992</span></a>
+<a class="sourceLine" id="cb15-33" title="33"><span class="co">#&gt; CG3  0.788624856  0.0284710679 0.10461973  0.55510289  0.96520469</span></a>
+<a class="sourceLine" id="cb15-34" title="34"><span class="co">#&gt; CG4  0.611802139  0.0124322826 0.10736409  0.38894010  0.80979961</span></a>
+<a class="sourceLine" id="cb15-35" title="35"><span class="co">#&gt; CG5  0.767220235 -0.0132212262 0.13288931  0.51998320  1.04089972</span></a>
+<a class="sourceLine" id="cb15-36" title="36"><span class="co">#&gt; NG1  0.053908157  0.0619479034 0.07680301 -0.15857088  0.14249138</span></a>
+<a class="sourceLine" id="cb15-37" title="37"><span class="co">#&gt; NG2  0.085480885  0.0439716857 0.08647715 -0.12798290  0.21100129</span></a>
+<a class="sourceLine" id="cb15-38" title="38"><span class="co">#&gt; NG3  0.004539503  0.0954539657 0.08042081 -0.24853635  0.06670743</span></a>
+<a class="sourceLine" id="cb15-39" title="39"><span class="co">#&gt; NG4  0.116638338  0.0196797250 0.09502651 -0.08928993  0.28320716</span></a>
+<a class="sourceLine" id="cb15-40" title="40"><span class="co">#&gt; NG5  0.088333287  0.0136352786 0.07188006 -0.06618433  0.21558034</span></a>
+<a class="sourceLine" id="cb15-41" title="41"><span class="co">#&gt; CZ1 10.013990325  0.0039765402 0.03838407  9.93478240 10.08524517</span></a>
+<a class="sourceLine" id="cb15-42" title="42"><span class="co">#&gt; CZ2 10.042555620 -0.0098636616 0.05210123  9.95030274 10.15453582</span></a>
+<a class="sourceLine" id="cb15-43" title="43"><span class="co">#&gt; NZ1  0.012894462  0.0306502773 0.03421991 -0.08482560  0.04931397</span></a>
+<a class="sourceLine" id="cb15-44" title="44"><span class="co">#&gt; NZ2  0.021423955  0.0189846128 0.02298497 -0.04261036  0.04748905</span></a>
+<a class="sourceLine" id="cb15-45" title="45"><span class="co">#&gt; Y    1.295022056 -0.3526602144 0.39722869  0.86912834  2.42623620</span></a>
+<a class="sourceLine" id="cb15-46" title="46"><span class="co">#&gt;     lower.basic upper.basic   lower.perc  upper.perc</span></a>
+<a class="sourceLine" id="cb15-47" title="47"><span class="co">#&gt; CG1  0.50425741  1.11976515 0.6515893204  1.26709707</span></a>
+<a class="sourceLine" id="cb15-48" title="48"><span class="co">#&gt; CG2  0.38589476  0.98054136 0.4812427497  1.07588935</span></a>
+<a class="sourceLine" id="cb15-49" title="49"><span class="co">#&gt; CG3  0.56989377  1.02195923 0.5552904814  1.00735594</span></a>
+<a class="sourceLine" id="cb15-50" title="50"><span class="co">#&gt; CG4  0.39010120  0.84838082 0.3752234614  0.83350308</span></a>
+<a class="sourceLine" id="cb15-51" title="51"><span class="co">#&gt; CG5  0.41420635  1.04011747 0.4943229954  1.12023412</span></a>
+<a class="sourceLine" id="cb15-52" title="52"><span class="co">#&gt; NG1 -0.20759832  0.10147617 0.0063401468  0.31541463</span></a>
+<a class="sourceLine" id="cb15-53" title="53"><span class="co">#&gt; NG2 -0.14395038  0.16881686 0.0021449057  0.31491215</span></a>
+<a class="sourceLine" id="cb15-54" title="54"><span class="co">#&gt; NG3 -0.27659125  0.00867064 0.0004083659  0.28567025</span></a>
+<a class="sourceLine" id="cb15-55" title="55"><span class="co">#&gt; NG4 -0.17203376  0.21487409 0.0184025818  0.40531044</span></a>
+<a class="sourceLine" id="cb15-56" title="56"><span class="co">#&gt; NG5 -0.07517824  0.17467140 0.0019951780  0.25184481</span></a>
+<a class="sourceLine" id="cb15-57" title="57"><span class="co">#&gt; CZ1  9.92397334 10.08222220 9.9457584525 10.10400731</span></a>
+<a class="sourceLine" id="cb15-58" title="58"><span class="co">#&gt; CZ2  9.95262927 10.14624465 9.9388665854 10.13248197</span></a>
+<a class="sourceLine" id="cb15-59" title="59"><span class="co">#&gt; NZ1 -0.11518919  0.02374588 0.0020430488  0.14097812</span></a>
+<a class="sourceLine" id="cb15-60" title="60"><span class="co">#&gt; NZ2 -0.05163372  0.04054470 0.0023032062  0.09448163</span></a>
+<a class="sourceLine" id="cb15-61" title="61"><span class="co">#&gt; Y    0.83951382  2.10850817 0.4815359469  1.75053029</span></a></code></pre></div>
+<ul>
+<li>Supplemented EM-algorithm for variance estimation</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">set.seed</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="kw">sem_lucid</span>(<span class="dt">G=</span>G2,<span class="dt">Z=</span>Z2,<span class="dt">Y=</span>Y2,<span class="dt">useY=</span><span class="ot">TRUE</span>,<span class="dt">K=</span><span class="dv">2</span>,<span class="dt">Pred=</span><span class="ot">TRUE</span>,<span class="dt">family=</span><span class="st">&quot;normal&quot;</span>,<span class="dt">Get_SE=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb16-3" title="3">            <span class="dt">itr_tol =</span> <span class="kw">def_tol</span>(<span class="dt">tol_b =</span> <span class="fl">1e-02</span>, <span class="dt">tol_m =</span> <span class="fl">1e-02</span>, <span class="dt">tol_s =</span> <span class="fl">1e-02</span>, <span class="dt">tol_g =</span> <span class="fl">1e-02</span>))</a></code></pre></div>
 </div>
 </div>
 <div id="final-remarks" class="section level2">
@@ -2187,13 +2249,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Under development, citation coming soon<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p><a href="https://doi.org/10.1093/bioinformatics/btz667" class="uri">https://doi.org/10.1093/bioinformatics/btz667</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>Parameter initials and stopping criteria can be specified using <code>def_initial()</code> and <code>def_tol()</code><a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>Note tuning parameters in <code>est_lucid()</code> are defined by <code>def_tune()</code><a href="#fnref3" class="footnote-back">↩</a></p></li>
 <li id="fn4"><p>Supported by the National Cancer Institute at the National Institutes of Health Grant P01 CA196569<a href="#fnref4" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
