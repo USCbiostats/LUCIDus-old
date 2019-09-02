@@ -5,11 +5,11 @@
 \title{SEM for latent cluster estimation}
 \usage{
 sem_lucid(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
-  K = 2, initial = def_initial(), itr_tol = def_tol(),
-  Pred = FALSE, Get_SE = TRUE, Ad_Hoc_SE = FALSE)
+  K = 2, initial = def_initial(), itr_tol = def_tol(), Pred = TRUE,
+  Get_SE = TRUE, Ad_Hoc_SE = FALSE)
 }
 \arguments{
-\item{G}{Genetic effects, a matrix}
+\item{G}{Genetic features, a matrix}
 
 \item{Z}{Biomarker data, a matrix}
 
@@ -25,7 +25,7 @@ sem_lucid(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
 
 \item{itr_tol}{A list of tolerance settings will be returned for integrative clustering}
 
-\item{Pred}{Flag to compute predicted disease probability with fitted model, boolean, default is FALSE}
+\item{Pred}{Flag to compute predicted disease probability with fitted model, boolean, default is TRUE}
 
 \item{Get_SE}{Flag to perform SEM to get SEs of parameter estimates, default is TRUE}
 
@@ -56,9 +56,9 @@ sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
 }
 }
 \references{
-Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm. Journal of the American Statistical Association, 86(416), 899-909. http://doi.org/10.2307/2290503
+Cheng Peng, Jun Wang, Isaac Asante, Stan Louie, Ran Jin, Lida Chatzi, Graham Casey, Duncan C Thomas, David V Conti, A Latent Unknown Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits, Bioinformatics, , btz667, https://doi.org/10.1093/bioinformatics/btz667.
 
-Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
+Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm. Journal of the American Statistical Association, 86(416), 899-909. http://doi.org/10.2307/2290503
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

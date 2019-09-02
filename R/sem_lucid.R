@@ -1,7 +1,7 @@
 #' SEM for latent cluster estimation
 #'
 #' \code{sem_lucid} provides standard errors (SE) of parameter estimates when performing latent cluster analysis with multi-omics data. SEs are obtained through supplemented EM-algorithm (SEM).
-#' @param G Genetic effects, a matrix
+#' @param G Genetic features, a matrix
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
 #' @param family "binary" or "normal" for Y
@@ -9,7 +9,7 @@
 #' @param K Pre-specified # of latent clusters, default is 2
 #' @param Get_SE Flag to perform SEM to get SEs of parameter estimates, default is TRUE
 #' @param Ad_Hoc_SE Flag to fit ad hoc regression models to get SEs of parameter estimates, default is FALSE
-#' @param Pred Flag to compute predicted disease probability with fitted model, boolean, default is FALSE
+#' @param Pred Flag to compute predicted disease probability with fitted model, boolean, default is TRUE
 #' @param initial A list of initial model parameters will be returned for integrative clustering
 #' @param itr_tol A list of tolerance settings will be returned for integrative clustering
 #' @keywords SEM, latent cluster
@@ -35,9 +35,9 @@
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
-#' Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm. Journal of the American Statistical Association, 86(416), 899-909. http://doi.org/10.2307/2290503
+#' Cheng Peng, Jun Wang, Isaac Asante, Stan Louie, Ran Jin, Lida Chatzi, Graham Casey, Duncan C Thomas, David V Conti, A Latent Unknown Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits, Bioinformatics, , btz667, https://doi.org/10.1093/bioinformatics/btz667.
 #'
-#' Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
+#' Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SEM Algorithm. Journal of the American Statistical Association, 86(416), 899-909. http://doi.org/10.2307/2290503
 #' @examples
 #' \dontrun{
 #' sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
@@ -47,7 +47,7 @@
 
 sem_lucid <- function(G=NULL, Z=NULL, Y, family="binary", useY = TRUE, K = 2,
                         initial = def_initial(), itr_tol = def_tol(),
-                        Pred = FALSE, Get_SE = TRUE, Ad_Hoc_SE = FALSE){
+                        Pred = TRUE, Get_SE = TRUE, Ad_Hoc_SE = FALSE){
 
   init_b <- initial$init_b; init_m <- initial$init_m; init_s <- initial$init_s; init_g <- initial$init_g; init_pcluster <- initial$init_pcluster
   MAX_ITR <- itr_tol$MAX_ITR; MAX_TOT_ITR <- itr_tol$MAX_TOT_ITR; reltol <- itr_tol$reltol

@@ -5,11 +5,11 @@
 \title{Estimating latent clusters with multi-omics data}
 \usage{
 est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL,
-  useY = TRUE, family = "binary", K = 2, Pred = FALSE,
+  useY = TRUE, family = "binary", K = 2, Pred = TRUE,
   initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune())
 }
 \arguments{
-\item{G}{Genetic effects, a matrix}
+\item{G}{Genetic features, a matrix}
 
 \item{CoG}{Covariates to be included in the G->X path}
 
@@ -25,7 +25,7 @@ est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL,
 
 \item{K}{Pre-specified # of latent clusters, default is 2}
 
-\item{Pred}{Flag to compute posterior probability of latent cluster with fitted model, default is FALSE}
+\item{Pred}{Flag to compute posterior probability of latent cluster with fitted model, default is TRUE}
 
 \item{initial}{A list of initial model parameters will be returned for integrative clustering}
 
@@ -62,7 +62,7 @@ IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pr
 }
 }
 \references{
-Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
+Cheng Peng, Jun Wang, Isaac Asante, Stan Louie, Ran Jin, Lida Chatzi, Graham Casey, Duncan C Thomas, David V Conti, A Latent Unknown Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits, Bioinformatics, , btz667, https://doi.org/10.1093/bioinformatics/btz667.
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti

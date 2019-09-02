@@ -1,7 +1,7 @@
 #' Estimating latent clusters with multi-omics data
 #'
 #' \code{est_lucid} estimates an integrated cluster assignment of genetic effects using complete biomarker data with/without disease outcomes. Options to produce sparse solutions for cluster-specific parameter estimates under a circumstance of analyzing high-dimensional data are also provided. An \code{IntClust} object will be produced.
-#' @param G Genetic effects, a matrix
+#' @param G Genetic features, a matrix
 #' @param CoG Covariates to be included in the G->X path
 #' @param Z Biomarker data, a matrix
 #' @param Y Disease outcome, a vector
@@ -12,7 +12,7 @@
 #' @param initial A list of initial model parameters will be returned for integrative clustering
 #' @param itr_tol A list of tolerance settings will be returned for integrative clustering
 #' @param tunepar A list of tuning parameters and settings will be returned for integrative clustering
-#' @param Pred Flag to compute posterior probability of latent cluster with fitted model, default is FALSE
+#' @param Pred Flag to compute posterior probability of latent cluster with fitted model, default is TRUE
 #' @keywords latent cluster
 #' @return \code{est_lucid} returns an object of list containing parameters estimates, predicted probability of latent clusters, and other features:
 #' \item{beta}{Estimates of genetic effects, matrix}
@@ -40,7 +40,7 @@
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
-#' Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
+#' Cheng Peng, Jun Wang, Isaac Asante, Stan Louie, Ran Jin, Lida Chatzi, Graham Casey, Duncan C Thomas, David V Conti, A Latent Unknown Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits, Bioinformatics, , btz667, https://doi.org/10.1093/bioinformatics/btz667.
 #' @examples
 #' # Integrative clustering without feature selection
 #' set.seed(10)
@@ -58,7 +58,7 @@
 #' }
 
 
-est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family="binary", K = 2, Pred = FALSE,
+est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family="binary", K = 2, Pred = TRUE,
                       initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune()){
 
   init_b <- initial$init_b; init_m <- initial$init_m; init_s <- initial$init_s; init_g <- initial$init_g; init_pcluster <- initial$init_pcluster

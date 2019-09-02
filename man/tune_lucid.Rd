@@ -10,7 +10,7 @@ tune_lucid(G = NULL, CoG = NULL, Z = NULL, CoY = NULL, Y, K,
   URho_z_covmu, NoRho_z_covmu, NoCores = detectCores() - 1)
 }
 \arguments{
-\item{G}{Genetic effects, a matrix}
+\item{G}{Genetic features, a matrix}
 
 \item{CoG}{Covariates to be added in G->X path}
 
@@ -71,7 +71,7 @@ GridSearch$Optimal
 }
 }
 \references{
-Peng, C., Conti, D.V., Integrative latent cluster assignment using multi-omics data with phenotypic traits (under preparation).
+Cheng Peng, Jun Wang, Isaac Asante, Stan Louie, Ran Jin, Lida Chatzi, Graham Casey, Duncan C Thomas, David V Conti, A Latent Unknown Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits, Bioinformatics, , btz667, https://doi.org/10.1093/bioinformatics/btz667.
 }
 \author{
 Cheng Peng, Zhao Yang, David V. Conti
