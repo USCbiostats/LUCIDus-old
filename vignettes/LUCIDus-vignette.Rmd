@@ -22,11 +22,11 @@ library(LUCIDus)
 
 The **LUCIDus** package is aiming to provide researchers in the genetic epidemiology community with an integrative tool in R to obtain a joint estimation of latent or unknown clusters/subgroups with multi-omics data and phenotypic traits. 
 
-This package is an implementation for the novel statistical method proposed in the research paper "Latent Unknown Clustering Integrating Multi-omics Data with Phenotypic Traits (LUCID)^[Under development, citation coming soon]." LUCID improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.
+This package is an implementation for the novel statistical method proposed in the research paper "A Latent Unknown Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits^[https://doi.org/10.1093/bioinformatics/btz667]" published by the *Bioinformatics*. LUCID improves the subtype classification which leads to better diagnostics as well as prognostics and could be the potential solution for efficient targeted treatments and successful personalized medicine.
 
 ## LUCIDus Functions and Model Fitting
 
-Three main functions, including `est_lucid`, `sem_lucid`, and `tune_lucid`, are currently available for model fitting and feature selection. The model outputs can be summarized and visualized using `summary_lucid` and `plot_lucid` respectively. Predictions could be made with `pred_lucid`.
+Four main functions, including `est_lucid`, `boot_lucid`, `sem_lucid`, and `tune_lucid`, are currently available for model fitting and feature selection. The model outputs can be summarized and visualized using `summary_lucid` and `plot_lucid` respectively. Predictions could be made with `pred_lucid`.
 
 Here are the descriptions of LUCIDus functions:
 
@@ -150,6 +150,12 @@ IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,CoY=CoY,K=2,
 plot_lucid(IntClusCoFitFinal)
 ```
 
+- Bootstrap method for variance estimation
+```{r}
+set.seed(10)
+BootCIs <- boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, useY = TRUE, family = "binary", K = 2, R=50)
+BootCIs$Results
+```
 
 - Supplemented EM-algorithm for variance estimation
 ```{r eval = FALSE}

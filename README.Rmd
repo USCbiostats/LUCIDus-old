@@ -47,7 +47,7 @@ devtools::install_github("USCbiostats/LUCIDus")
 library(LUCIDus)
 ```
 
-Three functions, including `est_lucid()`, `sem_lucid()`, and `tune_lucid()`, are currently available for model fitting and selection. The model outputs can be summarized and visualized using `summary_lucid()` and `plot_lucid()` respectively. Predictions could be made with `pred_lucid()`.
+Three functions, including `est_lucid()`, `boot_lucid()`, and `tune_lucid()`, are currently available for model fitting and selection. The model outputs can be summarized and visualized using `summary_lucid()` and `plot_lucid()` respectively. Predictions could be made with `pred_lucid()`.
 
 ### `est_lucid()`
 
@@ -98,16 +98,15 @@ plot_lucid(IntClusCoFit)
 ```
 
 
-### `sem_lucid()`
+### `boot_lucid()`
 
-Supplemented EM-algorithm for latent cluster estimation
+Bootstrap method to achieve SEs for LUCID parameter estimates
 
 #### Example
 
 ```{r eval=FALSE}
-set.seed(100)
-sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
-            def_initial(),def_tol(MAX_ITR=1000,MAX_TOT_ITR=3000))
+set.seed(10)
+boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, useY = TRUE, family = "binary", K = 2, R=500)
 ```
 
 ### `tune_lucid()`
