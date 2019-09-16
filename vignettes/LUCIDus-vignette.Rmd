@@ -32,7 +32,8 @@ Here are the descriptions of LUCIDus functions:
 
 | Function | Description |
 |:-----:|:---------------------|
-| `est_lucid()` | Estimates latent clusters using multi-omics data with/without the outcome of interest, and producing an IntClust object |
+| `est_lucid()` | Estimates latent clusters using multi-omics data with/without the outcome of interest, and producing an IntClust object; missing values in biomarker data (Z) are allowed |
+| `boot_lucid()` | Latent cluster estimation through bootstrapping for statistical inference |
 | `sem_lucid()` | Latent cluster estimation with supplemented E-M algorithm for statistical inference |
 | `tune_lucid()` | Grid search for tuning parameters using parallel computing to determine an optimal choice of three tuning parameters with minimum model BIC |
 | `summary_lucid()` | Summarizes the results of integrative clustering based on an `IntClust` object |

@@ -13,7 +13,7 @@
 
 <meta name="author" content="Cheng Peng" />
 
-<meta name="date" content="2019-09-02" />
+<meta name="date" content="2019-09-15" />
 
 <title>LUCIDus: Latent Unknown Clustering with Integrated Data</title>
 
@@ -1810,7 +1810,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">LUCIDus: Latent Unknown Clustering with Integrated Data</h1>
 <h4 class="author">Cheng Peng</h4>
-<h4 class="date">2019-09-02</h4>
+<h4 class="date">2019-09-15</h4>
 
 
 
@@ -1837,37 +1837,41 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tbody>
 <tr class="odd">
 <td align="center"><code>est_lucid()</code></td>
-<td align="left">Estimates latent clusters using multi-omics data with/without the outcome of interest, and producing an IntClust object</td>
+<td align="left">Estimates latent clusters using multi-omics data with/without the outcome of interest, and producing an IntClust object; missing values in biomarker data (Z) are allowed</td>
 </tr>
 <tr class="even">
+<td align="center"><code>boot_lucid()</code></td>
+<td align="left">Latent cluster estimation through bootstrapping for statistical inference</td>
+</tr>
+<tr class="odd">
 <td align="center"><code>sem_lucid()</code></td>
 <td align="left">Latent cluster estimation with supplemented E-M algorithm for statistical inference</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center"><code>tune_lucid()</code></td>
 <td align="left">Grid search for tuning parameters using parallel computing to determine an optimal choice of three tuning parameters with minimum model BIC</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center"><code>summary_lucid()</code></td>
 <td align="left">Summarizes the results of integrative clustering based on an <code>IntClust</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center"><code>plot_lucid()</code></td>
 <td align="left">Produces a Sankey diagram for the results of integrative clustering based on an <code>IntClust</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center"><code>pred_lucid()</code></td>
 <td align="left">Predicts latent clusters and outcomes with an <code>IntClust</code> object and new data</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center"><code>def_initial()</code></td>
 <td align="left">Defines initial values of model parameters in <code>est_lucid()</code>, <code>sem_lucid()</code> , and <code>tune_lucid()</code> fitting</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center"><code>def_tune()</code></td>
 <td align="left">Defines selection options and tuning parameters in <code>est_lucid()</code>, <code>sem_lucid()</code> , and <code>tune_lucid()</code> fitting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center"><code>def_tol()</code></td>
 <td align="left">Defines tolerance settings in <code>est_lucid()</code>, <code>sem_lucid()</code> , and <code>tune_lucid()</code> fitting</td>
 </tr>
@@ -2191,21 +2195,21 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb15-28" title="28"><span class="co">#&gt; [1] &quot;3 : Converged!&quot;</span></a>
 <a class="sourceLine" id="cb15-29" title="29">BootCIs<span class="op">$</span>Results</a>
 <a class="sourceLine" id="cb15-30" title="30"><span class="co">#&gt;         original          bias std. error  lower.norm  upper.norm</span></a>
-<a class="sourceLine" id="cb15-31" title="31"><span class="co">#&gt; CG1  0.885677236  0.0230642157 0.12229484  0.62291954  1.10230650</span></a>
-<a class="sourceLine" id="cb15-32" title="32"><span class="co">#&gt; CG2  0.730892056  0.0003269451 0.12240776  0.49065030  0.97047992</span></a>
-<a class="sourceLine" id="cb15-33" title="33"><span class="co">#&gt; CG3  0.788624856  0.0284710679 0.10461973  0.55510289  0.96520469</span></a>
-<a class="sourceLine" id="cb15-34" title="34"><span class="co">#&gt; CG4  0.611802139  0.0124322826 0.10736409  0.38894010  0.80979961</span></a>
-<a class="sourceLine" id="cb15-35" title="35"><span class="co">#&gt; CG5  0.767220235 -0.0132212262 0.13288931  0.51998320  1.04089972</span></a>
-<a class="sourceLine" id="cb15-36" title="36"><span class="co">#&gt; NG1  0.053908157  0.0619479034 0.07680301 -0.15857088  0.14249138</span></a>
-<a class="sourceLine" id="cb15-37" title="37"><span class="co">#&gt; NG2  0.085480885  0.0439716857 0.08647715 -0.12798290  0.21100129</span></a>
-<a class="sourceLine" id="cb15-38" title="38"><span class="co">#&gt; NG3  0.004539503  0.0954539657 0.08042081 -0.24853635  0.06670743</span></a>
-<a class="sourceLine" id="cb15-39" title="39"><span class="co">#&gt; NG4  0.116638338  0.0196797250 0.09502651 -0.08928993  0.28320716</span></a>
-<a class="sourceLine" id="cb15-40" title="40"><span class="co">#&gt; NG5  0.088333287  0.0136352786 0.07188006 -0.06618433  0.21558034</span></a>
+<a class="sourceLine" id="cb15-31" title="31"><span class="co">#&gt; CG1  0.885677236  0.0230642156 0.12229484  0.62291954  1.10230650</span></a>
+<a class="sourceLine" id="cb15-32" title="32"><span class="co">#&gt; CG2  0.730892056  0.0003269458 0.12240776  0.49065030  0.97047992</span></a>
+<a class="sourceLine" id="cb15-33" title="33"><span class="co">#&gt; CG3  0.788624856  0.0284710677 0.10461973  0.55510289  0.96520469</span></a>
+<a class="sourceLine" id="cb15-34" title="34"><span class="co">#&gt; CG4  0.611802139  0.0124322828 0.10736409  0.38894010  0.80979961</span></a>
+<a class="sourceLine" id="cb15-35" title="35"><span class="co">#&gt; CG5  0.767220235 -0.0132212264 0.13288931  0.51998320  1.04089972</span></a>
+<a class="sourceLine" id="cb15-36" title="36"><span class="co">#&gt; NG1  0.053908157  0.0619479036 0.07680301 -0.15857088  0.14249138</span></a>
+<a class="sourceLine" id="cb15-37" title="37"><span class="co">#&gt; NG2  0.085480885  0.0439716856 0.08647715 -0.12798290  0.21100129</span></a>
+<a class="sourceLine" id="cb15-38" title="38"><span class="co">#&gt; NG3  0.004539503  0.0954539656 0.08042081 -0.24853635  0.06670743</span></a>
+<a class="sourceLine" id="cb15-39" title="39"><span class="co">#&gt; NG4  0.116638338  0.0196797255 0.09502651 -0.08928993  0.28320715</span></a>
+<a class="sourceLine" id="cb15-40" title="40"><span class="co">#&gt; NG5  0.088333287  0.0136352785 0.07188006 -0.06618433  0.21558034</span></a>
 <a class="sourceLine" id="cb15-41" title="41"><span class="co">#&gt; CZ1 10.013990325  0.0039765402 0.03838407  9.93478240 10.08524517</span></a>
 <a class="sourceLine" id="cb15-42" title="42"><span class="co">#&gt; CZ2 10.042555620 -0.0098636616 0.05210123  9.95030274 10.15453582</span></a>
 <a class="sourceLine" id="cb15-43" title="43"><span class="co">#&gt; NZ1  0.012894462  0.0306502773 0.03421991 -0.08482560  0.04931397</span></a>
 <a class="sourceLine" id="cb15-44" title="44"><span class="co">#&gt; NZ2  0.021423955  0.0189846128 0.02298497 -0.04261036  0.04748905</span></a>
-<a class="sourceLine" id="cb15-45" title="45"><span class="co">#&gt; Y    1.295022056 -0.3526602144 0.39722869  0.86912834  2.42623620</span></a>
+<a class="sourceLine" id="cb15-45" title="45"><span class="co">#&gt; Y    1.295022056 -0.3609738591 0.40243363  0.86724049  2.44475134</span></a>
 <a class="sourceLine" id="cb15-46" title="46"><span class="co">#&gt;     lower.basic upper.basic   lower.perc  upper.perc</span></a>
 <a class="sourceLine" id="cb15-47" title="47"><span class="co">#&gt; CG1  0.50425741  1.11976515 0.6515893204  1.26709707</span></a>
 <a class="sourceLine" id="cb15-48" title="48"><span class="co">#&gt; CG2  0.38589476  0.98054136 0.4812427497  1.07588935</span></a>
@@ -2221,7 +2225,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb15-58" title="58"><span class="co">#&gt; CZ2  9.95262927 10.14624465 9.9388665854 10.13248197</span></a>
 <a class="sourceLine" id="cb15-59" title="59"><span class="co">#&gt; NZ1 -0.11518919  0.02374588 0.0020430488  0.14097812</span></a>
 <a class="sourceLine" id="cb15-60" title="60"><span class="co">#&gt; NZ2 -0.05163372  0.04054470 0.0023032062  0.09448163</span></a>
-<a class="sourceLine" id="cb15-61" title="61"><span class="co">#&gt; Y    0.83951382  2.10850817 0.4815359469  1.75053029</span></a></code></pre></div>
+<a class="sourceLine" id="cb15-61" title="61"><span class="co">#&gt; Y    0.88972851  2.11034553 0.4796985772  1.70031560</span></a></code></pre></div>
 <ul>
 <li>Supplemented EM-algorithm for variance estimation</li>
 </ul>

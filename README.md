@@ -58,7 +58,9 @@ made with `pred_lucid()`.
 
 ### `est_lucid()`
 
-Estimating latent clusters with multi-omics data
+Estimating latent clusters with multi-omics data, missing values in
+biomarker data are allowed, and information in the outcome of interest
+can be integrated
 
 #### Example
 
@@ -200,7 +202,7 @@ For more details, see documentations for each function in the R
 
 ## Versioning
 
-The current version is 0.9.5.
+The current version is 0.9.9.
 
 For the versions available, see the
 [Release](https://github.com/USCbiostats/LUCIDus/releases) on this
