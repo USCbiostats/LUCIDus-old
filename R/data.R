@@ -22,6 +22,18 @@
 #' }
 "Z1"
 
+#' Incomplete Biomarker Set 1
+#'
+#' A simulated dataset containing one of the components to run est_lucid incomplete
+#' option, plot_lucid, and tune_lucid. The variables are as follows:
+#'
+#' @format A set with 2000 rows and 4 variables, 500 rows are NAs:
+#' \describe{
+#'   \item{CZ1, CZ2}{Causal biomarkers}
+#'   \item{NZ1, NZ2}{Null biomarkers}
+#' }
+"Z1_Incomp"
+
 #' Outcome Set 1
 #'
 #' A simulated dataset containing one of the components to run est_lucid,
