@@ -13,7 +13,7 @@ est_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL,
 
 \item{CoG}{Covariates to be included in the G->X path}
 
-\item{Z}{Biomarker data, a matrix}
+\item{Z}{Biomarker data, a matrix, can be incomplete and have missing values}
 
 \item{Y}{Disease outcome, a vector}
 
@@ -59,6 +59,9 @@ IntClusCoFit2 <- est_lucid(G=G1,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
 
 # Re-run the model with covariates in both G->X and X->Y paths
 IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
+
+# Model fit with incomplete biomarker data and covariates in both G->X & X->Y paths
+IntClusCoFit3_Incomp <- est_lucid(G=G1,CoG=CoG,Z=Z1_Incomp,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
 }
 }
 \references{
