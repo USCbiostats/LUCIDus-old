@@ -189,16 +189,14 @@ IntClusCoFitFinal <- est_lucid(G=G_select,CoG=CoG,Z=Z_select,Y=Y1,K=2,family="bi
 plot_lucid(IntClusCoFitFinal)
 ```
 
-For more details, see documentations for each function in the R
-    package.
+For more details, see documentations for each function in the R package.
 
 ## Built With
 
-  - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
-    - Tools to Make Developing R Packages
-    Easier
-  - [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html)
-    - In-Line Documentation for R
+  - [devtools](https://cran.r-project.org/package=devtools) - Tools to
+    Make Developing R Packages Easier
+  - [roxygen2](https://cran.r-project.org/package=roxygen2) - In-Line
+    Documentation for R
 
 ## Versioning
 

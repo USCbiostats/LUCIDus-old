@@ -16,7 +16,7 @@
 #' @param R The number of bootstrap replicates, default is 100
 #' @param DeltaE Flag to return the difference in parameter estimate across latent clusters, default is TRUE
 #' @param NCPUs The number of processes to be used in parallel computing, default is total number of cores minus 1
-#' @keywords bootstrap, latent cluster
+#' @keywords bootstrap latent cluster
 #' @return \code{boot_lucid} returns an object of list containing a "boot" class object of LUCID fit and a summary of bootstrap results:
 #' \item{Bootstrap}{an object of "boot" class after bootstrapping a LUCID model}
 #' \item{Results}{A summary of bootstrap includes original estimate, a bias of the bootstrap estimate, standard error of the bootstrap estimate, and three types of bootstrap confidence intervals based on normal approximation, basic, percentile bootstrap methods}

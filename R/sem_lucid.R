@@ -12,7 +12,7 @@
 #' @param Pred Flag to compute predicted disease probability with fitted model, boolean, default is TRUE
 #' @param initial A list of initial model parameters will be returned for integrative clustering
 #' @param itr_tol A list of tolerance settings will be returned for integrative clustering
-#' @keywords SEM, latent cluster
+#' @keywords SEM latent cluster
 #' @return \code{sem_lucid} returns an object of list containing parameters estimates, their corresponding standard errors, and other features:
 #' \item{beta}{Estimates of genetic effects, matrix}
 #' \item{se_beta}{SEM standard errors of Beta}
