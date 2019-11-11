@@ -152,7 +152,7 @@ plot_lucid(IntClusCoFitFinal)
 ```
 
 - Bootstrap method for variance estimation
-```{r}
+```{r eval=FALSE}
 set.seed(10)
 BootCIs <- boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, 
                       useY = TRUE, family = "binary", K = 2, R=50)
@@ -169,8 +169,7 @@ sem_lucid(G=G2,Z=Z2,Y=Y2,useY=TRUE,K=2,Pred=TRUE,family="normal",Get_SE=TRUE,
 
 ## Final Remarks
 - We recommend applying LUCIDus as a framework instead of separate functions;
-- Extension to handle missingness in metabolomics data (Z) is on the way;
-- An alternative option to obtain SE of parameter estimates is under testing.
+- The bootstrap method to obtain SE of parameter estimates works best for K=2.
 
 ## Acknowledgments
 - David V. Conti, Ph.D.

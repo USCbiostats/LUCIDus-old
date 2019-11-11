@@ -37,6 +37,7 @@
 #' @importFrom stats dbinom
 #' @importFrom stats predict
 #' @importFrom stats as.formula
+#' @importFrom stats na.omit
 #' @export
 #' @author Cheng Peng, Zhao Yang, David V. Conti
 #' @references
@@ -57,7 +58,7 @@
 #' IntClusCoFit3 <- est_lucid(G=G1,CoG=CoG,Z=Z1,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
 #'
 #' # Model fit with incomplete biomarker data and covariates in both G->X & X->Y paths
-#' IntClusCoFit3_Incomp <- est_lucid(G=G1,CoG=CoG,Z=Z1_Incomp,Y=Y1,CoY=CoY,K=2,family="binary",Pred=TRUE)
+#' IntClusCoFit3_Incomp <- est_lucid(G=G1,CoG=CoG,Z=Z1_Incomp,Y=Y1,CoY=CoY,K=2,family="binary")
 #' }
 
 
@@ -1148,7 +1149,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
                   try_optim_mu <- try(lbfgs(call_eval=fn,call_grad = gr, vars = rep(0,Q), invisible=1, orthantwise_c = Rho_Z_CovMu))
 
                   if("try-error" %in% class(try_optim_mu)){
-                    breakdown <- true
+                    breakdown <- TRUE
                   }
                   else{
                     new_mu[k,] <- new_sigma[[k]]%*%(try_optim_mu$par)
@@ -1812,7 +1813,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
                     try_optim_mu <- try(lbfgs(call_eval=fn,call_grad = gr, vars = rep(0,Q), invisible=1, orthantwise_c = Rho_Z_CovMu))
 
                     if("try-error" %in% class(try_optim_mu)){
-                      breakdown <- true
+                      breakdown <- TRUE
                     }
                     else{
                       new_mu[k,] <- new_sigma[[k]]%*%(try_optim_mu$par)
@@ -2097,7 +2098,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
                     try_optim_mu <- try(lbfgs(call_eval=fn,call_grad = gr, vars = rep(0,Q), invisible=1, orthantwise_c = Rho_Z_CovMu))
 
                     if("try-error" %in% class(try_optim_mu)){
-                      breakdown <- true
+                      breakdown <- TRUE
                     }
                     else{
                       new_mu[k,] <- new_sigma[[k]]%*%(try_optim_mu$par)

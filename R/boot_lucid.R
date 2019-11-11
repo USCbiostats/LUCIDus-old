@@ -32,7 +32,7 @@
 #' Efron, B., Tibshirani, R. Bootstrap Methods for Standard Errors, Confidence Intervals, and Other Measures of Statistical Accuracy. Statist. Sci. 1 (1986), no. 1, 54--75. doi:10.1214/ss/1177013815.
 #' @examples
 #' \dontrun{
-#' boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, useY = TRUE, family = "binary", K = 2, R=500)
+#' boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, family = "binary", R=500)
 #' }
 
 boot_lucid <- function(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL, useY = TRUE, family = "binary", K = 2, Pred = TRUE,

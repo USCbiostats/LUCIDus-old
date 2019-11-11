@@ -50,7 +50,7 @@ boot_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL,
 }
 \examples{
 \dontrun{
-boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, useY = TRUE, family = "binary", K = 2, R=500)
+boot_lucid(G = G1, CoG = CoG, Z = Z1, Y = Y1, CoY = CoY, family = "binary", R=500)
 }
 }
 \references{
