@@ -4,8 +4,13 @@
 \alias{def_initial}
 \title{Define initial values of parameters for clustering}
 \usage{
-def_initial(init_b = NULL, init_m = NULL, init_s = NULL,
-  init_g = NULL, init_pcluster = NULL)
+def_initial(
+  init_b = NULL,
+  init_m = NULL,
+  init_s = NULL,
+  init_g = NULL,
+  init_pcluster = NULL
+)
 }
 \arguments{
 \item{init_b}{Initial model parameters of \eqn{\beta}, genetic effects parameter: \code{K*(ncol(G)+1)} dimensional matrix, each row refers to a latent cluster and the first column is the intercept.}

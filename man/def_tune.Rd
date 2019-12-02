@@ -4,8 +4,13 @@
 \alias{def_tune}
 \title{Define tuning parameters for regularization during integrative clustering}
 \usage{
-def_tune(Rho_G = -9, Rho_Z_InvCov = 0, Rho_Z_CovMu = 0,
-  Select_G = FALSE, Select_Z = FALSE)
+def_tune(
+  Rho_G = -9,
+  Rho_Z_InvCov = 0,
+  Rho_Z_CovMu = 0,
+  Select_G = FALSE,
+  Select_Z = FALSE
+)
 }
 \arguments{
 \item{Rho_G}{Penalty for selection on genetic data, numeric, default is -9 using a sequence of penalties}

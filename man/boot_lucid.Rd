@@ -4,10 +4,23 @@
 \alias{boot_lucid}
 \title{Bootstrap method to estimate variability of latent clusters}
 \usage{
-boot_lucid(G = NULL, CoG = NULL, Z = NULL, Y, CoY = NULL,
-  useY = TRUE, family = "binary", K = 2, Pred = TRUE,
-  initial = def_initial(), itr_tol = def_tol(), tunepar = def_tune(),
-  R = 100, DeltaE = TRUE, NCPUs = detectCores() - 1)
+boot_lucid(
+  G = NULL,
+  CoG = NULL,
+  Z = NULL,
+  Y,
+  CoY = NULL,
+  useY = TRUE,
+  family = "binary",
+  K = 2,
+  Pred = TRUE,
+  initial = def_initial(),
+  itr_tol = def_tol(),
+  tunepar = def_tune(),
+  R = 100,
+  DeltaE = TRUE,
+  NCPUs = detectCores() - 1
+)
 }
 \arguments{
 \item{G}{Genetic features, a matrix}
@@ -61,6 +74,6 @@ Efron, B., Tibshirani, R. Bootstrap Methods for Standard Errors, Confidence Inte
 \author{
 Cheng Peng, Zhao Yang, David V. Conti
 }
-\keyword{bootstrap,}
+\keyword{bootstrap}
 \keyword{cluster}
 \keyword{latent}

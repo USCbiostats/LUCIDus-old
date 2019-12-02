@@ -4,9 +4,19 @@
 \alias{sem_lucid}
 \title{SEM for latent cluster estimation}
 \usage{
-sem_lucid(G = NULL, Z = NULL, Y, family = "binary", useY = TRUE,
-  K = 2, initial = def_initial(), itr_tol = def_tol(), Pred = TRUE,
-  Get_SE = TRUE, Ad_Hoc_SE = FALSE)
+sem_lucid(
+  G = NULL,
+  Z = NULL,
+  Y,
+  family = "binary",
+  useY = TRUE,
+  K = 2,
+  initial = def_initial(),
+  itr_tol = def_tol(),
+  Pred = TRUE,
+  Get_SE = TRUE,
+  Ad_Hoc_SE = FALSE
+)
 }
 \arguments{
 \item{G}{Genetic features, a matrix}
@@ -63,6 +73,6 @@ Meng, X., & Rubin, D. B. (1991). Using EM to Obtain Asymptotic Matrices : The SE
 \author{
 Cheng Peng, Zhao Yang, David V. Conti
 }
-\keyword{SEM,}
+\keyword{SEM}
 \keyword{cluster}
 \keyword{latent}

@@ -4,8 +4,7 @@
 \alias{pred_lucid}
 \title{Model Predictions for LUCID}
 \usage{
-pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y = NULL,
-  CoY = NULL)
+pred_lucid(Fit = NULL, G = NULL, CoG = NULL, Z = NULL, Y = NULL, CoY = NULL)
 }
 \arguments{
 \item{Fit}{An \code{IntClust} class object}

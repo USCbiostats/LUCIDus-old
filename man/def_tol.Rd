@@ -4,9 +4,17 @@
 \alias{def_tol}
 \title{Define maximum number of iteration and convergence}
 \usage{
-def_tol(MAX_ITR = 100, MAX_TOT_ITR = 10000, reltol = 1e-08,
-  tol_b = 1e-04, tol_m = 1e-04, tol_s = 1e-04, tol_g = 1e-04,
-  tol_p = 1e-04, tol_sem = 0.001)
+def_tol(
+  MAX_ITR = 100,
+  MAX_TOT_ITR = 10000,
+  reltol = 1e-08,
+  tol_b = 1e-04,
+  tol_m = 1e-04,
+  tol_s = 1e-04,
+  tol_g = 1e-04,
+  tol_p = 1e-04,
+  tol_sem = 0.001
+)
 }
 \arguments{
 \item{MAX_ITR}{Maximum number of iterations, integer, default is 100}
