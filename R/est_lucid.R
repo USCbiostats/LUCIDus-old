@@ -805,7 +805,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
 
     success <- FALSE #flag for successful convergence
 
-    likelihood <- function(Beta=NULL,Mu=NULL,Sigma=NULL,Gamma=NULL,Family,total_ITR){
+    clikelihood <- function(Beta=NULL,Mu=NULL,Sigma=NULL,Gamma=NULL,Family,total_ITR){
 
       if(!is.null(Gamma)){
         if(!is.null(Beta)){
@@ -1079,7 +1079,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
 
         #------E-step------#
 
-        cr <- likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+        cr <- clikelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
         icr <- iclikelihood(Beta=beta, Gamma=gamma, Family=family, total_ITR=total_itr)
 
         r <- rbind(cr, icr)
@@ -1361,7 +1361,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
     }
     else{
       if(useY){
-        jointP <- rbind(likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr),
+        jointP <- rbind(clikelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr),
                         iclikelihood(Beta=beta, Gamma=gamma, Family=family, total_ITR=total_itr))
 
         if(!Pred){
@@ -1411,7 +1411,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
       }else{
         # Y not used in EM algorithm to estimate beta, mu and sigma
 
-        estX <- rbind(likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=NULL, Family=family, total_ITR=total_itr),
+        estX <- rbind(clikelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=NULL, Family=family, total_ITR=total_itr),
                       iclikelihood(Beta=beta, Gamma=NULL, Family=family, total_ITR=total_itr))
 
         if(is.null(G)){
@@ -1440,7 +1440,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           se_gamma <- summary(fit_y_model)$coef[,2]
         }
 
-        jointP <- rbind(likelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma_for_likelihood, Family=family, total_ITR=1),
+        jointP <- rbind(clikelihood(Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma_for_likelihood, Family=family, total_ITR=1),
                         iclikelihood(Beta=beta, Gamma=gamma_for_likelihood, Family=family, total_ITR=1))
 
         # gamma are deleted in the following section of estimating SE by SEM
@@ -1550,7 +1550,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
 
     success <- FALSE #flag for successful convergence
 
-    likelihood <- function(G=G,Z=Z,Y=Y,N=N,Beta=NULL,Mu=NULL,Sigma=NULL,Gamma=NULL,Family,total_ITR){
+    slikelihood <- function(G=G,Z=Z,Y=Y,N=N,Beta=NULL,Mu=NULL,Sigma=NULL,Gamma=NULL,Family,total_ITR){
 
       if(!is.null(Gamma)){
         if(!is.null(Beta)){
@@ -1749,7 +1749,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           }
 
           #------E-step------#
-          r <- likelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+          r <- slikelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
           if(is.null(G)){
             r <- t(t(r)*pcluster)
@@ -2010,7 +2010,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
             }
           }
 
-          r <- likelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+          r <- slikelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
           if(is.null(G)){
             r <- t(t(r)*pcluster)
@@ -2034,7 +2034,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           }
 
           #------E-step------#
-          r <- likelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+          r <- slikelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
           if(is.null(G)){
             r <- t(t(r)*pcluster)
@@ -2295,7 +2295,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
             }
           }
 
-          r <- likelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+          r <- slikelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
           if(is.null(G)){
             r <- t(t(r)*pcluster)
@@ -2327,7 +2327,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
     }
     else{
       if(useY){
-        jointP <- likelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+        jointP <- slikelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
         if(!Pred){
 
@@ -2376,7 +2376,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
       }else{
         # Y not used in EM algorithm to estimate beta, mu and sigma
 
-        estX <- likelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+        estX <- slikelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
         if(is.null(G)){
           estX <- t(t(estX)*pcluster)
@@ -2404,7 +2404,7 @@ est_lucid <- function(G=NULL, CoG=NULL, Z=NULL, Y, CoY=NULL, useY = TRUE, family
           se_gamma <- summary(fit_y_model)$coef[,2]
         }
 
-        jointP <- likelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
+        jointP <- slikelihood(G=G, Z=Z, Y=Y, N=N, Beta=beta, Mu=mu, Sigma=sigma, Gamma=gamma, Family=family, total_ITR=total_itr)
 
         # gamma are deleted in the following section of estimating SE by SEM
         if(!Pred){
