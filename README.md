@@ -25,7 +25,7 @@ Traits](https://doi.org/10.1093/bioinformatics/btz667)” published by the
 Cheng Peng, Jun Wang, Isaac Asante, Stan Louie, Ran Jin, Lida Chatzi,
 Graham Casey, Duncan C Thomas, David V Conti, A Latent Unknown
 Clustering Integrating Multi-Omics Data (LUCID) with Phenotypic Traits,
-Bioinformatics, , btz667,
+Bioinformatics, Volume 36, Issue 3, 1 February 2020, Pages 842–850,
 <https://doi.org/10.1093/bioinformatics/btz667>
 
 ## Installation
